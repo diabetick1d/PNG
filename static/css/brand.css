@@ -1,0 +1,210 @@
+.brand-main{
+    display: grid;
+    grid-template: 
+    "a" 215px
+    "b" auto
+    "c" auto;
+}
+
+.search-brand, .result-brand-box, .all-catalog, .catalog-compilation{
+    -webkit-transition: all 0.3s ease-in-out;
+    transition:         all 0.3s ease-in-out;
+}
+
+.close-brand-search {
+    width:      calc(var(--smallicon) / 2);
+    height:     calc(var(--smallicon) / 2);
+    transition: all 0.2s ease-in-out;
+}
+.close-brand-search.hide{transition: all 0.2s ease-in-out;opacity: 0;}
+
+.search-brand p {
+    font-family: "Wix";
+    font-style:  normal;
+    font-weight: 900;
+    font-size:   32px;
+    line-height: 39px;
+    text-align:  center;
+    letter-spacing: 0.16em;
+}
+
+.search-brand {
+    display:        grid;
+    justify-content:center;
+    align-items:    center;
+    margin:         25px 0px;
+}
+
+.search-brand form, .compilation label {
+    width:         530px;
+    border:        2px solid var(--white1);
+    background:    #ffffff00;
+}
+
+.search-brand .form-search-brand {
+    display:        grid;
+    align-items:    center;
+    grid-template:  "a b" / auto minmax(30px,40px);
+    height:         fit-content;
+}
+
+.search-brand input {
+    background: #ffffff00;
+    border: none;
+    height: 31px;
+    margin: 10px 20px 10px 20px;
+    width:  -webkit-fill-available;
+    
+    font-family: 'Inter';
+    font-style:  normal;
+    font-size:   23px;
+    font-weight: 300;
+    line-height: 28px;
+    color:       #5B5B5B;
+    
+    width:       100%;
+}
+.search-brand #search-button{cursor: auto;}
+
+/* search over */
+.result-brand-box p{
+    height: 50px;
+}
+.result-box p, .compilation-box p, .all-catalog p {
+    margin:      15px 0px;
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 500;
+    font-size:   32px;
+    line-height: 39px;
+    text-align:  center;
+}
+
+.img-brand {
+    width:  200px;
+    height: 200px;
+
+    padding: 5px;
+    border:  2.5px solid #ffffff00;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 2px;
+    
+    transition: border 0.1s ease-in-out;
+}
+
+.img-brand:hover {
+    border-color: #999999 ;
+}
+
+/* results & compilation */
+.boxes-rc {
+    position:         relative;
+    display:          grid;
+    justify-items:    center;
+    --ImgBrandHeight: 200px
+}
+.result-box,.compilation-box{
+    transition:  0.2s ease-in-out;
+    padding: 10px;
+}
+
+.compilation-box {overflow: hidden;}
+.compilations {
+    height:     max-content;
+    max-height: calc(var(--ImgBrandHeight) * 1.23);
+}
+.compilations.open {max-height: 1000px;}
+.results,.compilations{
+    z-index: 0;
+    grid-template-columns: repeat(5, var(--ImgBrandHeight));
+    display:         grid;
+    grid-row-gap:    30px;
+    grid-column-gap: 80px;
+    justify-items:   center;
+    align-items:     center;
+    justify-content: center;
+}
+
+.result-box{position: absolute;z-index: -2;}
+.result-box.active {
+    z-index: 2;
+    opacity: 1;
+    min-height: var(--ImgBrandHeight);
+}
+.compilation-box.hide{opacity: 0;}
+.result-box, .all-catalog.hide, #touch-more.hide {
+    max-height: 0px;
+    opacity:    0;
+}
+
+/* button more&less */
+
+#touch-more {
+    width:  280px;
+    height: 50px;
+
+    margin: 20px 0px !important;
+    border: 2px solid var(--grey3);
+    cursor: pointer;
+    
+    display:         grid;
+    justify-content: center;
+    align-items:     center;
+    justify-items:   center;
+}
+#touch-more p {
+    color :      #2D2D2D;
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 600;
+    font-size:   20px;
+    line-height: 24px;
+    user-select: none;
+    -moz-user-select:    none;
+    -webkit-user-select: none;
+}
+#touch-more #onmore.active, #touch-more #offmore.active {display: none;}
+
+/* all catalog*/
+
+.all-catalog {
+    margin-top: 70px;
+    margin-bottom: 100px;
+    overflow: hidden;
+    height:   auto;
+}
+
+.brand-letter {
+    margin:   0px 10%;
+    
+    display: grid;
+    justify-content:center;
+    justify-items:  center;
+    align-items:    center;
+    
+    grid-template-columns: repeat(3, minmax(50px, 400px));
+    grid-row-gap:    45px;
+}
+
+.brand-catalog {
+    margin-top: 60px;
+}
+
+.brand-catalog p {
+    display:  grid;
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size:   48px;
+    line-height: 58px;
+}
+
+.brand-inletter {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size:   24px;
+    line-height: 29px;
+
+    color: var(--black3);
+}
+

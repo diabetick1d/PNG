@@ -1,0 +1,272 @@
+{% extends "main/Header.html" %}
+
+{% block title %} Поиск по {{ query }}  {% endblock %}
+{% load static %}
+{% block link %} <link rel="stylesheet" href="{% static 'css/product-list.css'%}"> 
+                 <link rel="stylesheet" href="{% static 'css/product-detail.css'%}"> {% endblock %}
+
+{% block body %}
+{% if notFound %}
+<div> 
+    <div class="form-sofi" id="filter-form" data-search="{{ query }}">
+        <nav>
+            <div class="top">
+                <h1>Фильтры <p>Сбросить</p></h1>
+                <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+            </div>
+            <ul class="option-list">
+
+                <li class="mli Category" type="podcategory"><input id="Category" type="checkbox" hidden>
+                    <label for="Category">
+                        <h2>Категория <div class="number m"> (<h6>0</h6>) </div></h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Категория <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <ul class="attr last gin">
+                            {% for category, podcategory in podcategors.items %}
+                            <ul id="itlast" data-letter="{{category}}">
+                                <h5>{{category}}</h5>
+                                {% for el in podcategory %}
+                                <li class="notselectable" data-value="{{ el }}"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div><h3>{{ el }}<div class="number">(<h6>0</h6>)</div></h3></li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+                
+                <li class="mli Brand" type="brand"><input id="Brand" type="checkbox" hidden>
+                    <label for="Brand">
+                        <h2>Бренды <div class="number m"> (<h6>0</h6>) </div></h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Бренды <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <div class="attr last">
+                            <div class="search_brand"><input type="text" placeholder="Поиск бренда"><span><img src="{% static 'img/product-list/clear_search.svg'%}" alt=""></span></div>
+                            <div id="jin">
+                                {% for letter, list_brand in brands.items %}
+                                <ul id="itlast" data-letter="{{letter}}">
+                                    <h4>{{letter}}</h4>
+                                    {% for brand in list_brand %}
+                                    <li data-value="{{ brand }}"><div class="star"><img src="http://127.0.0.1/static/img/product-list/star_black.svg" alt=""></div><h3>{{ brand }}<div class="number">(<h6>0</h6>)</div></h3></li>
+                                    {% endfor %}
+                                </ul>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="mli Material" type="material"><input id="Material" type="checkbox" hidden>
+                    <label for="Material">
+                        <h2>Материал <div class="number m"> (<h6>0</h6>) </div></h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Материал <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <ul class="attr last" id="itlast">
+                        {% for el in materials %}
+                            <li data-value="{{ el }}"><div class="star"><img src="{% static 'img/product-list/star_black.svg'%}" alt=""></div><h3>{{ el }}<div class="number">(<h6>0</h6>)</div></h3></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mli Color" type="color"><input id="Color" type="checkbox" hidden>
+                    <label for="Color">
+                        <h2>Цвет <div class="number m"> (<h6>0</h6>) </div></h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Цвет <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <ul class="attr last" id="itlast">
+                            {% for key,value in colors.items %}
+                            <li data-value="{{ key }}"><div class="star" style="border-color: {{ value }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10.5 9.12166L10.8484 10.3443L12.4847 10.3031L11.1397 11.2759L11.596 12.6351L10.5 11.758L9.40402 12.6351L9.86031 11.2759L8.51534 10.3031L10.1516 10.3443L10.5 9.12166Z" fill="white" stroke="{{ value }}" stroke-width="5"/>
+                            </svg></div><h3>{{ key }}<div class="number">(<h6>0</h6>)</div></h3></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+                
+                <li class="mli Size" type="sizes"><input id="Size" type="checkbox" hidden>
+                    <label for="Size">
+                        <h2>Размеры <div class="number m"> (<h6>0</h6>) </div></h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Размеры <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <ul class="attr last" id="gin">
+                            {% for type, sizes in sizes.items %}
+                            <ul id="itlast" data-letter="{{letter}}">
+                                <h5>{{type}}</h5>
+                                {% for size in sizes %}
+                                <li data-value="{{ size }}_{{ type }}"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div><h3>{{ size }}<div class="number">(<h6>0</h6>)</div></h3></li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mli Price" type="Price"><input id="Price" type="checkbox" hidden>
+                    <label for="Price">
+                        <h2>Цена</h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Цена <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <div class="attr">
+                            <div class="inputs">
+                                <input onsubmit="StopEvent()" type="number" autocomplete="off" id="min_price" placeholder="От {{ min_price }}">
+                                <input onsubmit="StopEvent()" type="number" autocomplete="off" id="max_price" placeholder="До {{ max_price }}">
+                            </div>
+                            <div class="range_slider">
+                                <div id="range"></div>
+                                <input type="range" id="slide_min" min="{{ min_price }}" max="{{ max_price }}" defaultMin="{{ min_price }}" value="0" step="100">
+                                <input type="range" id="slide_max" min="{{ min_price }}" max="{{ max_price }}" defaultMax="{{ max_price }}" value="1" step="100">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="mli In_stock" type="stock"><input id="In_stock" type="checkbox" hidden>
+                    <label for="In_stock">
+                        <h2>Наличие <div class="number m"> (<h6>0</h6>) </div></h2>
+                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                    </label>
+                    <div class="box-last">
+                        <div class="mobile">
+                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
+                            <h1>Наличие <div class="number m copy"> (<h6>0</h6>) </div></h1>
+                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
+                        </div>
+                        <ul class="attr last">
+                            <li data-value="InStock"><div class="star"><img src="{% static 'img/product-list/star_black.svg'%}" alt=""></div><h3>В наличии</h3></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div type="submit" class="submit">Применить</div>
+            <div class="mobile"><div type="submit" class="reset_button">Cбросить</div></div>
+        </nav>
+    </div>
+
+    <div class="ddfcs" dlue="{{ path }}">
+        <div>
+            <div class="not-mobile">
+                <button class="button-switch" id="Filter-button" onclick="SwitchFilter()"><span>Фильтры</span><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></button>
+            </div>
+            <div class="mobile">
+                <button class="button-switch" id="Filter-button" onclick="SwitchFilter()"><img class="mobile" src="{% static 'img/product-list/filter.svg'%}" alt=""></button>
+            </div>
+        </div>
+
+        <div class="Center-page">
+            <h1>По запросу "{{ query }}"</h1><p>Кол-во товаров: {{ defcount }}</p>
+        </div>
+
+        <div id="sorting-form">
+            <div class="box-sort">
+                <div class="not-mobile" style="width: 100%;height: 100%;display: flex;justify-content: center;">
+                    <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2" src="{% static 'img/product-list/arrow.svg'%}" alt=""><span>Сортировка</span></button>
+                </div>
+                <div class="mobile" style="width: 100%;height: 100%;display: flex;justify-content: center;">
+                    <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2 mobile" src="{% static 'img/product-list/sorting.svg'%}" alt=""></button>
+                </div>
+                <ul>
+                    <div class="mobile" style="width: 100%;">
+                        <li>
+                            <h1>Сортировка</h1>
+                            <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="mobile" src="{% static 'img/product-list/close.svg'%}" alt=""></button>
+                        </li>
+                    </div>
+                    <li data-value="" class="option">
+                        <h3>Наши подборки</h3>
+                        <div class="mobile"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div></div>
+                    </li>
+
+                    <li data-value="data_create" class="option">
+                        <h3>По новизне</h3>
+                        <div class="mobile"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div></div>
+                    </li>
+
+                    <li data-value="-min_price" class="option">
+                        <h3>Цена с высокой</h3>
+                        <div class="mobile"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div></div>
+                    </li>
+
+                    <li data-value="min_price" class="option">
+                        <h3>Цена с низкой</h3>
+                        <div class="mobile"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <ul class="product-list" id="product-list">
+        {% for product in products %}
+        <li class="product">
+            <div class="img-product">
+                <a href="/product/{{ product.uid }}"><img src="{{MEDIA_URL}}{{product.img}}" alt=""></a>
+            </div>
+            <div class="product-down">
+                <div class="brand">
+                <img src="{{MEDIA_URL}}{{product.brand}}" alt="">
+                </div>
+                    <div class="name"> {{product.name}}</div>
+                    <div class="price"> {{product.price}} </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+
+    <div class="Paginator" defpages="{{ pages }}">
+        <div class="NextBack" id="back"> <!-- Назад  -->
+            <img src="{% static 'img/arrowBack.svg'%}" alt="">
+        </div>
+        <div class="Paginator-place"></div>
+        <div class="NextBack" id="next"> <!-- Вперёд  -->
+            <img src="{% static 'img/arrowNext.svg'%}" alt="">
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="not-found">
+    <div class="not-found-img"><img src="{% static 'img/notfound.svg'%}" alt=""></div>
+    <div class="not-fount-text">По запросу "{{ query }}" ничего не найдено</div>
+</div>
+{% endif %}
+<script type="text/javascript" src="{% static 'JS/sofi.js' %}"></script>
+<script type="text/javascript" src="{% static 'JS/paginator.js' %}"></script>
+{% endblock %}

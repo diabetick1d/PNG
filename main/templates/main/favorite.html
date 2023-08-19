@@ -1,0 +1,37 @@
+{% extends "main/Header.html" %}
+
+{% block title %} Избранное  {% endblock %}
+{% load static %}
+{% block link %} 
+<link rel="stylesheet" href="{% static 'css/product-list.css'%}">
+<link rel="stylesheet" href="{% static 'css/profile/favorite.css'%}"> 
+<link rel="stylesheet" href="{% static 'css/product-detail.css'%}"> 
+{% endblock %}
+{% block body %}
+
+<div class="Center-page">
+    <h1>Избранное</h1>
+</div>
+{% if favorites %}
+<script type="text/javascript" src="{% static 'JS/favorite.js' %}"></script>
+    <ul class="product-list" id="product-list">
+    {% for product in favorites %}
+        <li class="product">
+            <div id="deletefavourite" data-product-id="{{ product.uid }}"><img src="{% static 'img/close.svg'%}" alt=""></div>
+            <div class="img-product">
+                <a href="/product/{{ product.uid }}"><img src="{{MEDIA_URL}}{{product.img}}" alt=""></a>
+            </div>
+            <div class="product-down">
+                <div class="brand">
+                    <img src="{{MEDIA_URL}}{{product.brand}}" alt="">
+                </div>
+                <div class="name"> {{product.name}}</div>
+                <div class="price"> {{product.min_price}} </div>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <div class="else">Пусто...</div>
+{% endif %}
+{% endblock %}

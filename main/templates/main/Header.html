@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/Header.css'%}">
+    <link rel="stylesheet" href="{% static 'css/footer.css'%}">
+    <link rel="stylesheet" href="{% static 'css/search.css'%}">
+    <link rel="stylesheet" href="{% static 'css/basic-css.css'%}">
+    <script src="{% static 'JS/Jquery.js' %}"></script>
+    {% block link %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <link type="image/x-icon" href="{% static 'img/logo.svg'%}" rel="shortcut icon">
+</head>
+
+
+<body>
+<div class="notifications-container"></div>
+<div class="overlay-full-z5"></div>
+<div class="Header">
+    <div class="Header-left">
+        <div class="not-mobile">
+            <p>Россия</p>
+            <a href="{% url 'support' %}">Помощь клиентам</a> 
+        </div>
+        <div class="mobile">
+            <button class="small-icon" onclick="Swtabs()"><img src="{% static 'img/header/tripoloski.svg' %}" alt=""></button> 
+            <a class="small-icon" href="{% url 'favorite' %}"><img src="{% static 'img/like.svg' %}" alt=""></a>
+        </div>
+    </div>
+
+    <div class="Header-center">
+        <a href="{% url 'home' %}">PNG</a>
+    </div>
+
+    <div class="Header-right">
+        <div class="not-mobile">
+            <a onclick="AddSearch()" class="small-icon search-button"><img src="{% static 'img/header/search.svg' %}" alt=""></a> 
+            <a onclick="RemoveSeacrh()" class="small-icon hidden close-search"><img src="{% static 'img/header/close.svg' %}" alt="" ></a> 
+        </div>
+        <a class="small-icon" href="{% url 'profile' %}">
+            {% if user.is_authenticated %}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10.5" stroke="black" stroke-width="3"/>
+                <text x="52%" y="55%" text-anchor="middle" alignment-baseline="middle" font-size="12" font-weight="900" font-family="Inter" fill="black">{{ user.username|first|title }}</text>
+            </svg>        
+            {% else %}
+            <img src="{% static 'img/header/profile.svg' %}" alt="">
+            {% endif %}
+        </a>
+        <div class="not-mobile">
+            <a class="small-icon" href="{% url 'favorite' %}"><img src="{% static 'img/like.svg' %}" alt=""></a> 
+        </div>
+        <a class="small-icon cart" href="{% url 'cart' %}"><img src="{% static 'img/header/cart.svg' %}" alt=""></a> 
+    </div>
+</div>
+<div class="Header-cat">
+    <div class="tabs dropdown">
+        <div class="mobile">
+            <button onclick="AddSearch()" class="small-icon search-button not-hidden"><img src="{% static 'img/header/search.svg' %}" alt=""></button>
+            <h1>КАТАЛОГ</h1>
+            <button onclick="Swtabs()"><img src="{% static 'img/header/close-catalog.svg' %}" alt=""></button>
+        </div>
+        <a href="/brands"                  id="tab-btn-1"  data-content="#brand"> Бренды</a>
+        <a href="/productlist/shoe"        id="tab-btn-2"  data-content="#shoe"> Обувь</a>
+        <a href="/productlist/cloths"      id="tab-btn-3"  data-content="#cloths"> Одежда</a>
+        <a href="/productlist/bags"        id="tab-btn-4"  data-content="#bags"> Сумки</a>
+        <a href="/productlist/clocks"      id="tab-btn-5"  data-content="#clocks"> Часы</a>
+        <a href="/productlist/accessories" id="tab-btn-6"  data-content="#accessorie"> Аксессуары</a>
+        <a href="/productlist/cosmetics"   id="tab-btn-7"  data-content="#cosmetic"> Косметика</a>
+        <a href="/productlist/technique"   id="tab-btn-8"  data-content="#technique"> Техника</a>
+        <a href="/productlist/toys"        id="tab-btn-9"  data-content="#toys"> Игрушки</a>
+        <a href="/productlist/sport"       id="tab-btn-10" data-content="#sport"> Спорт</a>
+        <a href="/productlist/sport"       id="tab-btn-11" data-content="#rubrand"> РУ-Бренды</a>
+    </div>
+    <div class="contents">
+        {% include  'main/Header-nav.html' %}
+    </div>
+</div>
+<div class="Header-search">
+    <form class="form-search" method="get">
+        <div class="mobile" onclick="searchinput(event)"><img src="{% static 'img/header/search.svg' %}" alt=""></div>    
+        <input id="Header-search-input" type="search" name="query" placeholder="Поиск товаров" autocomplete="off">
+        <div class="mobile" onclick="RemoveSeacrh()"><img src="{% static 'img/header/close-search.svg' %}" alt=""></div>    
+    </form>
+    <div class="search-result">
+        <ul id="results" class="list-group">
+
+        </ul>
+    </div>
+</div>
+
+<div class="body">
+    <div class="overlay"></div>
+    <noscript><div class="alert-JS" style="display: flex;align-items: center;justify-content: center;">Включите Javascript в настройках вашего браузера или обновите браузер для корректной работы сайта</div></noscript>
+    {% block body %}{% endblock %}
+</div>
+
+<div class="footer">
+    <div class="top-footer">
+        <div class="center-footer">
+            <div class="title    footer-text">PNG</div>
+            <div class="not-mobile">
+                <div class="ftext    footer-text"><p> Выгоднейшие и самые низкие цены на исключительно оригинальные товары в России с постоянным наличием товаров каждой позиции. Надежные доставки и приятность интерфейса как на сайте так и в мобильном приложении. </p></div>
+            </div>
+            <div class="mobile">
+                <div class="ftext    footer-text"><p> Выгоднейшие и самые низкие цены на исключительно оригинальные товары в России с постоянным наличием товаров каждой позиции. </p></div>
+            </div>
+            <h1>Связь с нами</h1>
+        </div>
+    </div>
+    <div class="bottom-footer">
+        <div class="not-mobile"><h3>© PNG Inc, 2023 г. Все права защищены.</h3></div>
+        <h2>Политика конфиденциальности</h2>
+        <h2>Использование cookies</h2>
+        <h2>Условия использования</h2>
+        <div class="not-mobile"><h3>Россия</h3></div>
+        <div class="mobile"><h3>© PNG Inc, 2023 г. Все права защищены.</h3></div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{% static 'JS/Header.js' %}"></script>
+<script type="text/javascript" src="{% static 'JS/Header-search.js' %}"></script>
+<script defer>
+// Уведомления
+
+function Notifications(message,error) {
+  return new Promise(function(resolve) {
+    var notification;
+    if (error){
+        var errorMessage = $("<p>").text(error);
+        notification = $("<div class='notification'>").text(message).append(errorMessage);
+    } else {
+        notification = $("<div class='notification'>").text(message);
+    }
+    $(".notifications-container").append(notification);
+
+    // Automatically remove the notification after 3 seconds
+    setTimeout(function() {
+      notification.remove();
+      resolve(); // Resolve the promise after the notification is removed
+    }, 3000);
+  });
+}
+
+</script>
+</body>
+</html>

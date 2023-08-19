@@ -1,0 +1,91 @@
+.product {
+    display: grid;
+    object-fit: unset;
+    justify-items: center;
+    align-items: stretch;
+    align-content: stretch;
+    transition: width .2s;
+    width: fit-content;
+}
+
+.img-product {
+    width:  100%;
+    height: 270px;
+}
+
+.img-product a {
+    width:  100%;
+    height: 100%;
+}
+
+.product {
+    width: 270px;
+}
+
+.product-down {
+    grid-template-rows: 1fr 0.4fr 0.4fr;
+    grid-row-gap:  2px;
+    justify-items: center;
+    font-family:   'Inter';
+    display:       grid;
+}
+/* Брэнд в Header.css */
+.product-down .name {
+    font-size:      15px;
+    font-weight:    400;
+    color:          var(--black4);
+    margin:         20px 0px 5px 0px;
+}
+.product-down .brand {
+    margin:  5px 0px;
+    padding: 15px 30px;
+    width:   80%;
+    height:  80px;
+}
+
+.product-down .price {
+    font-size:      18px;
+    font-weight:    700;
+    color:          var(--black3);
+}
+
+@media screen and (max-width: 1440px) {
+    .img-product {
+        height:  220px;
+        padding: 10px;
+    }
+    
+    .product {width: 200px;}
+    .product-down .name {
+        font-size:      13px;
+        margin:         13px 0px 3px 0px;
+    }
+
+    .product-down .brand {
+        margin:  5px 0px;
+        padding: 15px 30px;
+        width:   80%;
+        height:  55px;
+    }
+    .product-down .price {font-size: 15px;}
+}
+@media screen and (max-width: 500px) {
+    .img-product {
+        height:  130px;
+        padding: 10px;
+    }
+    
+    .product {width: 140px;}
+    .product-down .name {
+        font-size:      10px;
+        margin:         10px 0px 8px 0px;
+    }
+
+    .product-down .brand {
+        margin:  5px 0px;
+        padding: 15px 30px;
+        width:   70%;
+        height:  38px;
+    }
+    .product-down .price {font-size: 13px;}
+}

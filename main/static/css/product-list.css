@@ -1,0 +1,637 @@
+.ddfcs {
+    display: grid;
+    grid-template-columns: minmax(150px,250px) 1fr minmax(150px,250px);
+    justify-items: center;
+    align-items: center;
+}
+
+.ddfcs.active {opacity: 0;height: 0;}
+
+/* Sorting & Filters */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button-switch {
+    display:    flex;
+    align-items:center;
+    position:   relative;
+}
+
+.button-switch span {
+    color: var(--black4);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#Filter-button img {right: -20px;}
+#Sorting-button .img2 {left: -20px;}
+.button-switch img:not(.mobile) {
+    position:   absolute;
+    width:      12px;
+    height:     8px;
+    transition: all 0.2s ease-in-out;
+    transform:  translateY(3px);
+}
+.button-switch.active img:not(.mobile) {
+    transform: rotateX(180deg);
+}
+  /* form */
+/* Sorting */
+#sorting-form{
+    position: relative;
+    width:    100%;
+    height:   100%;
+    display:  grid;
+    justify-items: center;
+    --one_line: 50px;
+}
+#sorting-form .box-sort {
+    transition: height 0.4s ease-in-out, border-color 0.2s ease-in-out, background-color 0.4s ease-in-out;
+    width:         100%;
+    height:        var(--one_line);
+    position:      absolute;
+    justify-items: center;
+    display:       grid;
+    border:        2px solid #ffffff00;
+    overflow:      hidden;
+}
+#sorting-form.active .box-sort {height: calc(var(--one_line) * 5);}
+
+#sorting-form .box-sort ul{
+    width:    100%;
+    height:   calc(var(--one_line) * 4);
+    top:      100%;
+    
+    display:       grid;
+    justify-items: center;
+    align-items:   center;
+}
+#sorting-form .box-sort button {height: var(--one_line);}
+#sorting-form.active .box-sort {
+    background:   #FFF;
+    border-color: #EBEBEB;
+}
+
+#sorting-form ul li{
+    color:       var(--black4);
+    font-family: 'Inter';
+    font-size:   18px;
+    font-weight: 500;
+    cursor:      pointer;
+}
+
+#sorting-form .top {flex-direction: row-reverse;}
+#sorting-form ul {display: grid;}
+#sorting-form li {display: flex;justify-content: space-between;align-items: center;} 
+
+
+
+/* Filter */
+
+#filter-form {
+    top:        0px;
+    left:       -550px;
+    width:      500px;
+    box-shadow: 5px 0px 5px 0px rgba(0, 0, 0, 0.20);
+    background-color: #fff;
+    position:    fixed;
+    display:     grid;
+    transition:  left 0.6s ease-in-out;
+
+    font-family: "Inter";
+    z-index:     4;
+    max-height:  100vh; /* 100vh - padding(nav)*2 */
+    --gap:       25px;  /* гап много где */
+    --gapB:      40px;  /* гап между всем  */
+}
+#filter-form.active {left: 0;}
+#filter-form .top {
+    display:         flex;
+    margin-bottom:   50px;
+    align-items:     baseline;
+    justify-content: space-between;
+}
+#filter-form .close {width:  17px; height: 17px;cursor: pointer;}
+
+
+#filter-form nav {
+    --pform: 50px;
+    padding:        var(--pform) 3px var(--pform) var(--pform);
+    height:         calc(100vh - (var(--pform) * 2))/* 100vh - padding(nav)*2 */;
+    position:       relative;
+    display:        flex;
+    flex-direction: column;
+}
+#filter-form .top, #filter-form .option-list li{padding-right: calc(var(--pform) - 3px);} 
+
+#filter-form h1 {font-size: 28px; font-weight: 700;display: flex; align-items: baseline; gap: 10px;}
+#filter-form p {color: var(--grey2);font-size: 13px;font-weight: 400; cursor: pointer;}
+#filter-form h2 {font-size: 18px; font-weight: 500;display: flex; gap: 5px;}
+#filter-form label {position: relative;display: flex; align-items: center; cursor: pointer;transition: margin-bottom 0.4s ease-in-out;}
+#filter-form h3 {font-size: 16px; font-weight: 300;display: flex; align-items: baseline; gap: 10px;}
+#filter-form h4 {font-size: 18px; font-weight: 600;}
+#filter-form h5 {font-size: 16px; font-weight: 200;}
+#filter-form .number {display: flex; opacity: 0;width: 0;}
+#filter-form .number.active {opacity: 1;width: auto;}
+
+li .star {width: 15px; height: 15px;padding: 2px; border: 3px solid var(--white2);display: grid;}
+li .star img, li .star svg {opacity: 0; transition: opacity 0.2s ease-in-out;width: 100%;height: 100%;}
+li.active .star img, li.active .star svg {opacity: 1;}
+
+#filter-form .option-list {
+    display:    grid;
+    max-height: 80%;
+    overflow-y: auto;
+}
+#filter-form .option-list input:not(:checked) ~ .box-last {max-height: 0px;}
+#filter-form .option-list input:checked ~ .box-last {margin-bottom: 30px;}
+#filter-form .option-list input:checked ~ label     {margin-bottom: 30px;}
+
+.box-last {
+    transition: max-height 0.4s ease-in-out, margin-bottom 0.4s ease-in-out;
+    --mheight:   310px;
+    max-height: var(--mheight);
+    overflow:   hidden;
+    margin-bottom: 20px;
+}
+#filter-form .option-list label {margin-bottom: 20px;}
+
+.gin ul h5{
+    margin-top: unset;
+}
+
+#jin ul:not(:first-child) {margin-top: 20px;}
+
+#filter-form .attr{
+    overflow-x: hidden;
+    overflow-y: auto;
+    display:    grid;
+    gap:        var(--gap);
+    max-height: var(--mheight);
+    margin: 0px 4px 0px 0px;
+}
+
+.mli.Brand .attr.last {overflow-x: hidden; overflow-y: hidden !important}
+
+.Brand #bjin {
+    display:    grid;
+    gap:        var(--gap);
+    max-height: calc(var(--mheight) - 65px - 5px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#filter-form .last li {
+    cursor:      pointer;
+    display:     flex;
+    width:       100%;
+    align-items: center;
+    gap:         10px;
+}
+
+#itlast {
+    display: grid;
+    gap: var(--gap);
+} 
+
+#itlast li.sehide {
+    opacity: 0.5;
+    cursor:  unset;
+}
+
+#filter-form .arrow, #filter-form .arrow_in {
+    width: 12px; height: 8px;
+    position:      absolute;
+    display:       grid;
+    justify-items: center;
+    align-items:   center;
+    transition:    all 0.2s ease-in-out;
+}
+#filter-form .arrow {right: 0px;}
+#filter-form .arrow_in {right: 50px;}
+
+#filter-form .option-list input:checked + label .arrow {
+    transform: rotate(180deg);
+}
+
+
+.search_brand {
+    width:       99%;
+    border:      1px solid #6D6D6D;
+    height:      40px;
+    display:     flex;
+    align-items: center;
+    position:    relative;
+}
+
+.search_brand input {border: none;padding-left: 18px;width: 100%;height: 90%;}
+.search_brand input, .search_brand input::placeholder {
+    color:       #888;
+    font-size:   14px;
+    font-weight: 400;
+}
+.search_brand span {
+    position: absolute;
+    right:    25px;
+    width:    11px;
+    height:   11px;
+    display:  grid;
+    cursor:   pointer;
+}
+
+.reset_button {margin-top: 11px !important;background: var(--black4) !important;color: var(--white5) !important;}
+#filter-form .submit.active, .reset_button {cursor: pointer;}
+#filter-form .submit, .reset_button {
+    justify-items: center;
+    align-items:   center;
+    display:       grid;
+    width:       380px;
+    height:      57px;
+    background:  var(--white3);
+    
+    color:       var(--black2);
+    font-size:   20px;
+    font-weight: 600;
+    margin-top:  auto;
+}
+  /* range slider for price */
+.inputs {
+    justify-content: space-between;
+    display:         flex;
+    height:          30px;
+}
+.inputs input {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    width: 45%;height: 100%;
+    border:             2px solid var(--white3);
+    text-align:         center;
+}
+
+.inputs input, .inputs input::placeholder {
+    color:          #888;
+    font-family:    'Inter';
+    font-size:      13px;
+    font-weight:    500;
+}
+
+.range_slider #range {
+    position:        absolute;
+    height:          100%;
+    background:      linear-gradient(to right,var(--black3), var(--black3)) no-repeat center;
+    background-size: 100% 5px;
+    z-index:         2;
+    pointer-events:  none;
+}
+
+.range_slider #slide_min {
+    background:      linear-gradient(to right,var(--white3), var(--white3)) no-repeat center;
+    background-size: 100% 5px;
+    z-index:         1;
+}
+
+.range_slider input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    box-sizing:         border-box;
+    width:              100%;
+    outline:            none;
+    pointer-events:     none;
+    height:             100%;
+    margin:             0;
+}
+
+.range_slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    height:         28px;
+    width:          28px;
+    border-radius:  28px;
+    position:       relative;
+    margin:         5px 0;
+    cursor:         pointer;
+    pointer-events: all;
+    box-shadow:     0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+    z-index:        3;
+    background-color: var(--black3);
+}
+.range_slider input[type="range"]::-webkit-slider-thumb::before {
+    content:    " ";
+    display:    block;
+    position:   absolute;
+    top:        13px;
+    left:       100%;
+    width:      2000px;
+    height:     2px;
+}
+
+.range_slider {
+    position: relative;
+    height:   50px;
+}
+.range_slider input[type="range"] {
+    position: absolute;
+}
+
+/* Other */ 
+.Center-page p {
+    font-family: 'Inter';
+    font-size:   14px;
+    font-weight: 600;
+    color: var(--white3);
+}
+
+.product-list { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 140px;
+    grid-column-gap: 100px;
+    margin: 100px 0px 120px 0px;
+    justify-items: center;
+}
+
+.not-found {
+    width:         100%;
+    height:        100%;
+    display:       grid;
+    align-items:   center;
+    justify-items: center;
+    margin:        70px 0px;
+}
+
+.not-found-img {
+    width:       280px;
+    height:      210px;
+    display:     grid;
+    justify-items: center;
+    margin-bottom: 60px;
+}
+
+.not-fount-text {
+    color:          var(--black5);
+    font-family:    'Inter';
+    font-size:      20px;
+    font-weight:    600;
+}
+
+.Paginator {
+    justify-content: center;
+    display: flex;
+    padding: 30px 0px;
+    height:  30px;
+}
+
+/* Место для блоков */
+.Paginator-place {
+    display: flex;
+    gap:     16px;
+}
+
+/* Цифорки */
+.Paginator-place p { 
+    color: #757575;
+    font-family: 'Inter';
+    font-size:      20px;
+    font-style:     normal;
+    font-weight:    400;
+    line-height:    normal;
+
+    text-align:  center;
+    margin: -40% 0px;
+    width:  inherit;
+    color: var(--grey2);
+}
+
+.Paginator-box          {width:  80px;height: 100%;cursor: pointer;background: var(--white3);}
+.Paginator-box.active   {background: var(--grey2) !important;}
+.NextBack               {height: 80%;margin: 0px 20px;align-self: center; cursor: pointer;display: flex;}
+@media screen and (max-width: 1440px) {
+    .Center-page p {font-size: 12px;}
+    .button-switch span {font-size: 16px;}
+    
+    #Filter-button img  {right:-20px;}
+    #Sorting-button .img2 {left: -20px;width: 10px; height: 7px;}
+    #sorting-form ul li {font-size: 14px;}
+    .ddfcs {grid-template-columns: minmax(150px,200px) 1fr minmax(150px,200px);}
+    #sorting-form{--one_line: 40px; }
+
+    #filter-form {
+        left:        -350px;
+        width:       310px;
+        max-height:  100vh; /* 100vh - padding(nav)*2 */
+        --gap:       20px;  /* гап много где */
+        --gapB:      30px;  /* гап между всем  */
+    }
+
+    #filter-form .close {width: 13px; height: 13px;}
+    
+    #filter-form nav {--pform: 40px}
+    
+    #filter-form h1    {font-size: 22px; gap: 10px;}
+    #filter-form p     {font-size: 11px;}
+    #filter-form h2    {font-size: 16px; gap: 5px;}
+    #filter-form h3    {font-size: 14px; gap: 10px;}
+    #filter-form h4    {font-size: 15px;}
+    #filter-form h5    {font-size: 14px;}
+    li .star {width: 15px; height: 15px;padding: 2px; border: 2px solid var(--white2);}
+
+    
+    #filter-form .attr{margin: 0px 4px 0px 0px;}
+
+    #filter-form .option-list input:not(:checked) ~ .box-last {max-height: 0px;}
+    #filter-form .option-list input:checked ~ .box-last {margin-bottom: 30px;}
+    #filter-form .option-list input:checked ~ label     {margin-bottom: 30px;}
+
+    #filter-form .submit, .reset_button {
+        width:       230px;
+        height:      40px;
+        font-size:   14px;
+    }
+    #filter-form .arrow, #filter-form .arrow_in {width: 10px; height: 6px;}
+
+    .search_brand {height: 30px;}
+    .search_brand input {padding-left: 11px;}
+    .search_brand input, .search_brand input::placeholder {font-size: 12px;}
+    .search_brand span {
+        right:    11px;
+        width:    8px;
+        height:   8px;
+    }
+    .Brand #bjin {max-height: calc(var(--mheight) - 55px - 5px);}
+
+
+    .not-found {margin: 110px 0px;}
+    .not-found-img {
+        width:       200px;
+        height:      150px;
+        margin-bottom: 60px;
+    }
+        
+    .not-fount-text {font-size: 16px;}
+
+    
+    .Paginator {padding: 20px 0px;height: 23px;}
+    .Paginator-place   {gap: 16px;}    
+    .Paginator-place p {font-size: 15px;margin: -40% 0px;}
+    .Paginator-box     {width: 60px;height: 100%;}    
+    .NextBack          {height: 55%;margin: 0px 15px;}
+}
+@media screen and (max-width: 500px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+        grid-row-gap: 30px;
+        grid-column-gap: unset;
+        margin: 50px 0px 60px 0px;
+    }
+    #filter-form, #sorting-form ul {box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);}
+    .Center-page p {font-size: 12px;font-weight: 400;}
+    
+    #Filter-button img  {right:-20px;}
+    #Sorting-button .img2 {left: -20px;width: 40px; height: 40px;}
+    #sorting-form ul li {font-size: 14px;}
+
+    .ddfcs {grid-template-columns: minmax(50px,80px) 1fr minmax(50px,80px);padding: 0px 10px;}
+    #sorting-form{--one_line: 40px;}
+
+    #filter-form {
+        top:         55px;
+        left:        -100vw;
+        width:       100vw;
+        max-height:  100vh; /* 100vh - padding(nav)*2 */
+        --gap:       28px;  /* гап много где */
+        --gapB:      30px;  /* гап между всем  */
+    }
+
+
+    #filter-form .option-list {max-height: 76%;}
+
+    #filter-form .close, .backTomenu,#sorting-form .box-sort ul .button-switch{width: 16px !important; height: 16px !important;}
+    
+    #filter-form nav {--pform: 40px;height: calc(100vh - (var(--pform) * 2) - 55px);position: relative;}
+    
+    #filter-form h1, #sorting-form h1  {font-size: 22px; gap: 10px;font-family: "Inter";font-weight: 700;}
+    #filter-form p     {font-size: 11px;}
+    #filter-form h2    {font-size: 16px; gap: 5px;}
+    #filter-form h3    {font-size: 20px; gap: 10px; font-weight: 400;}
+    #filter-form h4    {font-size: 18px;}
+    #filter-form h5    {font-size: 18px;font-weight: 600;}
+    li .star {padding: 5px; border: 1px solid var(--white2);}
+    .box-sort ul .button-switch {margin: 0px 5px;}
+    
+    #filter-form .last li {gap: 20px;}
+
+    #filter-form .attr{margin: 0px 4px 0px 0px;max-height:unset;}
+
+    .box-last {
+        padding: var(--pform) var(--pform) 3px var(--pform);
+        transition: all 0.4s ease-in-out;
+        position: absolute;
+        top:            0px;
+        left:           -100vw;
+        height:         calc(100vh - (var(--pform) * 6));
+        width:          calc(100%  - (var(--pform) * 2));
+        background:     #FFF;
+        display:        flex;
+        flex-direction: column;
+        gap:            35px;
+        
+        z-index:        1;
+        max-height:     unset;
+        overflow:       unset;
+        margin-bottom:  0px;
+    }
+    .box-last .mobile {display: flex !important;justify-content: space-between;align-items: center;}
+    .mli.Price .box-last {width: calc(90% - var(--pform) - 3px);}
+
+    #filter-form .option-list input:not(:checked) ~ .box-last {max-height: unset;}
+    #filter-form .option-list input:checked ~ .box-last {left: 0px;}
+    #filter-form .option-list label,#filter-form .option-list input:checked ~ label{margin-bottom: 30px;}
+    
+    #filter-form .submit, .reset_button {width: calc(100% - var(--pform) - 3px);}
+    #filter-form .arrow, #filter-form .arrow_in {width: 10px; height: 6px;}
+
+    .search_brand {height: 35px;border: 2px solid var(--white4);}
+    .search_brand input {padding: 0px 30px;text-align: center;}
+    .search_brand input, .search_brand input::placeholder {font-size:14px;font-weight: 500}
+    .search_brand span {
+        right:    11px;
+        width:    12px;
+        height:   12px;
+    }
+    .Brand #bjin {max-height: unset;}
+
+    #sorting-form{
+        position: unset;
+        width:    100%;
+    }
+    #sorting-form .box-sort {
+        transition:    all 0.4s ease-in-out;
+        width:         100%;
+        height:        unset;
+        position:      unset;
+        justify-items: center;
+        display:       grid;
+        border:        unset;
+        overflow:      hidden;
+    }
+    #sorting-form.active .box-sort {height: unset;}
+    
+    #sorting-form .box-sort ul{
+        transition: all 0.4s ease-in-out;
+        position:   fixed;
+        width:      calc(100vw - 60px);
+        padding:    40px 30px 60px 30px;
+        height:     auto;
+        right:      -100vw;
+        top:        55px;
+        gap:        30px;
+
+
+        background: #FFF;
+        display:       grid;
+        justify-items: center;
+        align-items:   unset;
+    }
+    #sorting-form .box-sort button {height: unset;}
+    #sorting-form.active .box-sort ul{right: 0px;}
+    #sorting-form.active .box-sort {
+        background:   unset;
+        border-color: unset;
+    }
+    
+    #sorting-form ul li{
+        width:           100%;
+        justify-content: flex-end;
+        gap:         30px;
+        font-size:   20px;
+        font-weight: 400;
+    }
+    
+    #sorting-form .top {flex-direction: row-reverse;}
+    #sorting-form ul {display: grid;}
+    #sorting-form li {display: flex;justify-content: space-between;align-items: center;} 
+
+
+    .not-found {margin: 110px 0px;}
+    .not-found-img {
+        width:       200px;
+        height:      150px;
+        margin-bottom: 60px;
+    }
+        
+    .not-fount-text {font-size: 16px;}
+
+    
+    .Paginator {padding: 20px 0px;height: 23px;}
+    .Paginator-place   {gap: 16px;}    
+    .Paginator-place p {font-size: 15px;margin: -40% 0px;}
+    .Paginator-box     {width: 60px;height: 100%;}    
+    .NextBack          {height: 55%;margin: 0px 15px;}
+}

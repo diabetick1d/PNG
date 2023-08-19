@@ -1,0 +1,102 @@
+.footer {
+    display:        flex;
+    flex-direction: column;
+    font-family:    'Inter';
+    font-style:     normal;
+    margin: 100px var(--paddingPage) 0px var(--paddingPage);
+}
+
+.footer .title {
+    font-weight:    800;
+    font-size:      52px;
+    margin-bottom:  15px;
+}
+.footer .ftext {
+    color:          var(--grey1);
+    text-align:     center;
+    font-size:      14px;
+    font-weight:    400;
+}
+
+.footer h1, .footer h2, .footer h3 {
+    font-size:    14px;
+    font-weight:  500;
+}
+.footer h1 {margin:      5px 0px;}
+.footer h3 {font-weight: 200;}
+
+.footer .top-footer h1 {
+    font-size:   15px;
+    font-weight: 600;
+    margin-top:  10px;
+}
+
+.footer .top-footer {
+    justify-content: center;
+    display:         flex;
+    margin-bottom:   30px;
+    padding:         20px 0px;
+    border-top: 2px solid #EEE;
+}
+.footer .right-footer, .footer .left-footer {
+    display: grid;
+    align-content: space-around;
+}
+.footer .right-footer {text-align: end;}
+
+.footer .center-footer {
+    text-align: center;
+    width:      55%;
+}
+
+.bottom-footer {
+    border-top:      2px solid #EEE;
+    justify-content: space-between;
+    padding: 15px 0px;
+    display: flex;
+}
+
+@media screen and (max-width: 1440px) {
+    .footer .title {
+        font-size:     36px;
+        margin-bottom: 10px;
+    }
+    .footer .ftext         {font-size: 12px;}
+    .footer .top-footer h1 {font-size: 13px;}
+    .footer h1, .footer h2, .footer h3 {
+        font-size:     13px;
+        font-weight:   500;
+    }
+    .footer h1 {margin: 5px 0px;}
+    .footer h3 {font-weight: 200;}
+
+
+    .footer .top-footer {
+        margin-bottom: 30px;
+        padding:       20px 0px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .footer {align-items: center;}
+    .bottom-footer {flex-direction: column;align-items: center; width: 75%;border-top: 1px solid #EEE;gap: 20px;}
+    .footer .center-footer {width: 90%;}
+    
+    .footer .title {
+        font-size:     24px;
+        margin-bottom: 18px;
+    }
+    .footer .ftext         {font-size: 12px;}
+    .footer .top-footer h1 {font-size: 15px;padding: 20px 0px;margin: 30px 0px 0px 0px;border-top: 1px solid #EEE;;}
+    .footer h1, .footer h2, .footer h3 {
+        font-size:     13px;
+        font-weight:   500;
+    }
+    .footer h1 {margin: 5px 0px;}
+    .footer h3 {font-weight: 200;}
+
+
+    .footer .top-footer {
+        margin-bottom: 0px;padding: 20px 0px 0px 0px;
+        border-top: 1px solid #EEE; width: 90%;
+    }
+}

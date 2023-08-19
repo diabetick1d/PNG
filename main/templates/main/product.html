@@ -1,0 +1,184 @@
+{% extends "main/Header.html" %}
+
+{% block title %}{{ product.brand }} {{ product.name }}{% endblock %}
+{% load static %}
+{% block link %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/product.css'%}">
+<link rel="stylesheet" href="{% static 'css/product-detail.css'%}">
+{% endblock %}
+
+
+{% block body %}
+
+<div class="product-all grid-center" id="allin">
+    {% if not user.is_authenticated %}
+    <div class="is_authenticated">
+        <h1>Войдите в аккаунт</h1>
+        <p>Для того что бы продолжить покупку и оформить заказ вам понадобится войти в аккаунт для сохранения вашего выбора</p>
+        <a href="/accounts/login/?next=/product/{{ product.uid }}">Войти</a>
+    </div>
+    {% endif %}
+    <div class="mobile">
+        <div class="brand"><img src="{{MEDIA_URL}}{{ product.brand.font }}" alt=""></div>
+    </div>
+    <div class="not-mobile">
+        {% if product.image2%}
+        <ul class="itc-slider__indicators product-left flex-center">
+            <div class="left-column-1">
+                {% if product.image6 %}
+                <li id="ind-5" data-slide-to="5" class="slider-indicator img-left"><img src="{{MEDIA_URL}}{{ product.image6 }}" alt=""></li>{% endif %}
+                {% if product.image5 %}
+                <li id="ind-4" data-slide-to="4" class="slider-indicator img-left"><img src="{{MEDIA_URL}}{{ product.image5 }}" alt=""></li>{% endif %}
+                {% if product.image4 %}
+                <li id="ind-3" data-slide-to="3" class="slider-indicator img-left"><img src="{{MEDIA_URL}}{{ product.image4 }}" alt=""></li>{% endif %}
+            </div>
+            <div class="left-column-2">
+                {% if product.image2 %}
+                <li id="ind-0" data-slide-to="0" class="slider-indicator img-left active"><img src="{{MEDIA_URL}}{{ product.image1 }}" alt=""></li>{% endif %}
+                {% if product.image2 %}
+                <li id="ind-1" data-slide-to="1" class="slider-indicator img-left"><img src="{{MEDIA_URL}}{{ product.image2 }}" alt=""></li>{% endif %}
+                {% if product.image3 %}
+                <li id="ind-2" data-slide-to="2" class="slider-indicator img-left"><img src="{{MEDIA_URL}}{{ product.image3 }}" alt=""></li>{% endif %}
+            </div> 
+        </ul>
+        {% else %}
+            <style>.product-all {grid-template:"a b";}</style>
+        {%  endif %}
+    </div>
+    <div class="product-center flex-center">
+        {% if product.image2 %}
+        <button class="slider__btn_prev"><img src="{% static 'img/datsprev.svg' %}" alt=""></button>
+        {% endif %}
+        <div class="slider__wrapper">
+            <div class="slider__item"><img src="{{MEDIA_URL}}{{ product.image1 }}" alt=""></div>
+            {% if product.image2 %}
+            <div class="slider__item"><img src="{{MEDIA_URL}}{{ product.image2 }}" alt=""></div>{% endif %}
+            {% if product.image3 %}
+            <div class="slider__item"><img src="{{MEDIA_URL}}{{ product.image3 }}" alt=""></div>{% endif %}
+            {% if product.image4 %}
+            <div class="slider__item"><img src="{{MEDIA_URL}}{{ product.image4 }}" alt=""></div>{% endif %}
+            {% if product.image5 %}
+            <div class="slider__item"><img src="{{MEDIA_URL}}{{ product.image5 }}" alt=""></div>{% endif %}
+            {% if product.image6 %}
+            <div class="slider__item"><img src="{{MEDIA_URL}}{{ product.image6 }}" alt=""></div>{% endif %}
+        </div>
+        {% if product.image2 %}
+        <button class="slider__btn_next"><img src="{% static 'img/datsnext.svg' %}" alt=""></button>
+        {% endif %}
+    </div>
+    <div class="product-right">
+        <div class="not-mobile">
+            <div class="brand"><img src="{{MEDIA_URL}}{{ product.brand.font }}" alt=""></div>
+        </div>
+        <div class="name">{{ product.name }}</div>
+        <div class="price" id="price-display">{{min_price}}</div>
+        <div class="size-chart">
+            <span>Размерная сетка</span>
+        </div>
+        <form class="dropdown-size">
+        <nav class="nav">
+            <label for="touch-size">
+                <span>Размеры</span>
+                <div class="arrow">
+                    <img src="{% static 'img/product/arrow.svg' %}" alt="">
+                </div>
+            </label>       
+            <input hidden type="checkbox" id="touch-size"> 
+            {% load utils_tags %}
+            <ul class="slideli">
+                {% for key,value in prices.items %}
+                    <li id="{{ key }}" data-size="{{ key }}" data-value="{{ value|takefirst }}" data-cart="{{ value|takesecond }}">
+                        <div class="pricein">{{value|takefirst}}{% if value|takefirst != "-" %}₽{% endif %}</div>
+                        <div class="sepaprice">PNG</div>
+                        <div class="div-size">{{key}}</div>
+                    </li>  
+                {% endfor %}
+            </ul>
+            <div class="addBox">
+                <div class="box-img-like {% if usercart %}{% if product.uid|to_string in user.favorite %}favorite{% endif %}{% else %}disabled{% endif %}" data-product-id="{{ product.uid }}">
+                    <div class="img-like"><img src="{% static 'img/product/like.png' %}" alt=""></div>
+                </div>
+                <div class="add-cart-box {% if not usercart %}disabled{% endif %}">
+                    <div class="checkmark"><img src="{% static 'img/product/checkmark.svg' %}" alt=""></div>
+                    <div class="add_cart">Добавить в корзину</div>
+                </div>
+            </div>
+        </nav> 
+        </form>
+
+
+        {% if product.composition %}
+        <div class="composition">
+            <h1>Состав</h1> 
+            <h2 class="slide" >{{ product.composition|linebreaks }}</h2>
+            
+        </div> {% endif %}
+        {% if product.content %}
+        <div class="content"> 
+            <h1>Содержание</h1>
+            <h2 class="slide" >{{ product.content|linebreaks }}</h2> 
+        </div> {% endif %}
+    </div>
+</div>
+<div class="size-chart-box">
+    <div class="up-sizechart">
+        <p>Размеры</p>
+        <div class="close-sizechart" ><img src="{% static 'img/product/close.svg' %}" alt=""></div>
+    </div>
+    <div  class="img-sizechart" >
+        <img src="{{MEDIA_URL}}{{product.sizechart}}" alt="">
+    </div>
+</div>
+
+<div class="recommendation">
+    <h1>Рекомендации</h1>
+    <ul class="recommendation-box">
+
+    {% if recProducts %}
+        {% for key,el in recProducts.items %}
+        <li class="product">
+            <div class="img-product">
+                <a href="/product/{{ el.uid }}"><img src="{{MEDIA_URL}}{{el.img}}" alt=""></a>
+            </div>
+            <div class="product-down">
+                <div class="brand">
+                <img src="{{MEDIA_URL}}{{el.brand}}" alt="">
+                </div>
+                    <div class="name"> {{el.name}}</div>
+                    <div class="price"> {{el.price}} </div>
+            </div>
+        </li>
+        {% endfor %}
+        
+        {% else %}
+        <h2>У товара пока что нету рекомендованных товаров</h2>
+        {% endif %}
+    </ul>
+    
+    {% if recProducts2 %}
+    <label id="more_rec">Показать еще</label>
+    <ul class="recommendation-box two active"> 
+        {% for key,el in recProducts2.items %}
+        <li class="product">
+            <div class="img-product">
+                <a href="/product/{{ el.uid }}"><img src="{{MEDIA_URL}}{{el.img}}" alt=""></a>
+            </div>
+            <div class="product-down">
+                <div class="brand">
+                <img src="{{MEDIA_URL}}{{el.brand}}" alt="">
+                </div>
+                <div class="name"> {{el.name}}</div>
+                <div class="price"> {{el.price}} </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+<script defer src="{% static 'slick/slick.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'JS/sizechart.js' %}"></script>
+<script type="text/javascript" src="{% static 'JS/product.js' %}"></script>
+{% endblock %}

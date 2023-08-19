@@ -1,0 +1,317 @@
+@import url(basic-css.css);
+@import url(../font/font.css);
+
+body {margin: 40px 300px;font-family: 'Inter';}
+
+h1 {font-size: 76px; font-weight: 800;}
+.top p {font-size: 76px;font-weight: 800;text-align:unset; margin: -30px 0px 0px 0px;}
+h2 {font-size: 24px; font-weight: 600;}
+h3 {color: var(--black2); font-size: 20px; font-weight: 400;}
+.h3s {display: flex; align-items: center; justify-content: space-between;}
+h4 {text-align: right; font-size: 12px; font-weight: 500;}
+h5 {font-size: 14px; font-weight: 600;}
+.politic-text {font-size: 16px; font-weight: 500;  color: var(--grey4);}
+.politic-text b {color: #000; font-weight: 500;}
+p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
+
+.bottom {display: flex; justify-content: space-between; margin-top: 50px;}
+
+/* Данные о заказе */
+.deliver-info.success, .payment-method.success {
+    display: none;
+}
+.order-list, .deliver-info, .payment-method {
+    flex-direction: column;
+    display:    flex;
+    width:      calc(80% / 3);
+    gap:        15px;
+    max-height: 480px;
+}
+
+.payment-method {max-width: 300px;}
+
+.order-list ul {
+    border:  2px solid var(--black6);
+    padding: 20px 30px;
+    display: grid;
+    gap:     20px;
+}
+.order-list li {display: flex; text-align: end;}
+
+#summ-price p{color: unset;}
+#summ-price {
+    display:     flex;
+    align-items: center;
+    border-top:  1px solid var(--white3);
+    width:       75%;
+    padding:     16px;
+    justify-content: center;
+}
+
+.product-info{justify-content: space-between;}
+.product-det {display: grid;}
+.product-img {width: 80px; height: 80px; display: grid;}
+
+/* Данные доставки */
+
+/* кнопка сдек-почта */
+.type {
+    display:          flex;
+    width:            100%;
+    background-color: #D9D9D9;
+    position:         relative;
+    cursor:           pointer;
+    margin-bottom:    10px;
+    height:           40px;
+}
+.type .fakebox {
+    transition: all 0.4s ease-in-out;
+    position:   absolute;
+    width:      30%;
+    height:     100%;
+    background-color: var(--black2);
+}
+
+.type input:checked ~ #sd {color: var(--grey1);}
+.type input:not(:checked) ~ #pr {color: var(--grey1);}
+.type input:checked ~ .fakebox {
+    width: 70%;
+    margin-left:  30%;
+}
+
+.type #sd {width: 30%;}
+.type #pr {width: 70%;}
+
+h6 {color: var(--white4);
+    font-size:       16px;
+    font-weight:     600; 
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    z-index:         1;
+    transition:      all 0.4s ease-in-out;
+}
+/* Данные о получателе и адрес доставки */
+
+.deliver-info input:focus {outline: none;box-shadow: none;}
+.deliver-info input::placeholder {font-weight: 300 !important;}
+.deliver-info input, .deliver-info input::placeholder {
+    font-family:    "Inter";
+    color:          var(--black1);
+    font-size:      14px;
+    font-weight:    500;
+    transition: all 0.6s ease-in-out;
+}
+.deliver-info input {width: calc(100% - (15px * 2) - 2px);border: 2px solid var(--white4);height: 15px;padding: 6px 15px;}
+
+.input-box {position: relative}
+.input-box input::placeholder {transition: all 0.15s ease-in-out;}
+
+.input-box input.not-valid {border-color: var(--red2) !important;}
+.input-box input.not-valid ~ .error-image {opacity: 1;}
+.input-box input.not-valid::placeholder {color: var(--red2) !important}
+
+.input-box .error-image {
+    position: absolute;
+    width:    5px;
+    height:   14px;
+    right:    3.5%;
+    top:      25%;
+    opacity:  0;
+    transition: all 0.6s ease-in-out;
+}
+
+/* Способ оплаты */
+
+.politic-box {display: flex;}
+.politic-box label{position: relative;height: 100%;min-width: 15px;}
+.politic-box.box-not-valid label span{background: var(--red2); transform: scale(1.2);}
+.politic-box label span{
+    position:   absolute;
+    display:    block;
+    width:      15px;
+    height:     15px;
+    transition: all 0.6s ease-in-out;
+    background: var(--white3);
+    bottom:     65%;
+}
+
+#politic:checked ~ label span{
+    background: var(--black5);
+    bottom: 10%;
+}
+
+.politic-text {margin-left: 20px;}
+
+.payment-method button {
+    color:      #FFF;
+    background: var(--black2);
+    width:      100%;
+    height:     50px;
+}
+
+.checkout-box {
+    display:        flex;
+    gap:            30px;
+    height:         220px;
+    flex-direction: column;
+    transition:     all 0.4s ease-in-out;
+}
+
+.payment-method .checkout {
+    color:         #FFF;
+    font-family:   'Inter';
+    font-size:     16px;
+    font-weight:   600;
+    display:        flex;
+    justify-content:space-between;
+    align-items:    flex-start;
+    padding:        10px 20px;
+    width:          86%;
+    order:          0;
+    cursor:         pointer;
+    transition:     all 0.6s ease-out;
+}
+
+.box-payment {display: flex; align-items: center; justify-content: space-between; width: 100%;}
+.checkout.card .img-card {width: 40px;height: 25px;transition:     all 0.6s ease-out;}
+.checkout.QR   .QR       {width: 55px;height: 40px;}
+
+.checkout.card {
+    background: var(--black6);
+    border:     2px dashed var(--black3);
+    height:     25%;
+}
+
+.checkout.QR{
+    border: 2px dashed #000;
+    height: 25%;
+}
+
+#checkout-card:checked ~ .checkout.card .img-card {width: 60px;height: 35px;}
+#checkout-card:checked ~ .checkout.card {order: -1;border: 2px solid var(--black2);background: var(--black2);height: 65%;padding: 20px;}
+#checkout-QR:checked   ~ .checkout.QR   {order: -1;border: 2px solid var(--black6);background: #FFF;height: 65%;padding: 20px;}
+
+/* Callback */
+
+.callback, .true, .false {display: none;}
+.callback.success {display: grid; width: 70%;}
+.callback .true.active,.callback .false.active  {display: block;}
+
+.callback h1{color: unset; font-size: 76px; font-weight: 800;  line-height: 2;}
+.callback h2{font-size: 55px; font-weight: 800;  line-height: 0;}
+.callback a{color: var(--white3); font-size: 48px; font-weight: 800; margin-top: 100px;}
+.callback #resubm {color: var(--white3);font-size: 40px;font-weight: 800;}
+
+@media screen and (max-width: 1440px) {
+    body {margin: 40px 190px;}
+    .bottom {margin-top: 40px;}
+    .order-list, .deliver-info, .payment-method {
+        gap:        11px;
+        max-height: 400px;
+    }
+    .payment-method {
+        gap:        13px;
+    }
+
+    .product-img {width: 65px;height: 65px;}
+
+    h1 {font-size: 78px}
+    .top p {font-size: 64px}
+    h2 {font-size: 18px}
+    h3 {font-size: 16px}
+    h4 {font-size: 12px}
+    h5 {font-size: 14px}
+    h6 {font-size: 12px;}
+    .politic-text {font-size: 14px}
+    p {font-size: 14px;}
+    .payment-method .checkout {font-size: 14px;}
+
+    .payment-method .checkout {width: 85%;}
+    .checkout-box {
+        gap: 15px;
+        height: 180px;
+    }
+    .deliver-info input, .deliver-info input::placeholder {font-size: 13px;}
+    .deliver-info input {width: calc(100% - (14px * 2) - 2px);padding: 7px 14px;height: 12px;}
+
+    .type {
+        margin-bottom:    10px;
+        height:           30px;
+    }
+
+    .callback h1{font-size: 76px;}
+    .callback h2{font-size: 55px;}
+    .callback a{font-size: 48px; margin-top: 100px;}
+    .callback #resubm {font-size: 40px}
+    
+    .payment-method button {height: 45px;}
+    #summ-price {padding: 14px;}
+}
+
+
+
+@media screen and (max-width: 500px) {
+    body {margin: 20px 0px;}
+    .bottom {margin-top: 40px;flex-direction: column}
+    .top .mobile{color: var(--black2);font-size: 24px;font-weight: 800;display: flex !important;width: 100%;justify-content: center;margin: 30px 0px 20px 0px;}
+    .top {
+        margin: auto;
+        width:  90%;
+    }
+
+    .order-list, .deliver-info, .payment-method {
+        gap:    15px;
+        width:  90%;
+        margin: auto;
+        margin-bottom: 40px;
+        max-height: unset;
+    }
+    .order-list{gap: 16px;}
+    .payment-method {
+        gap:        13px;
+    }
+
+    .product-img {width: 85px;height: 85px;}
+
+    h1 {font-size: 44px;text-align: center;}
+    .top p {font-size: 40px; margin: -10px 0px 0px 0px;text-align: center;}
+    h2 {font-size: 20px}
+    h3 {font-size: 20px;font-weight: 500;margin-bottom: 10px;}
+    h4 {font-size: 15px}
+    h5 {font-size: 16px}
+    h6 {font-size: 14px;}
+    .politic-text {font-size: 16px}
+    p {font-size: 18px;}
+    .payment-method .checkout {font-size: 16px;}
+    .order-list ul {max-height: calc(95px * 3);}
+
+    .payment-method .checkout {width: 85%;}
+    .checkout-box {
+        gap: 15px;
+        height: 180px;
+    }
+    .deliver-info input, .deliver-info input::placeholder {font-size: 15px;}
+    .deliver-info input {width: calc(100% - (20px * 2) - 2px);padding: 12px 20px;height: 12px;}
+
+    .type {
+        margin-bottom:    10px;
+        height:           40px;
+    }
+
+    .politic-box label {height: unset;}
+    .politic-box {margin: 25px 0px;}
+
+    .callback .true.active,.callback .false.active  {display: grid;justify-items:center}
+    .callback.success {width: 95%;margin: 0px auto 60px auto;}
+
+    .callback{order: -1;margin-bottom: 70px;}
+    .callback h1{font-size: 38px;}
+    .callback .false h1{font-size: 25px;}
+    .callback h2{font-size: 24px;line-height: 2;}
+    .callback a{font-size: 20px; margin-top: 50px;}
+    .callback #resubm {font-size: 20px;margin-top: 50px;}
+    
+    .payment-method button {height: 45px;}
+    #summ-price {padding: 18px;}
+}

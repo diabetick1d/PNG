@@ -1,0 +1,278 @@
+{% extends "main/Header.html" %}
+
+{% block title %} Профиль  {% endblock %}
+{% load static %}
+{% block link %} <link rel="stylesheet" href="{% static 'css/profile/profile.css'%}"> {% endblock %}
+
+
+{% block body %}
+    <div class="Center-page">
+        <div class="not-mobile"><h1>ПРОФИЛЬ</h1></div>
+        <div class="mobile"><h1>Профиль</h1></div>
+    </div>
+    <div class="all">
+        <div class="navigation-menu">
+            <input type="radio" name="navigation" id="navigation personal" checked>
+                <label class="navigation" for="navigation personal">
+                    <div class="not-mobile">Личная информация</div>
+                    <div class="mobile">Данные</div>
+                </label>
+            <input type="radio" name="navigation" id="navigation bonus">
+                <label class="navigation" for="navigation bonus">
+                    <div class="not-mobile">Мои бонусы</div>
+                    <div class="mobile">Бонусы</div>
+                </label>
+            <input type="radio" name="navigation" id="navigation buylist">
+                <label class="navigation" for="navigation buylist">
+                    <div class="not-mobile">Мои покупки</div>
+                    <div class="mobile">Покупки</div>
+                </label>
+            <input type="radio" name="navigation" id="navigation returns">
+                <label class="navigation" for="navigation returns">Возвраты</label>
+            <div class="not-mobile"><a class="navigation" id="button_leave" href="{% url 'logout' %}">Выйти</a></div>
+        </div>
+        <div class="menu">
+            <form class="blockmenu active" id="personal" action="" method="POST">
+                {% csrf_token %}
+                <h6>Персональные данные</h6>
+                <div class="input-box">
+                    <input req autocomplete="off" name="last_name" value="{{form.last_name.value}}" id="id_last_name" placeholder="Фамилия" maxlength="40">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input req autocomplete="off" name="first_name" value="{{form.first_name.value}}" id="id_first_name" placeholder="Имя" maxlength="40">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input req autocomplete="off" name="surname" value="{{form.surname.value}}" id="id_surname" placeholder="Отчество" maxlength="40">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <h6>Данные для доставки</h6>
+                <label class="type_deliver" checktype="{% if form.base_type_deliver.value == 1 %}1{% endif %}"for="id_base_type_deliver">
+                    <div class="typebox"></div>
+                    <h5 id="SDEK_TYPE">СДЭК</h5>
+                    <h5 id="RUSSIA_TYPE">Почта России</h5>
+                </label>
+                {{ form.base_type_deliver }}
+                <div class="input-box">
+                    <input req autocomplete="off" name="base_adress" value="{{form.base_adress.value}}" id="id_base_adress" placeholder="Город, область, (регион)">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input req autocomplete="off" name="base_delivery_point" value="{{form.base_delivery_point.value}}" id="id_base_delivery_point" placeholder="Адрес пункта выдачи">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input req autocomplete="off" name="base_number_phone" value="{{form.base_number_phone.value}}" id="id_base_number_phone" placeholder="Номер телефона" maxlength="20">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    <div class="ef">Данные можно изменить при оформлении заказа*</div>
+                </div>
+                {% if not user.up_to_politic %}
+                <label for="id_up_to_politic" id="politicbox">
+                    <input type="checkbox" name="up_to_politic" id="id_up_to_politic">
+                    <span></span>
+                    Я даю согласие на обработку своих персональных данных в соответствии с 
+                    <a href="">Политикой в отношении обработки персональных данных и Пользовательским соглашением.</a>
+                </label>
+                {% endif %}
+            <button class="submit-personal">Сохранить</button>
+            <div class="mobile"><a class="personal-leave" href="{% url 'logout' %}">Выйти</a></div>
+            </form>
+            <div class="blockmenu" id="bonus" data-bonus="{{ userbonus }}" data-ref="{{ domen }}/accounts/registration/{{ user.bonus_reference }}">
+                {% include  'main/Bonus-system.html' %}
+            </div>
+            <div class="blockmenu " id="buylist">
+                {% if carts %}
+                    {% for el in carts %}
+                    <div class="blockbuy" id="order-{{ el.id }}">
+                        <div class="top-blockbuy">
+                            <div class="mobile-semi">
+                                <div class="order-img">
+                                    <img src="/media/{{ el.products.0.img }}" alt="">
+                                </div>
+                            </div>
+                            <div class="semi-mobile">
+                                <div class="order-date">
+                                    <h1>Дата заказа</h1>
+                                    <h2>{{ el.data_order|date:"j.n.Y" }}</h2>
+                                </div>
+                            </div>
+                            <div class="order-number">
+                                <h1>Номер заказа</h1>
+                                <h2>{{ el.number_order }}</h2>
+                            </div>
+                            <div class="semi-mobile">
+                                <div class="order-status">
+                                    <h1>Статус заказа</h1>
+                                    <h2>{{ el.status }}</h2>
+                                </div>
+                            </div>
+                            <div class="not-mobile">
+                                <div class="order-img">
+                                    <img src="/media/{{ el.products.0.img }}" alt="">
+                                </div>
+                            </div>
+                            <button class="arrow" id="switch-full" data-order="order-{{ el.id }}"><img src="{% static 'img\profile\arrow.svg'%}" alt=""></button>
+                        </div>
+                        <div class="middle-blockbuy">
+                            <div class="not-mobile"><h1>Получатель</h1></div>
+                            <div class="box-info-user">
+                    <div side="left" class="mobile"  style="grid-area: abc;">Получатель</div>
+                                    <h2 side="left"  style="grid-area: a;  text-align: start;">{{ el.last_name }}</h2>
+                                    <h2 side="left"  style="grid-area: a2; text-align: start;">{{ el.first_name }}</h2>
+                                    <h2 side="left"  style="grid-area: a3; text-align: start;">{{ el.surname }}</h2>
+                            <div class="not-mobile"  style="grid-area: a4;"><h2 side="left" style="text-align: start;">{{ el.phone }}</h2></div>
+                                    
+                                <div class="mobile"  style="grid-area: bca" side="right">Пункт выдачи</div>
+                            <div class="not-mobile"  style="grid-area: b;"><h2 side="right" style="text-align: center;">Адрес пункта выдачи</h2></div>
+                                    <h2 side="right" style="grid-area: b2; text-align: center;">{{ el.delivery_point }}</h2>
+                                    <h2 side="right" style="grid-area: b3; text-align: center;">{{ el.address }}</h2>
+                                    
+                    <div side="right" class="mobile" style="grid-area: cba;">Трек номер</div>
+                            <div class="not-mobile"  style="grid-area: c;"><h2 side="right" style="text-align: end;">Трек номер: </h2></div>
+                                    <h2 side="right" style="grid-area: c2; text-align: end;"><b>{% if el.type_delivery == "СДЭК" %}В приложении СДЭКа{% else %}{% if el.tracknumber != None %}{{ el.tracknumber }}{% else %}Еще нету{% endif %}{% endif %}</b></h2>
+
+                                <div class="mobile"  style="grid-area: ccba;" side="left">Способ доставки</div>
+                            <div class="not-mobile"  style="grid-area: c3;"><h2 side="left"  style="text-align: end;">Способ доставки:</h2></div>
+                                    <h2 side="left"  style="grid-area: c4; text-align: end;">{{ el.type_delivery }}</h2>
+                            <div class="mobile off"  style="grid-area: c5;"><h2 side="left" style="text-align: start;">{{ el.phone }}</h2></div>
+                            </div>
+                        </div>
+                        <div class="bottom-blockbuy">
+                            <h1>Отслеживание</h1>
+                            <div class="ind-box">
+                                <div class="indicators-deliver">
+                                    <ul id="In_road">
+                                        <img src="" alt="">
+                                        <h2>В пути</h2>
+                                    </ul>
+                                    <ul id="In_stock">
+                                        <img src="" alt="">
+                                        <h2>На складе</h2>
+                                    </ul>
+                                    <ul id="In_deliver">
+                                        <img src="" alt="">
+                                        <h2>Передан в доставку</h2>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="order-info">
+                                <h1>О заказе</h1>
+                                <ul class="order-list slide">
+                                    {% for product in el.products %}
+                                    <li>
+                                        <div class="left-info">
+                                            <div id="name">{{ product.brand }} {{ product.name }}</div>
+                                            <div id="size">Размер: {{ product.size }}</div>
+                                            <div id="code PNG">Код PNG: {{ product.id }}</div>
+                                            <div id="price">Цена: <b>{{ product.price }}₽</b></div>
+                                        </div>
+                                        <div class="img-product"><img src="/media/{{ product.img }}" alt=""></div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bottom-bottom-box">
+                            <button class="arrow big" id="switch-full-bottom" data-order="order-{{ el.id }}"><img src="{% static 'img\profile\arrow-big.svg'%}" alt=""></button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="else">У вас пока нет ни одной покупки...</div>
+                {% endif %}
+            </div>
+            <div class="blockmenu " id="returns">
+                {% if returns %}
+                {% for el in returns %}
+                <div class="blockbuy" id="return-{{ el.id }}">
+                    <div class="top-blockbuy">
+                        <div class="mobile-semi">
+                            <div class="order-img">
+                                <img src="/media/{{ el.products.0.img }}" alt="">
+                            </div>
+                        </div>
+
+                        <div class="semi-mobile">
+                            <div class="order-date">
+                                <h1>Дата заказа</h1>
+                                <h2>{{ el.data_order|date:"j.n.Y" }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="order-number">
+                            <h1>Номер заказа</h1>
+                            <h2>{{ el.number_order }}</h2>
+                        </div>
+                        <div class="semi-mobile">
+                            <div class="order-status">
+                                <h1>Статус заказа</h1>
+                                <h2>{{ el.status }}</h2>
+                            </div>
+                        </div>
+                        <div class="not-mobile">
+                            <div class="order-img">
+                                <img src="/media/{{ el.products.0.img }}" alt="">
+                            </div>
+                        </div>
+                        <button class="arrow" id="switch-full" data-return="return-{{ el.id }}"><img src="{% static 'img\profile\arrow.svg'%}" alt=""></button>
+                    </div>
+                    <div class="bottom-blockbuy">
+                        <div class="order-info">
+                            <h1>На возврат</h1>
+                            <ul class="order-list slide">
+                                {% for product in el.products %}
+                                <li>
+                                    <div class="left-info">
+                                        <div id="name">{{ product.brand }} {{ product.name }}</div>
+                                        <div id="size">Размер: {{ product.size }}</div>
+                                        <div id="code PNG">Код PNG: {{ product.id }}</div>
+                                        <div id="price">Цена: <b>{{ product.price }}₽</b></div>
+                                    </div>
+                                    <div class="img-product"><img src="/media/{{ product.img }}" alt=""></div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <h4>Итого: {{ el.summ_price }}₽</h4>
+                        <h1>Ваши данные для отправки средств обратно</h1>
+                        <div class="bottom-bottom-box">
+                            <form id="return-query-form" data-uid="{{ el.id }}">
+                                {% csrf_token %}
+                                <div class="input-box">
+                                    <input type="text" id="card_number" placeholder="Номер карты" value="{% if el.form.card_number.value != None %} {{ el.form.card_number.value }} {% endif %}">
+                                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                                </div>
+                                
+                                <div class="input-box">
+                                    <input type="text" id="bank" placeholder="Банк"              value="{% if el.form.bank.value != None %} {{ el.form.bank.value }} {% endif %}">
+                                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                                </div>
+
+                                <div class="input-box">
+                                    <input type="text" id="name" placeholder="Имя на карте"      value="{% if el.form.name.value != None %} {{ el.form.name.value }} {% endif %}">
+                                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                                </div>
+                                <div class="box-submit">
+                                    <button type="submit"><img src="{% static 'img/profile/return-save.svg'%}" alt=""></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mobile">
+                        <div class="bottom-bottom-box">
+                            <button class="arrow big" id="switch-full-bottom" data-order="return-{{ el.id }}"><img src="{% static 'img\profile\arrow-big.svg'%}" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="else">Пока на вашем аккаунте нет запросов на возврат...</div>
+            {% endif %} 
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{% static 'JS/profile.js' %}"></script>
+{% endblock %}

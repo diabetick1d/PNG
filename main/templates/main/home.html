@@ -1,0 +1,62 @@
+{% extends "main/Header.html" %}
+
+{% block title %} Главная  {% endblock %}
+{% load static %}
+{% block link %} <link rel="stylesheet" href="{% static 'css/home.css'%}">
+                 <link rel="stylesheet" href="{% static 'css/product-detail.css'%}"> {% endblock %}
+
+
+{% block body %}
+<div class="collections">
+    {% for el in HomePages %}
+    <div class="collection">
+        <div class="collection-up">
+            <a href="brand/products/{{el.brand.name}}"><img src="{{MEDIA_URL}}{{el.title}}" alt=""></a>
+        </div>
+
+        <h4 style="color: {{ el.color }};">{{ el.text }}</h4>
+
+        <div class="col-products">
+            {% if el.product1 %}
+            <li class="product">
+                <div class="img-product">
+                    <a href="/product/{{ el.product1.uid }}"><img src="{{MEDIA_URL}}{{el.product1.image1}}" alt=""></a>
+                </div>
+                <div class="product-down">
+                    <div class="brand">
+                        <img src="{{MEDIA_URL}}{{el.product1.brand.font}}" alt="">
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            {% if el.product2 %}
+            <li class="product">
+                <div class="img-product">
+                    <a href="/product/{{ el.product2.uid }}"><img src="{{MEDIA_URL}}{{el.product2.image1}}" alt=""></a>
+                </div>
+                <div class="product-down">
+                    <div class="brand">
+                        <img src="{{MEDIA_URL}}{{el.product2.brand.font}}" alt="">
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            <div class="not-mobile">
+                {% if el.product3 %}
+                <li class="product">
+                    <div class="img-product">
+                        <a href="/product/{{ el.product3.uid }}"><img src="{{MEDIA_URL}}{{el.product3.image1}}" alt=""></a>
+                    </div>
+                    <div class="product-down">
+                        <div class="brand">
+                            <img src="{{MEDIA_URL}}{{el.product3.brand.font}}" alt="">
+                        </div>
+                    </div>
+                </li>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

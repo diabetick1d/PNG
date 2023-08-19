@@ -1,0 +1,195 @@
+
+
+<div class="dropdown-content" id="brand">
+    <div class="left"><!-- Бренды -->
+        <h1> Категории </h1>
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/brand.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="shoe">
+    <div class="left"><!-- Обувь -->
+        <h1> Категории </h1> 
+        {% for item in nav_dict.shoe.category %}<a href="/productlist/shoe/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/shoe.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.shoe.brand %}<a href="/productlist/shoe/brand/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="cloths">
+    <div class="left"><!-- ОДЕЖДА -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.cloths.category %}<a href="/productlist/cloths/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/cloth.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.cloths.brand %}<a href="/productlist/cloths/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="bags">
+    <div class="left"><!-- СУМКИ -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.bags.category %}<a href="/productlist/bags/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/bags.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.bags.brand %}<a href="/productlist/bags/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="clocks">
+    <div class="left"><!-- ЧАСЫ -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.clocks.category %}<a href="/productlist/clocks/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/clock.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.clocks.brand %}<a href="/productlist/clocks/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="accessorie">
+    <div class="left"><!-- АКСЕССУАРЫ -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.accessories.category %}<a href="/productlist/accessories/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/accs.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.accessories.brand %}<a href="/productlist/accessories/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="cosmetic">
+    <div class="left"><!-- КОСМЕТИКА -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.cosmetics.category %}<a href="/productlist/cosmetic/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/cosmetic.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.cosmetics.brand %}<a href="/productlist/cosmetic/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="technique">
+    <div class="left"><!-- ТЕХНИКА -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.technique.category %}<a href="/productlist/technique/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/tech.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.technique.brand %}<a href="/productlist/technique/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="toys">
+    <div class="left"><!-- ИГРУШКИ -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.toys.category %}<a href="/productlist/toys/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/toy.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.toys.brand %}<a href="/productlist/toys/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="sport">
+    <div class="left"><!-- Спорт -->
+        <h1> Категории </h1>
+        {% for item in nav_dict.sport.category %}<a href="/productlist/sport/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/sport.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        {% for item in nav_dict.sport.brand %}<a href="/productlist/sport/category/{{item}}">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="dropdown-content" id="rubrand">
+    <div class="left"><!-- РУ-БРЕНДЫ -->
+        <h1> Категории </h1>
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+    </div>
+    <div class="center imcengs">
+        <img src="/static/img/header/rubrand.png" alt="">
+    </div>
+    <div class="right">
+        <h1> Бренды </h1>
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+        NOT WORKING
+    </div>
+</div>

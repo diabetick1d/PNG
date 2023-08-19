@@ -1,0 +1,88 @@
+{% extends "main/Header.html" %}
+
+{% block title %} Корзина  {% endblock %}
+{% load static %}
+{% block link %}<link rel="stylesheet" href="{% static 'css/profile/cart.css'%}"> {% endblock %}
+
+
+{% block body %}
+
+<div class="Center-page">
+    <div class="not-mobile"><h1>Корзина</h1></div>
+    <div class="mobile"><h1>Корзина</h1></div>
+</div>
+
+{% if user.cart %}
+<form action="/order/payment" method="POST" class="cartlist">
+    <div class="mobile" id="products-count"><h6>0 товаров</h6></div>
+    {% csrf_token %}
+    <ul class="product-list" id="product-list">
+        {% for el in cart %}
+        <li class="product {% if el.count != 0 %}active{% else %}no{% endif %}" data-check="" data-uid="{{ el.uid }}" data-size="{{ el.size }}" data-price="{{ el.priceint }}" data-count="1">
+            <label for="u@{{ el.uid }}@{{ el.size }}" class="{% if el.count != 0 %}active{% else %}no{% endif %}"><img src="{% static 'img/star.svg'%}" alt=""></label>
+            <input type="checkbox" name="uid[]" value="{{ el.uid }}#{{ el.size }}" id="u@{{ el.uid }}@{{ el.size }}" {% if el.count != 0 %}checked{% endif %} hidden>
+            <div class="main-box">
+                <div class="img">
+                    <a href="/product/{{ el.uid }}"><img src="{{MEDIA_URL}}{{el.img}}" alt=""></a>
+                </div>
+                <div class="info">
+                    <div class="brand-img">
+                        <img src="{{MEDIA_URL}}{{el.brand}}" alt="">
+                    </div>
+                    <h3>{{ el.name }}</h3>
+                    <div class="not-mobile">
+                        <div class="uid">
+                            <p>Код PNG:</p>
+                            <h3>{{ el.uid }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="size">
+                    <h1>Размер</h1>
+                    <h2>{{ el.size }}</h2>
+                </div>
+                <div class="price ">
+                    <h1>Цена</h1>
+                    <h2>{{ el.price }}</h2>
+                </div>
+
+                <div id="remove"><img src="{% static 'img/profile/delete-order.svg'%}" alt=""></div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="order-now">
+        <div class="info-order">
+            <div class="not-mobile">
+                <div id="products-count">
+                    <h6>0 товаров</h6>
+                </div>
+            </div>
+            <div id="products-price">
+                <h1>Общая цена</h1>
+                <h4>0</h4>
+            </div>
+            <div id="promocode-price" data-price="0">
+                <h1>Промокод</h1>
+                <h4>0</h4>
+            </div>
+        </div>
+        <div id="summ-price">
+            <h1>Итого</h1>
+            <h4>0</h4>
+        </div>
+        <div class="buttons" data-price="0">
+            <div class="promo-input">
+                <input id="inputpromo" type="text" name="promocode" placeholder="Промокод">
+                <img id="promochecktrue"  src="{% static 'img/profile/Y-promo.svg'%}" alt="">
+                <img id="promocheckfalse" src="{% static 'img/profile/X-promo.svg'%}" alt="">
+            </div> 
+            <button type="submit">Купить сейчас</button>
+        </div>
+    </div>
+</form>
+{% else %}
+<div class="else">Пусто...</div>
+{% endif %}
+<script type="text/javascript" src="{% static 'JS/cart.js' %}"></script>
+{% endblock %}

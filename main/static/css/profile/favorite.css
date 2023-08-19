@@ -1,0 +1,42 @@
+
+.product {width: calc(100% / 4);}
+.product {position: relative;}
+
+.product-list {
+    display:               flex;
+    grid-template-columns: unset;
+    justify-items:         center;
+    flex-wrap:             wrap;
+    justify-content:       space-evenly;
+}
+
+#deletefavourite {
+    width:    22px;
+    height:   22px;
+    position: absolute;
+    top:      5px;
+    right:    5px;    
+    cursor:   pointer;
+}
+
+.else {
+    margin: 20px 0px;
+    color: var(--grey1);
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Inter';
+    font-weight: 500;
+}
+
+@media screen and (max-width: 1440px) {
+    .else {
+        font-size: 16px;
+    }
+    #deletefavourite {
+        width:    15px;
+        height:   15px;
+        top:      3px;
+        right:    3px;    
+    }
+    
+}

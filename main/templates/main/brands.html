@@ -1,0 +1,55 @@
+{% extends "main/Header.html" %}
+
+{% block title %} Бренды {% endblock %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/brand.css'%}"> {% endblock %}
+
+{% block body %}
+<div class="brand-main"> 
+    <div class="search-brand">
+        <div class="Center-page">
+            <h1>БРЕНДЫ</h1>
+        </div>
+        
+        <div class="box-search-brand">
+            <input id="search-input-brand" type="search" name="query" placeholder="Поиск бренда" autocomplete="off">
+            <div id="ResetSearch" class="small-icon close-brand-search"><img src="{% static 'img/brand/close.svg' %}" alt="" ></div>
+        </div>  
+    </div>
+    <div class="boxes-rc">
+        <div class="result-box">
+            <h6>Результаты поиска</h6>
+            <div class="results">
+                    
+            </div>
+        </div>
+
+        <div class="compilation-box">
+            <h6>Подборка</h6>
+            <div class="compilations">
+                {% for el in compilation %}
+                    <a href="/brand/products/{{el.name}}" class="img-brand"><img src="{{MEDIA_URL}}{{el.font}}" alt=""></a>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="touch-more"><p id="offmore">Больше</p><p id="onmore" class="active">Меньше</p></div>
+    </div>
+    <div class="all-catalog">
+        <div class="not-mobile"></div>
+        <h3>Каталог</h3>
+        <div class="brand-catalog">
+            {% for key,value in resultSort.items %}
+            <h2>{{ key }}</h2>
+                <div class="brand-letter">
+                {% for el in value %}
+                    <a href="/brand/products/{{el.name}}" class="brand-inletter">{{ el.name|title }}</a>
+                {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{% static 'JS/brand.js' %}"></script>
+{% endblock %}

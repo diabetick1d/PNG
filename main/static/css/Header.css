@@ -1,0 +1,381 @@
+@import url(basic-css.css);
+@import url(../font/font.css);
+
+.overlay {
+    background-color: black;
+    position:         absolute;
+    z-index:          3;
+    opacity:          0; 
+
+    left:             0;
+    top:              auto;
+    transition:       opacity 0.2s ease;
+    transition-delay: 0.1s;
+}
+
+.overlay.active { 
+    width:   100%;
+    height:  200%;
+    opacity: 0.6;
+}
+
+.overlay-full-z5 {
+    z-index: -1;
+    top: 0; left: 0;
+    background-color:   black;
+    position:           fixed;
+    opacity:            0;
+    transition: opacity 0.2s ease;
+    transition-delay:   0.1s;
+}
+
+.overlay-full-z5.active {
+    width:   100%;
+    height:  200%;
+    opacity: 0.7; 
+    z-index: 5;
+}
+
+.cuslide::-webkit-scrollbar-track{background-color: #ffffff00;}
+.cuslide::-webkit-scrollbar{width: 4px;background-color: #D9D9D9;}
+.cuslide::-webkit-scrollbar-thumb{background-color: var(--grey4);}
+
+/*//////*/
+
+.flex-center {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+}
+
+.grid-center {
+    display:         grid;
+    align-items:     center;
+    justify-content: center;
+}
+
+/* title на обуви профиле и тд */
+.Center-page{ 
+    display:       grid;
+    justify-items: center;
+    gap:           10px;
+}
+
+.Center-page .mobile h1{
+    color:       var(--black3);
+    text-align:  center;
+    font-family: 'Inter';
+    font-size:   24px;
+    font-weight: 700;
+}
+.Center-page h1{
+    text-align:     center;
+    font-family:    'Inter';
+    font-size:      26px;
+    font-weight:    900;
+    text-transform: uppercase;
+}
+
+.notifications-container{
+    background-color: #ffffff00;
+    position: fixed; 
+    left:     100px;
+    bottom:   60px;
+    display:  grid;
+    gap:      20px;
+    z-index:  10;
+}
+.notification {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size:   16px;
+
+    border:           3px solid var(--black3);
+    border-radius:    6px;
+    padding:          20px;
+    background-color: var(--white3);
+    z-index:          10;
+    display:          grid;
+    align-items:      center;
+    justify-content:  center;
+}
+
+.Header{
+    margin: 21px var(--paddingPage);
+    height: 90px;
+
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-between;
+    align-items:     center;
+    position:        relative;
+}
+.Header-left div {flex-direction: inherit;align-items: inherit;display: inherit;gap: inherit;}
+.Header-left {
+    flex-direction: row;
+    align-items:    flex-start;
+    display: flex;
+    padding: 0px;
+    gap:     47px;
+    
+    font-family: "Inter";
+    font-size:   15px;
+    font-weight: 600;
+}
+.Header-left p {color: var(--grey3)}
+.Header-left a {color: var(--black2)}
+
+.Header-center {
+    display:       grid;
+    align-items:   center;
+    justify-items: center;
+
+    position:  absolute;
+    top:       50%;
+    left:      50%;
+    transform: translate(-50%, -50%);
+
+    font-family: 'Inter';
+    font-size:   76px;
+    font-weight: 900;   
+}
+
+.Header-right {
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-between;
+    align-items:     center;
+    padding:         0px;
+    gap:             32px;
+}
+
+.small-icon {
+    width:      var(--smallicon);
+    height:     var(--smallicon);
+    cursor:     pointer;
+    background: transparent;
+}
+.Header-cat {
+    display:        flex;
+    flex-direction: column;
+    align-items:    flex-start;
+    padding:        0px;
+    position:       relative;
+
+
+    font-family: 'Inter';
+    font-size:   28px;
+    line-height: 34px;
+    margin:      0px var(--paddingPage);
+}
+
+/* tabs */
+#tab-btn-1:checked~.content #content-1,
+#tab-btn-2:checked~.content #content-2,
+#tab-btn-3:checked~.content #content-3,
+#tab-btn-4:checked~.content #content-4,
+#tab-btn-5:checked~.content #content-5,
+#tab-btn-6:checked~.content #content-6,
+#tab-btn-7:checked~.content #content-7,
+#tab-btn-8:checked~.content #content-8,
+#tab-btn-9:checked~.content #content-9,
+#tab-btn-10:checked~.content + #content-10,
+#tab-btn-11:checked~.content + #content-11 {
+    opacity: 1;
+    height: 100%;
+}
+
+.tabs {
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-between;
+    align-items:     flex-start;
+    width:           100%;
+}
+
+.contents {
+    top:     40px;
+    z-index: 4;
+    height:  0;
+    transition: all 0.2s ease-in-out;
+}
+
+.contents h1{
+    font-weight:    600;
+    font-size:      20px;
+    margin-bottom:  10px;
+}
+.contents a{
+    font-weight:    400;
+    font-size:      16px;
+    color:          var(--grey3) !important;
+}
+
+
+.contents .dropdown-content {
+    background-color: #fff;
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-between;
+    align-items:     center;
+    position:        relative;
+
+    opacity:    0;
+    height:     0px;
+    padding:    0px var(--paddingPage);
+
+    width:      -webkit-fill-available;
+
+    transition-delay:      0.1s;
+    overflow:              hidden;
+    grid-template-columns: 1fr auto 1fr;
+    display: grid;
+    justify-items: stretch;
+}
+
+.contents .dropdown-content.active {
+    height:     max-content;
+    min-height: 290px;
+    opacity:    1;
+}
+
+.contents .dropdown-content .imcengs {
+    height: 250px;
+    width:  250px;
+}
+
+.contents.active {
+    position:         absolute;
+    width:            calc(100% + 2 * var(--paddingPage));
+    height:           auto;
+    left:             calc(var(--paddingPage) * -1);
+    background-color: white;
+}
+
+.left, .right, .center {flex: none;align-self: stretch;flex-grow: 0;margin: 60px 0px;}
+.left, .right {display: grid;grid-auto-rows: min-content;}
+.left   {order: 0;}
+.center {order: 1;justify-items: start}
+.right  {order: 2;justify-items: end}
+
+.tabs input[type="radio"]:checked+a {
+    font-weight: 600;
+    cursor:      default;
+}
+
+.tabs a {
+    font-family:    'Inter';
+    font-size:      15px;
+    font-weight:    600;
+    margin:         5.5px 0px;
+    text-transform: uppercase;
+}
+
+.tabs a.active {
+    font-weight: 600;
+    cursor:      pointer;
+}
+/* -tabs- */
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+input::-ms-clear {  display: none; width : 0; height: 0; } /* Убираем крестик с input */
+input::-ms-reveal {  display: none; width : 0; height: 0; }
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration { display: none; }
+
+.alert-JS {
+    font-family:   'Inter';
+    text-align:    center;
+    font-size:     70px;
+    height:        100px;
+    color:         #e43232;
+    margin:        60px 0px;
+}
+
+@media screen and (max-width: 1440px) {
+    .Header{
+        margin: 16px var(--paddingPage);
+        height: 60px;
+    }
+    .Header-center {font-size: 64px;}
+    .Header-left {font-size: 13px;}
+    .contents a  {font-size: 14px;}    
+    .contents h1 {
+        font-size:      17px;
+        margin-bottom:  10px;
+    }
+
+    .tabs a {
+        font-size: 13px;
+    }
+    .contents .dropdown-content.active {
+        height:     max-content;
+        min-height: 290px;
+        opacity:    1;
+    }
+    
+    .contents .dropdown-content .imcengs {
+        height: 150px;
+        width:  150px;
+    }
+    .left, .right, .center {margin: 40px 0px;}    
+    .Center-page h1{font-size: 20px;}
+}
+
+@media screen and (max-width: 500px) {
+    .Header{
+        margin:     0px var(--paddingPage) 20px var(--paddingPage);
+        height:     55px;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+        padding:    0px 30px; width: calc(100vw - 60px);
+        position:   fixed;
+        background: white;
+        z-index:    5;
+    }
+
+    .Header-right .cart {order: -1;}
+    .Header-left .mobile {display: flex !important;}
+    .Header-left div, .Header-right {gap: 25px !important;}
+    .Header-center {font-size: 30px;}
+
+    .tabs {display: flex;align-items: center;flex-direction: column;
+        border-bottom: 2px solid #CFCFCF;
+        position:   absolute;
+        background: white;
+        z-index:    3;
+        top:        -30em;
+        transition: all 0.6s ease-in-out;
+    }
+    
+    .tabs.active {top: 54px;}
+    .tabs a {
+        text-transform: unset;
+        font-size:   20px;
+        margin:      8px 0px;
+        font-weight: 300;
+    }
+    .tabs.dropdown .mobile {position: relative;margin: 40px auto 20px auto;width: 85%;
+        display:       grid !important;
+        grid-template: "a b c" / 1fr 82% 1fr;
+        justify-items: center;
+    }
+    .tabs.dropdown .mobile button {width: 20px;height: 20px;}
+    .tabs.dropdown h1 {font-size: 24px;font-weight: 700;}
+    .contents .dropdown-content.active {
+        height:     max-content;
+        min-height: 290px;
+        opacity:    1;
+    }
+    
+    .contents .dropdown-content .imcengs {
+        height: 150px;
+        width:  150px;
+    }
+    .left, .right, .center {margin: 40px 0px;}    
+    .Center-page h1{font-size: 20px;gap: 5px;}
+}

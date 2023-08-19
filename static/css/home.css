@@ -1,0 +1,77 @@
+.front-product .img-down {
+    width:  270px;
+    height: 270px;
+    object-fit: contain
+}
+
+.name {
+    letter-spacing: -0.055em;
+    font-family: 'Inter'; 
+    font-style:  normal;
+    font-size:   16px;
+    line-height: 19px;
+    text-align:  center;
+    color:       var(--grey4);
+}
+
+.brand {
+    font-family: 'Inter Light';
+    font-weight: 200;
+    font-size:   24px;
+}
+
+.brand img {
+    max-width: 80px;
+    height:    40px;
+    width:     100%;
+}
+
+.price { 
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size:   32px;
+}
+
+.collection { /* Весь фрейм */
+    display:       grid;
+    align-items:   center;
+    justify-items: center;
+    grid-template: 
+    "a a a" 1.5fr
+    "b c d" 1fr
+    "ab ab ab" 0.20fr;
+}
+
+.aboutbrand { /* Описание */
+    display:     grid;
+    justify-items:center;
+    align-items: center;
+
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 600;
+    font-size:   24px;
+    line-height: 29px;
+}
+
+.collection-up {  /* Верхний фрейм */
+    display:        grid;
+    justify-items:  center;
+    align-items:    center;
+    font-weight:    600;
+    font-size:      36px;
+    line-height:    44px;
+    height:         600px;
+}
+
+.front-product {  /* 3 фрейма снизу */
+    width:          fit-content;
+    display:        grid;
+    justify-items:  center;
+    align-content:  space-between;
+    grid-row-gap: 10px;
+    grid-template: 
+    "a" 1fr
+    "b" 2.5em
+    "c" 1.4em;
+}

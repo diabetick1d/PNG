@@ -1,0 +1,78 @@
+.footer {
+    display:        flex;
+    flex-direction: column;
+    font-family:    'Inter';
+    font-style:     normal;
+    margin: 100px var(--paddingPage) 0px var(--paddingPage);
+    border: solid #EEE;
+    border-width: 2px 0px 0px 0px;
+}
+
+.footer .title {
+    font-weight:    800;
+    font-size:      52px;
+    margin-bottom:  15px;
+}
+.footer .ftext {
+    color: var(--grey1);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+/* 
+.footer .img-soon {
+    width:          100px;
+    height:         200px;
+    margin-bottom:  20px;
+}
+.footer .mobile {
+    color:          var(--grey1);
+    font-weight:    400;
+    font-size:      18px;
+    line-height:    22px;
+    margin-bottom:  20px;
+}
+.footer .img-appstore {
+    width:          45px;
+    height:         45px;
+    margin-bottom:  40px;
+}
+.footer .support {
+    font-weight:    600;
+    font-size:      20px;
+    line-height:    24px;
+    margin-bottom:  90px;
+} */
+
+
+.footer h1, .footer h2, .footer h3 {
+    font-size:    14px;
+    font-weight:  500;
+}
+.footer h1 {margin:      5px 0px;}
+.footer h3 {font-weight: 200;}
+
+.footer .top-footer {
+    justify-content: space-between;
+    display:         flex;
+    margin-bottom:   30px;
+    padding:         20px 0px;
+}
+.footer .right-footer, .footer .left-footer {
+    display: grid;
+    align-content: space-around;
+}
+.footer .right-footer {text-align: end;}
+
+.footer .center-footer {
+    text-align: center;
+    width:      55%;
+}
+
+.bottom-footer {
+    border:          solid #EEE;
+    border-width:    2px 0px 0px 0px;
+    justify-content: space-between;
+    padding: 15px 0px;
+    display: flex;
+}

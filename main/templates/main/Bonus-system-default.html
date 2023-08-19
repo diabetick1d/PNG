@@ -1,0 +1,104 @@
+<div class="info-number">
+    <div class="fake-nav"></div>
+    <div class="user-info">
+        <div class="selected-img">
+            <img src="/media/{{ bonsys.0.products.0.img}}" alt="">
+        </div>
+        
+        <h1>0 друзей приглашено</h1>
+
+        
+        <div><div class="indicator-selected">
+            <div class="column">
+                <div class="indicator-box" id="indicator-1"></div>
+                <div class="indicator-box" id="indicator-2"></div>
+                <div class="indicator-box" id="indicator-3"></div>
+                <div class="indicator-box" id="indicator-4"></div>
+                <div class="indicator-box" id="indicator-5"></div>
+                <div class="indicator-box" id="indicator-6"></div>
+                <div class="indicator-box" id="indicator-7"></div>
+                <div class="indicator-box" id="indicator-8"></div>
+                <div class="indicator-box" id="indicator-9"></div>
+                <div class="indicator-box" id="indicator-10"></div>
+            </div>
+            
+            <div class="center-number"><span1>0</span1>/<span>{{ bonsys.0.count }}</span></div>
+            
+            <div class="column">
+                <div class="indicator-box" id="indicator-11"></div>
+                <div class="indicator-box" id="indicator-12"></div>
+                <div class="indicator-box" id="indicator-13"></div>
+                <div class="indicator-box" id="indicator-14"></div>
+                <div class="indicator-box" id="indicator-15"></div>
+                <div class="indicator-box" id="indicator-16"></div>
+                <div class="indicator-box" id="indicator-17"></div>
+                <div class="indicator-box" id="indicator-18"></div>
+                <div class="indicator-box" id="indicator-19"></div>
+                <div class="indicator-box" id="indicator-20"></div>
+            </div>
+        </div></div>
+
+        <button type="submit" disabled>Обменять</button>
+        
+    </div>
+    <ul class="tier-list">
+        {% for bonus in bonsys %}
+        <li class="tier-box">
+            <div>
+                <img src="/media/{{ bonus.products.0.img }}" alt="">
+            </div>
+            <h1>{{ bonus.count }}</h1>
+        </li>{% endfor %}
+    </ul>
+</div>
+
+<div class="bottom-box">
+    <div class="mobile Copy-link">Ссылка для приглашений</div>
+    <div class="copy-link">
+        <div class="not-mobile">
+            <h2 style="color: var(--white1);">COPY</h2>
+        </div>
+
+        <div class="not-mobile">
+            <h2 style="color: var(--white1);">-</h2>
+        </div>
+
+        <div class="copy-box">
+            <img src="/static/img/profile/Copy.svg" alt="">
+        </div>
+
+        <div class="not-mobile">
+            <h2>-</h2>
+        </div>
+
+        <div class="not-mobile">
+            <h2>Ссылка для <br> приглашений</h2>
+        </div>
+    </div>
+
+    <div class="choose-product">Выбрать другой товар</div>
+
+    <div class="slider-choose" data-count="{{ count }}">
+        <link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+        <script defer src="/static/slick/slick.min.js"></script>
+        <button class="slick-arrow prev"><img src="/static/img/profile/datsprevpromo.svg" alt=""></button>
+        {% for bonus in bonsys %}
+        <div id="bonus-{{ bonus.count }}">
+            {% for product in bonus.products %}<div>
+                <div class="slider-img" id="product-{{ product.id }}"><img src="/media/{{ product.img }}" alt=""></div>
+                <h1>{{ product.brand }} {{ product.name }}</h1>
+            </div>{% endfor %}
+        </div>  
+        {% endfor %}
+        <button class="slick-arrow next"><img src="/static/img/profile/datsnextpromo.svg" alt=""></button>
+    </div>
+
+    <div class="choose-tier-dots">
+        <div class="mpromo cant-go"><img src="/static/img/profile/-promo.svg" alt=""></div>
+        {% for bonus in bonsys %}
+            <h4 class="number-bonus" id="number-bonus-{{ bonus.count }}">{{ bonus.count }}</h4>
+        {% endfor %}
+        <div class="ppromo"><img src="/static/img/profile/+promo.svg" alt=""></div>
+    </div>
+    <h5>Количество приглашений</h5> 
+</div>

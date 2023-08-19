@@ -1,0 +1,46 @@
+.top {
+    font-family: 'Wix';
+    font-style:  normal;
+    font-weight: 900;
+    font-size:   32px;
+    line-height: 39px;
+    text-align:  center;
+}
+
+.all {
+    display:         flex;
+    gap:             20px;
+    position:        relative;
+    padding-top:     65px;
+    min-height:      400px;
+    justify-content: center;
+}
+
+.else {
+    font-weight: 500;
+    font-size:   20px;
+    line-height: 24px;
+    color:       var(--grey4);
+    text-align:  center;
+}
+
+.social-app{
+    display: grid;
+    justify-items: center;
+    margin: 30px;
+}
+.login-social-app{
+    display: grid;
+    justify-items: center;
+    padding: 30px 100px 65px 100px;
+    border-radius: 13px;
+    border: 3px solid #000;
+}
+
+.login-social-app h1{
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Inter';
+    font-weight: 800;
+    margin-bottom: 20px;
+}
