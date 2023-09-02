@@ -32,10 +32,10 @@
             <div class="not-mobile"><a class="navigation" id="button_leave" href="{% url 'logout' %}">Выйти</a></div>
         </div>
         <div class="menu">
-            <form class="blockmenu active" id="personal" action="" method="POST">
+            <form class="blockmenu " id="personal" action="" method="POST">
                 {% csrf_token %}
                 <h6>Персональные данные</h6>
-                <div class="input-box">
+                <div class="input-box top-margin">
                     <input req autocomplete="off" name="last_name" value="{{form.last_name.value}}" id="id_last_name" placeholder="Фамилия" maxlength="40">
                     <img src="{% static 'img/profile/error.svg'%}" class="error-image">
                 </div>
@@ -47,14 +47,14 @@
                     <input req autocomplete="off" name="surname" value="{{form.surname.value}}" id="id_surname" placeholder="Отчество" maxlength="40">
                     <img src="{% static 'img/profile/error.svg'%}" class="error-image">
                 </div>
-                <h6>Данные для доставки</h6>
-                <label class="type_deliver" checktype="{% if form.base_type_deliver.value == 1 %}1{% endif %}"for="id_base_type_deliver">
+                <h6 class="top-margin">Данные для доставки</h6>
+                <label class="type_deliver top-margin" checktype="{% if form.base_type_deliver.value == 1 %}1{% endif %}"for="id_base_type_deliver">
                     <div class="typebox"></div>
                     <h5 id="SDEK_TYPE">СДЭК</h5>
                     <h5 id="RUSSIA_TYPE">Почта России</h5>
                 </label>
                 {{ form.base_type_deliver }}
-                <div class="input-box">
+                <div class="input-box top-margin">
                     <input req autocomplete="off" name="base_adress" value="{{form.base_adress.value}}" id="id_base_adress" placeholder="Город, область, (регион)">
                     <img src="{% static 'img/profile/error.svg'%}" class="error-image">
                 </div>
@@ -78,7 +78,7 @@
             <button class="submit-personal">Сохранить</button>
             <div class="mobile"><a class="personal-leave" href="{% url 'logout' %}">Выйти</a></div>
             </form>
-            <div class="blockmenu" id="bonus" data-bonus="{{ userbonus }}" data-ref="{{ domen }}/accounts/registration/{{ user.bonus_reference }}">
+            <div class="blockmenu " id="bonus" data-bonus="{{ userbonus }}" data-ref="{{ domen }}/accounts/registration/{{ user.bonus_reference }}">
                 {% include  'main/Bonus-system.html' %}
             </div>
             <div class="blockmenu " id="buylist">
@@ -143,16 +143,21 @@
                             <div class="ind-box">
                                 <div class="indicators-deliver">
                                     <ul id="In_road">
-                                        <img src="" alt="">
+                                        <img src="{% static 'img\profile\In_road.svg'%}" alt="">
                                         <h2>В пути</h2>
                                     </ul>
                                     <ul id="In_stock">
-                                        <img src="" alt="">
+                                        <img src="{% static 'img\profile\In_stock.svg'%}" alt="">
                                         <h2>На складе</h2>
                                     </ul>
                                     <ul id="In_deliver">
-                                        <img src="" alt="">
-                                        <h2>Передан в доставку</h2>
+                                        {% if el.type_delivery == "Почта России" %}
+                                            <img src="{% static 'img\profile\In_deliver_RUSS.svg'%}" alt="">
+                                            <h2>Передан в ПР</h2>
+                                        {% else %}
+                                            <img src="{% static 'img\profile\In_deliver_SDEK.svg'%}" alt="">
+                                            <h2>Передан в СДЭК</h2>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -182,7 +187,7 @@
                 <div class="else">У вас пока нет ни одной покупки...</div>
                 {% endif %}
             </div>
-            <div class="blockmenu " id="returns">
+            <div class="blockmenu active" id="returns">
                 {% if returns %}
                 {% for el in returns %}
                 <div class="blockbuy" id="return-{{ el.id }}">
@@ -195,18 +200,18 @@
 
                         <div class="semi-mobile">
                             <div class="order-date">
-                                <h1>Дата заказа</h1>
+                                <h1>Дата возврата</h1>
                                 <h2>{{ el.data_order|date:"j.n.Y" }}</h2>
                             </div>
                         </div>
 
                         <div class="order-number">
-                            <h1>Номер заказа</h1>
+                            <h1>Номер возврата</h1>
                             <h2>{{ el.number_order }}</h2>
                         </div>
                         <div class="semi-mobile">
                             <div class="order-status">
-                                <h1>Статус заказа</h1>
+                                <h1>Статус возврата </h1>
                                 <h2>{{ el.status }}</h2>
                             </div>
                         </div>
@@ -253,8 +258,9 @@
                                     <input type="text" id="name" placeholder="Имя на карте"      value="{% if el.form.name.value != None %} {{ el.form.name.value }} {% endif %}">
                                     <img src="{% static 'img/profile/error.svg'%}" class="error-image">
                                 </div>
+                                <button type="submit" id="submit-return" data-uid="{{ el.id }}">Сохранить</button>
                                 <div class="box-submit">
-                                    <button type="submit"><img src="{% static 'img/profile/return-save.svg'%}" alt=""></button>
+                                    <div class="success"><img src="{% static 'img/profile/return-save.svg'%}" alt=""></div>
                                 </div>
                             </form>
                         </div>
@@ -269,6 +275,21 @@
             {% else %}
             <div class="else">Пока на вашем аккаунте нет запросов на возврат...</div>
             {% endif %} 
+        </div>
+    </div>
+    <div class="container-bonus-size">
+        <div class="bonus-size">
+            <div class="not-mobile"><button onclick="closehow()"><img src="/static/img/product/close.svg" alt=""></button></div>
+            <h4>Поздравляем</h4>
+            <div class="bonus-sizetwo">
+                <div class="text">
+                    Вы получили Nike Dunk Low совершенно бесплатно!
+                    <div class="img-bonus-size"><img src="" alt=""></div>
+                </div>
+                <div class="img-how">
+                    <img src="/static/img/support/img-size.png" alt="">
+                </div>
+            </div>
         </div>
     </div>
 </div>

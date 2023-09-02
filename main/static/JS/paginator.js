@@ -1,25 +1,26 @@
 const paginator    = $(".Paginator-place");
 const allPaginator = $(".Paginator");
-currentPage     = 1
 
-
-let timer_scroll
-$(document).ready(function() {
-  window.addEventListener("scroll", function() {
-    if (window.innerHeight + window.pageYOffset > document.querySelector("#product-list").scrollHeight - 300) {
-      if (!timer_scroll){
-      timer_scroll = setTimeout(function(){
-        if (currentPage < totalPages){
-          currentPage++;
-          changePage(currentPage)
-          generateVisibleButtons();
-          timer_scroll = false
-          }
-        }, 100)
+if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) {
+  let timer_scroll
+  console.log("SADAS");
+  $(document).ready(function() {
+    window.addEventListener("scroll", function() {
+      if (window.innerHeight + window.pageYOffset > document.querySelector("#product-list").scrollHeight - 300) {
+        if (!timer_scroll){
+        timer_scroll = setTimeout(function(){
+          if (currentPage < totalPages){
+            currentPage++;
+            changePage(currentPage)
+            generateVisibleButtons();
+            timer_scroll = false
+            }
+          }, 100)
+        }
       }
-    }
+    })
   })
-})
+}
 function UpdatePaginator(pages){
   totalPages  = parseInt(pages)
   currentPage = 1
@@ -51,6 +52,7 @@ $("#back").click(() =>{
 $("#next").click(() =>{
   if (currentPage < totalPages){
     currentPage++;
+    scrollToTop()
     changePage(currentPage)
     generateVisibleButtons();
   }

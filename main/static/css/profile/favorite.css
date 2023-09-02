@@ -19,19 +19,7 @@
     cursor:   pointer;
 }
 
-.else {
-    margin: 20px 0px;
-    color: var(--grey1);
-    text-align: center;
-    font-size: 18px;
-    font-family: 'Inter';
-    font-weight: 500;
-}
-
 @media screen and (max-width: 1440px) {
-    .else {
-        font-size: 16px;
-    }
     #deletefavourite {
         width:    15px;
         height:   15px;

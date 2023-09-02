@@ -1,3 +1,5 @@
+.body {font-family: 'Inter';}
+
 .support-img {
     width:  180px;
     height: 180px;
@@ -5,14 +7,12 @@
 }
 
 .questions-al {
-    font-family: 'Inter';
     font-style:  normal;
     text-align:  center;
     display:     grid;
 }
 
 .questions-al h3{
-    font-family: 'Inter';
     font-style:  normal;
     font-weight: 500;
     font-size:   24px;
@@ -27,32 +27,32 @@
     justify-items:   center;
     justify-content: space-between;
 
-    font-family: 'Inter';
-    font-style:  normal;
-    font-weight: 400;
-    font-size:   40px;
 
-    --imgquestions: 250px;
+    --imgquestions: 160px;
     grid-template-columns: repeat(5, var(--imgquestions));
-    grid-template-rows: calc(var(--imgquestions) + 50);
-    margin-bottom: 120px;
 }
 
 .img-question {width: var(--imgquestions);height: var(--imgquestions);}
+.question:not(:first-child)  .img-question {
+    width:   calc(var(--imgquestions) - 80px);
+    height:  calc(var(--imgquestions) - 80px);
+    padding: 40px;
+}
 
 .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
 .question p {
     font-weight: 400;
-    font-size:   20px;
+    font-size:   18px;
     text-align:  center;
     color:       var(--black4);
 }
 
 .questions h2 {
-    padding: 40px 0px;
-    font-weight: 500;
-    font-size:   24px;
-    text-align: center;
+    padding:     110px 0px;
+    font-weight: 900;
+    font-size:   26px;
+    text-align:  center;
+    letter-spacing: 3.9px;
 }
 .questions h6 {
     color: #ffffff00;
@@ -63,57 +63,179 @@
     position:   relative;
 }
 
-.question-a input {position: absolute;height:0;top: -50px;opacity: 0;}
+.question-a input {position: absolute;height:0;opacity: 0;}
 .question-a label{ /* заголовок + стрелка */
-    width:         max-content;
     display:       flex;
     margin-bottom: 23px;
+    width:         fit-content;
     align-items:   center;
+    position:      relative; 
+    margin:       30px auto 10px auto;
 }
 
 .question-a p {
     font-weight: 600;
     font-size:   24px;
-    line-height: 29px;
     cursor:      pointer;
     transition:  font-weight 0.4s ease-in-out;
     color: var(--black3);
 }
-.question-a label.active p {
-    font-weight: 700;
-    font-size:   24px;
-    line-height: 29px;
-}
 
 .question-a .text-question {
-    font-weight: 400;
-    font-size:   16px;
-    line-height: 1.3;
+    font-weight:    400;
+    font-size:      16px;
+    line-height:    150%;
+    letter-spacing: 0.32px;
+    color:          var(--grey2);
+
+    width:       45%;
+    margin:      0px auto;
     overflow:    hidden;
     transition:  all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out, margin 0.1s ease-in-out 0.2s;
     max-height: 0px;
 }
-.question-a .text-question.active {margin: 10px 0px 20px 0px;}
-.question-a.safety      .text-question.active {max-height: 250px}
-.question-a.payment     .text-question.active {max-height: 350px}
-.question-a.deliver     .text-question.active {max-height: 350px}
-.question-a.SDEK        .text-question.active {max-height: 260px}
-.question-a.wheremy     .text-question.active {max-height: 300px}
-.question-a.wherefrom   .text-question.active {max-height: 140px}
-.question-a.price       .text-question.active {max-height: 190px}
-.question-a.tex-support .text-question.active {max-height: 130px}
-.question-a.size        .text-question.active {max-height: 125px}
-.question-a.about       .text-question.active {max-height: 40px}
+.question-a .text-question.active {margin: 30px auto 50px auto;}
+.question-a.wheremy     .text-question.active {max-height: 100px}
+.question-a.wherefrom   .text-question.active {max-height: 150px}
+.question-a.original    .text-question.active {max-height: 150px}
+
+.question-a.order       .text-question.active {max-height: 440px}
+.question-a.size        .text-question.active {max-height: 210px}
+.question-a.bonus       .text-question.active {max-height: 350px}
+
+.question-a.deliver     .text-question.active {max-height: 150px}
+.question-a.about       .text-question.active {max-height: 170px}
 
 .question-a .arroy-question {
     display:    grid;
     width:      15px;
     height:     10px;
-    padding:    0px 0px 0px 20px;
-    transition: all 0.4s ease;
-    opacity: 0;
-    transition: opacity 0.1s linear;
+    position:   absolute;
+    right:      -30px;
+    
+    transition: all 0.2s ease-in-out;
+    opacity:    0;
 }
 .question-a label:hover .arroy-question {opacity: 1;}
-.question-a label.active .arroy-question {transform: rotate(180deg);padding: 0px 20px 0px 0px;}
+.question-a label.active .arroy-question {transform: rotateZ(180deg);}
+.question-a label {opacity: 0.5;transition: all 0.1s ease-in-out;}
+.question-a label.active {opacity: 1;}
+
+
+@media screen and (max-width: 1440px) {    
+    .questions-al h3{
+        font-size:   20px;
+        font-weight: 900;
+        margin-bottom: 50px;
+    }
+    
+    .listquestions {
+        --imgquestions: 140px;
+        grid-template-columns: repeat(5, var(--imgquestions));
+        row-gap:    30px;
+        column-gap: 50px;
+        margin:     0px auto;
+    }
+    
+    .img-question {width: var(--imgquestions);height: var(--imgquestions);}
+    .question:not(:first-child) .img-question {width: calc(var(--imgquestions) - 75px);height: calc(var(--imgquestions) - 70px);padding: 35px;}
+    
+    .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
+    .question p {font-weight: 400;font-size: 16px;} /* текст в вопросах сверху */
+    
+    .questions h2 {
+        padding:     50px 0px 20px 0px;
+        font-size:   20px;
+    }
+    .question-a label{ /* заголовок + стрелка */
+        margin:      30px auto 10px auto;
+    }
+    
+    .question-a p {
+        font-weight: 700;
+        font-size:   16px;
+        cursor:      pointer;
+        color: var(--black3);
+    }
+    
+    .question-a .text-question {
+        font-size:  14px;
+        overflow:   hidden;
+        max-height: 0px;
+    }
+
+    .question-a label .arroy-question {opacity: 0.6;}
+    .question-a.wheremy     .text-question.active {max-height: 170px}
+    .question-a.wherefrom   .text-question.active {max-height: 240px}
+    .question-a.original    .text-question.active {max-height: 190px}
+
+    .question-a.order       .text-question.active {max-height: 550px}
+    .question-a.size        .text-question.active {max-height: 260px}
+    .question-a.bonus       .text-question.active {max-height: 420px}
+
+    .question-a.deliver     .text-question.active {max-height: 260px}
+    .question-a.about       .text-question.active {max-height: 250px}
+}
+
+@media screen and (max-width: 500px) {    
+    .questions-al {
+        width: 85%;
+        margin: auto;
+    }
+    .questions-al h3{
+        font-size:   20px;
+        font-weight: 900;
+        margin-bottom: 50px;
+    }
+    
+    .listquestions {
+        --imgquestions:     90px;
+        grid-template-columns: repeat(2, var(--imgquestions));
+        row-gap:    30px;
+        column-gap: 90px;
+        margin:     0px auto;
+    }
+    
+    .img-question {width: var(--imgquestions);height: var(--imgquestions);}
+    .question:not(:first-child) .img-question {width: calc(var(--imgquestions) - 40px);height: calc(var(--imgquestions) - 40px);padding: 20px;}
+    
+    .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
+    .question p {font-weight: 500;font-size:   14px;} /* текст в вопросах сверху */
+    
+    .questions h2 {
+        padding:     50px 0px 20px 0px;
+        font-size:   18px;
+        font-weight: 500;
+    }
+    .question-a label{ /* заголовок + стрелка */
+        margin:      30px auto 10px auto;
+    }
+    
+    .question-a p {
+        font-weight: 700;
+        font-size:   16px;
+        cursor:      pointer;
+        color: var(--black3);
+    }
+    
+    .question-a .text-question {
+        font-size:      14px;
+        overflow:       hidden;
+        max-height:     0px;
+        line-height:    120%;
+        letter-spacing: 0.328px
+    }
+
+    .question-a label .arroy-question {opacity: 0.6;}
+    .question-a.wheremy     .text-question.active {max-height: 170px}
+    .question-a.wherefrom   .text-question.active {max-height: 240px}
+    .question-a.original    .text-question.active {max-height: 190px}
+
+    .question-a.order       .text-question.active {max-height: 550px}
+    .question-a.size        .text-question.active {max-height: 260px}
+    .question-a.bonus       .text-question.active {max-height: 420px}
+
+    .question-a.deliver     .text-question.active {max-height: 260px}
+    .question-a.about       .text-question.active {max-height: 250px}
+}

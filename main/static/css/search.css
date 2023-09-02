@@ -36,7 +36,7 @@
 .form-search {
     background:     #FFF;
     height:         fit-content;
-    width:          100%;
+    width:          65%;
     height:         300px;
 }
 .form-search input, .form-search input::placeholder {
@@ -44,27 +44,33 @@
     font-family: 'Inter';
     font-size:   96px;
     font-weight: 400;
+    letter-spacing: 0.96px;
     
-    height:      100%;
+    margin-top:  var(--MarginSearch);
     width:       100%;
     border:      none;
     padding:     0px;
 }
 
+.search-result ul {
+    display:       grid;
+    grid-template: "a b";
+}
 .search-result {
     margin: var(--MarginSearch);
-    width:  30%;
+    flex-grow: 1;
     height: 100%;
 }
 
 .list-group-item {
     padding-inline-start: 0;
-    margin: 20px;
+    margin-bottom: 25px;
 }
 .list-group-item a {
     color:       var(--black5) !important;
-    font-size:   20px;
-    font-weight: 600;
+    font-size:   18px;
+    font-weight: 400;
+    letter-spacing: 0.18px;
 }
 
 .list-group-item .HighLight {
@@ -90,12 +96,26 @@
         justify-content: flex-start;
         align-items: center;
     }
-    .form-search {height: unset;width: calc(100% - 40px);margin: 70px 20px 85px 20px;display: flex;align-items: center;}
+    .form-search {height: unset;
+        width:           calc(100% - 40px);
+        margin:          70px 20px 85px 20px;
+        display:         flex;
+        align-items:     center;
+        justify-content: space-between;
+    }
     .search-result {height: unset;width: unset;margin: 0px;}
     .list-group-item {margin: 0;}
     .list-group {display: grid;gap: 40px;}
 
-    .form-search input, .form-search input::placeholder {font-size: 36px;height: unset;width: 100%;text-align: center;}
+    .form-search input::placeholder{text-align: center;padding-left: 20px}
+    .form-search input, .form-search input::placeholder {
+        font-size:  30px;
+        height:     unset;
+        width:      85%;
+        text-align: center;
+        margin-top: unset;
+    }
+
     .list-group-item a {font-size: 16px;text-align: center;}
     .Header-search.active {
         min-height:       unset;
@@ -110,5 +130,5 @@
     }
 }
 @media screen and (max-width: 350px) {
-    .form-search input, .form-search input::placeholder {font-size: 30px;height: unset;width: 100%;text-align: center;}
+    .form-search input, .form-search input::placeholder {font-size: 30px;height: unset;width: 80%;text-align: center;}
 }

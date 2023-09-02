@@ -50,7 +50,7 @@ input[type="number"]::-webkit-outer-spin-button {
     --one_line: 50px;
 }
 #sorting-form .box-sort {
-    transition: height 0.4s ease-in-out, border-color 0.2s ease-in-out, background-color 0.4s ease-in-out;
+    transition:    height 0.4s ease-in-out, border-color 0.2s ease-in-out, background-color 0.4s ease-in-out;
     width:         100%;
     height:        var(--one_line);
     position:      absolute;
@@ -102,50 +102,61 @@ input[type="number"]::-webkit-outer-spin-button {
     display:     grid;
     transition:  left 0.6s ease-in-out;
 
+    height:      100vh;
+
     font-family: "Inter";
     z-index:     4;
-    max-height:  100vh; /* 100vh - padding(nav)*2 */
-    --gap:       25px;  /* гап много где */
+    --gap:       20px;  /* гап много где */
     --gapB:      40px;  /* гап между всем  */
 }
 #filter-form.active {left: 0;}
 #filter-form .top {
     display:         flex;
-    margin-bottom:   50px;
     align-items:     baseline;
     justify-content: space-between;
+    
+    padding:         40px var(--pform);
 }
 #filter-form .close {width:  17px; height: 17px;cursor: pointer;}
 
+#filter-form .bottom {
+    padding:    40px var(--pform) 0px var(--pform);
+    margin-bottom: 45px;
+}
 
 #filter-form nav {
-    --pform: 50px;
-    padding:        var(--pform) 3px var(--pform) var(--pform);
-    height:         calc(100vh - (var(--pform) * 2))/* 100vh - padding(nav)*2 */;
+    --pform: 40px;
+    height:         100%/* 100vh - padding(nav)*2 */;
     position:       relative;
     display:        flex;
     flex-direction: column;
 }
-#filter-form .top, #filter-form .option-list li{padding-right: calc(var(--pform) - 3px);} 
 
-#filter-form h1 {font-size: 28px; font-weight: 700;display: flex; align-items: baseline; gap: 10px;}
+#filter-form h1 {font-size: 28px; font-weight: 700;display: flex; align-items: baseline; gap: 10px;letter-spacing: 1.12px;}
 #filter-form p {color: var(--grey2);font-size: 13px;font-weight: 400; cursor: pointer;}
 #filter-form h2 {font-size: 18px; font-weight: 500;display: flex; gap: 5px;}
-#filter-form label {position: relative;display: flex; align-items: center; cursor: pointer;transition: margin-bottom 0.4s ease-in-out;}
-#filter-form h3 {font-size: 16px; font-weight: 300;display: flex; align-items: baseline; gap: 10px;}
+#filter-form label {position: relative;display: flex; align-items: center; cursor: pointer;transition: margin-bottom 0.4s ease-in-out;letter-spacing: 1.08px;}
+#filter-form h3 {font-size: 16px; font-weight: 400;display: flex; align-items: baseline; gap: 10px;color: var(--black1);}
 #filter-form h4 {font-size: 18px; font-weight: 600;}
-#filter-form h5 {font-size: 16px; font-weight: 200;}
+#filter-form h5 {font-size: 16px; font-weight: 400;margin-bottom: 10px; color: var(--grey5);}
 #filter-form .number {display: flex; opacity: 0;width: 0;}
 #filter-form .number.active {opacity: 1;width: auto;}
 
-li .star {width: 15px; height: 15px;padding: 2px; border: 3px solid var(--white2);display: grid;}
-li .star img, li .star svg {opacity: 0; transition: opacity 0.2s ease-in-out;width: 100%;height: 100%;}
+.star {width: 17px; height: 17px;padding: 4px; border: 3px solid var(--white2);display: grid;}
+.star img, .star svg {opacity: 0; transition: opacity 0.2s ease-in-out;width: 100%;height: 100%;}
 li.active .star img, li.active .star svg {opacity: 1;}
 
+#filter-form .option-list .mli.first {margin-top: 40px;}
+#filter-form .option-list .mli.last  {margin-bottom: 40px;}
+#filter-form .option-list .mli {margin: 0px var(--pform);}
 #filter-form .option-list {
-    display:    grid;
-    max-height: 80%;
-    overflow-y: auto;
+    display:        flex;
+    flex-shrink:    1;
+    flex-basis:     0;
+    flex-grow:      1;
+    overflow-y:     auto;
+    flex-direction: column;
+    gap:            20px; 
 }
 #filter-form .option-list input:not(:checked) ~ .box-last {max-height: 0px;}
 #filter-form .option-list input:checked ~ .box-last {margin-bottom: 30px;}
@@ -153,12 +164,11 @@ li.active .star img, li.active .star svg {opacity: 1;}
 
 .box-last {
     transition: max-height 0.4s ease-in-out, margin-bottom 0.4s ease-in-out;
-    --mheight:   310px;
-    max-height: var(--mheight);
-    overflow:   hidden;
+    --mheight:     310px;
+    max-height:    var(--mheight);
+    overflow:      hidden;
     margin-bottom: 20px;
 }
-#filter-form .option-list label {margin-bottom: 20px;}
 
 .gin ul h5{
     margin-top: unset;
@@ -179,8 +189,8 @@ li.active .star img, li.active .star svg {opacity: 1;}
 
 .Brand #bjin {
     display:    grid;
-    gap:        var(--gap);
-    max-height: calc(var(--mheight) - 65px - 5px);
+    gap:        40px;
+    max-height: calc(var(--mheight) - 90px);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -190,7 +200,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
     display:     flex;
     width:       100%;
     align-items: center;
-    gap:         10px;
+    gap:         20px;
 }
 
 #itlast {
@@ -204,14 +214,14 @@ li.active .star img, li.active .star svg {opacity: 1;}
 }
 
 #filter-form .arrow, #filter-form .arrow_in {
-    width: 12px; height: 8px;
+    width: 15px; height: 10px;
     position:      absolute;
     display:       grid;
     justify-items: center;
     align-items:   center;
     transition:    all 0.2s ease-in-out;
 }
-#filter-form .arrow {right: 0px;}
+#filter-form .arrow    {right: 0px;}
 #filter-form .arrow_in {right: 50px;}
 
 #filter-form .option-list input:checked + label .arrow {
@@ -222,6 +232,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
 .search_brand {
     width:       99%;
     border:      1px solid #6D6D6D;
+    margin-bottom: 20px;
     height:      40px;
     display:     flex;
     align-items: center;
@@ -245,36 +256,48 @@ li.active .star img, li.active .star svg {opacity: 1;}
 
 .reset_button {margin-top: 11px !important;background: var(--black4) !important;color: var(--white5) !important;}
 #filter-form .submit.active, .reset_button {cursor: pointer;}
+
+#filter-form .submit-box {height: fit-content;padding-top: 20px;}
 #filter-form .submit, .reset_button {
     justify-items: center;
     align-items:   center;
     display:       grid;
-    width:       380px;
     height:      57px;
     background:  var(--white3);
     
     color:       var(--black2);
     font-size:   20px;
     font-weight: 600;
-    margin-top:  auto;
 }
   /* range slider for price */
 .inputs {
     justify-content: space-between;
-    display:         flex;
-    height:          30px;
+    display:         grid;
+    grid-template:
+    "a b" 
+    "c d" / 1fr 1fr;
+    justify-items:   center;
+    align-content:   space-between;
+    row-gap: 10px;column-gap: 25px;   
 }
 .inputs input {
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
-    width: 45%;height: 100%;
+    width: 95%;height: 32px;
     border:             2px solid var(--white3);
+    border-radius:      0px;
     text-align:         center;
+}
+#filter-form .mli.Price .attr {gap: 40px;}
+.inputs h6 {
+    color:       var(--black6);
+    font-size:   16px;
+    font-weight: 700;
 }
 
 .inputs input, .inputs input::placeholder {
-    color:          #888;
+    color:          var(--grey3);
     font-family:    'Inter';
     font-size:      13px;
     font-weight:    500;
@@ -311,14 +334,13 @@ li.active .star img, li.active .star svg {opacity: 1;}
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
-    height:         28px;
-    width:          28px;
-    border-radius:  28px;
+    height:         20px;
+    width:          20px;
+    border-radius:  20px;
     position:       relative;
     margin:         5px 0;
     cursor:         pointer;
     pointer-events: all;
-    box-shadow:     0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
     z-index:        3;
     background-color: var(--black3);
 }
@@ -412,59 +434,73 @@ li.active .star img, li.active .star svg {opacity: 1;}
 .Paginator-box          {width:  80px;height: 100%;cursor: pointer;background: var(--white3);}
 .Paginator-box.active   {background: var(--grey2) !important;}
 .NextBack               {height: 80%;margin: 0px 20px;align-self: center; cursor: pointer;display: flex;}
+
+
 @media screen and (max-width: 1440px) {
-    .Center-page p {font-size: 12px;}
+    .product-list { 
+    grid-row-gap: 110px;
+    grid-column-gap: 100px;
+    margin: 80px 0px 100px 0px;
+}
+    .Center-page p      {font-size: 12px;}
     .button-switch span {font-size: 16px;}
     
-    #Filter-button img  {right:-20px;}
+    #Filter-button img    {right:-20px;}
     #Sorting-button .img2 {left: -20px;width: 10px; height: 7px;}
-    #sorting-form ul li {font-size: 14px;}
+    #sorting-form ul li   {font-size: 14px;}
     .ddfcs {grid-template-columns: minmax(150px,200px) 1fr minmax(150px,200px);}
     #sorting-form{--one_line: 40px; }
 
     #filter-form {
         left:        -350px;
         width:       310px;
-        max-height:  100vh; /* 100vh - padding(nav)*2 */
         --gap:       20px;  /* гап много где */
         --gapB:      30px;  /* гап между всем  */
     }
 
+    #filter-form .option-list .mli.first {margin-top: 15px;}
     #filter-form .close {width: 13px; height: 13px;}
     
-    #filter-form nav {--pform: 40px}
+    #filter-form nav {--pform: 30px}
     
-    #filter-form h1    {font-size: 22px; gap: 10px;}
-    #filter-form p     {font-size: 11px;}
-    #filter-form h2    {font-size: 16px; gap: 5px;}
-    #filter-form h3    {font-size: 14px; gap: 10px;}
-    #filter-form h4    {font-size: 15px;}
-    #filter-form h5    {font-size: 14px;}
+    #filter-form h1    {font-size: 22px; gap: 10px;letter-spacing: 0.88px;}
+    #filter-form p     {font-size: 13px;letter-spacing: 0.11px;}
+    #filter-form h2    {font-size: 16px; gap: 5px;letter-spacing: 0.96px;}
+    #filter-form h3    {font-size: 14px; gap: 12px;letter-spacing: 0.56px;}
+    #filter-form h4    {font-size: 15px;margin-bottom: 5px;}
+    #filter-form h5    {font-size: 16px;letter-spacing: 0.8px;}
     li .star {width: 15px; height: 15px;padding: 2px; border: 2px solid var(--white2);}
+    .inputs h6 {font-size: 14px;}
 
-    
+    .inputs input {width: 90%;height: 29px;}
+    #filter-form .mli.Price .attr {gap: 30px;}
+
+    .range_slider input[type="range"]::-webkit-slider-thumb {
+        height:         18px;
+        width:          18px;
+        border-radius:  18px;
+        margin:         5px 0;
+    }
+
     #filter-form .attr{margin: 0px 4px 0px 0px;}
 
     #filter-form .option-list input:not(:checked) ~ .box-last {max-height: 0px;}
-    #filter-form .option-list input:checked ~ .box-last {margin-bottom: 30px;}
-    #filter-form .option-list input:checked ~ label     {margin-bottom: 30px;}
+    #filter-form .option-list input:checked ~ .box-last {margin-bottom: 25px;}
+    #filter-form .option-list input:checked ~ label     {margin-bottom: 25px;}
 
     #filter-form .submit, .reset_button {
-        width:       230px;
         height:      40px;
         font-size:   14px;
     }
-    #filter-form .arrow, #filter-form .arrow_in {width: 10px; height: 6px;}
+    #filter-form .arrow, #filter-form .arrow_in {width: 12px; height: 7px;}
 
-    .search_brand {height: 30px;}
-    .search_brand input {padding-left: 11px;}
-    .search_brand input, .search_brand input::placeholder {font-size: 12px;}
+    .search_brand {height: 30px;margin-top: 10px;}
+    .search_brand input, .search_brand input::placeholder {padding-left: 18px;font-size: 13px;letter-spacing: 0.65px;}
     .search_brand span {
-        right:    11px;
-        width:    8px;
-        height:   8px;
+        right:    20px;
+        width:    10px;
+        height:   11px;
     }
-    .Brand #bjin {max-height: calc(var(--mheight) - 55px - 5px);}
 
 
     .not-found {margin: 110px 0px;}
@@ -486,76 +522,88 @@ li.active .star img, li.active .star svg {opacity: 1;}
 @media screen and (max-width: 500px) {
     .product-list {
         grid-template-columns: repeat(2, 1fr);
-        grid-row-gap: 30px;
+        grid-row-gap:    30px;
         grid-column-gap: unset;
-        margin: 50px 0px 60px 0px;
+        margin:          50px 0px 60px 0px;
     }
     #filter-form, #sorting-form ul {box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);}
-    .Center-page p {font-size: 12px;font-weight: 400;}
+    .Center-page p                 {font-size: 12px;font-weight: 400;}
     
-    #Filter-button img  {right:-20px;}
+    #Filter-button img    {right:-20px;}
     #Sorting-button .img2 {left: -20px;width: 40px; height: 40px;}
-    #sorting-form ul li {font-size: 14px;}
+    #sorting-form ul li   {font-size: 14px;}
 
-    .ddfcs {grid-template-columns: minmax(50px,80px) 1fr minmax(50px,80px);padding: 0px 10px;}
-    #sorting-form{--one_line: 40px;}
+    .ddfcs        {grid-template-columns: minmax(50px,80px) 1fr minmax(50px,80px);padding: 0px 10px;}
+    #sorting-form {--one_line: 40px;}
 
+    #filter-form .bottom {border-top:    1px solid #E1E1E1;margin-bottom: 20px; }
+    #filter-form .top    {border-bottom: 1px solid #E1E1E1;}
     #filter-form {
         top:         55px;
+        height:      calc(100vh - 55px);
         left:        -100vw;
         width:       100vw;
-        max-height:  100vh; /* 100vh - padding(nav)*2 */
         --gap:       28px;  /* гап много где */
         --gapB:      30px;  /* гап между всем  */
     }
 
 
-    #filter-form .option-list {max-height: 76%;}
-
     #filter-form .close, .backTomenu,#sorting-form .box-sort ul .button-switch{width: 16px !important; height: 16px !important;}
     
-    #filter-form nav {--pform: 40px;height: calc(100vh - (var(--pform) * 2) - 55px);position: relative;}
+    #filter-form nav {--pform: 40px;position: relative;}
     
     #filter-form h1, #sorting-form h1  {font-size: 22px; gap: 10px;font-family: "Inter";font-weight: 700;}
     #filter-form p     {font-size: 11px;}
-    #filter-form h2    {font-size: 16px; gap: 5px;}
+    #filter-form h2    {font-size: 20px; gap: 5px;}
     #filter-form h3    {font-size: 20px; gap: 10px; font-weight: 400;}
     #filter-form h4    {font-size: 18px;}
     #filter-form h5    {font-size: 18px;font-weight: 600;}
     li .star {padding: 5px; border: 1px solid var(--white2);}
     .box-sort ul .button-switch {margin: 0px 5px;}
-    
-    #filter-form .last li {gap: 20px;}
 
     #filter-form .attr{margin: 0px 4px 0px 0px;max-height:unset;}
 
-    .box-last {
+    .mli:not(.not-absolute) .box-last {
         padding: var(--pform) var(--pform) 3px var(--pform);
         transition: all 0.4s ease-in-out;
         position: absolute;
         top:            0px;
         left:           -100vw;
-        height:         calc(100vh - (var(--pform) * 6));
+        height:         calc(100% - (var(--pform) * 6));
         width:          calc(100%  - (var(--pform) * 2));
         background:     #FFF;
         display:        flex;
         flex-direction: column;
         gap:            35px;
         
-        z-index:        1;
+        z-index:        4;
         max-height:     unset;
         overflow:       unset;
         margin-bottom:  0px;
     }
-    .box-last .mobile {display: flex !important;justify-content: space-between;align-items: center;}
-    .mli.Price .box-last {width: calc(90% - var(--pform) - 3px);}
+    .mli:not(.not-absolute) .box-last .mobile {display: flex !important;justify-content: space-between;align-items: center;}
+    .mli.Price:not(.not-absolute) .box-last {width: calc(90% - var(--pform) - 3px);}
+    .range_slider input[type="range"]::-webkit-slider-thumb {
+        height:         24px;
+        width:          24px;
+        border-radius:  24px;
+    }
 
-    #filter-form .option-list input:not(:checked) ~ .box-last {max-height: unset;}
-    #filter-form .option-list input:checked ~ .box-last {left: 0px;}
-    #filter-form .option-list label,#filter-form .option-list input:checked ~ label{margin-bottom: 30px;}
+    #filter-form .mli.Price .attr {gap: 10px;}
+    #filter-form .inputs {column-gap: 30px;row-gap: 0px;}
+    .inputs input {height: 37px;}
+    #filter-form .mli:not(.not-absolute) label {margin-bottom: 20px;}
+    #filter-form .mli:not(.not-absolute) input:not(:checked) ~ .box-last {max-height: unset;}
+    #filter-form .mli:not(.not-absolute) input:checked ~ .box-last {left: 0px;}
+    #filter-form .option-list .mli:not(.not-absolute) input:checked ~ label     {margin-bottom: 20px;}
+
+
+    #filter-form.open .reset_button {margin-bottom: 80px;}
+    #filter-form      .reset_button {transition: all 0.3s ease-in-out;}
     
-    #filter-form .submit, .reset_button {width: calc(100% - var(--pform) - 3px);}
-    #filter-form .arrow, #filter-form .arrow_in {width: 10px; height: 6px;}
+
+    #filter-form .arrow, #filter-form .arrow_in {width: 15px; height: 10px;}
+    #filter-form .mli:not(.not-absolute) .arrow, #filter-form .mli:not(.not-absolute) .arrow_in {rotate: -90deg;}
 
     .search_brand {height: 35px;border: 2px solid var(--white4);}
     .search_brand input {padding: 0px 30px;text-align: center;}
@@ -605,7 +653,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
         background:   unset;
         border-color: unset;
     }
-    
+
     #sorting-form ul li{
         width:           100%;
         justify-content: flex-end;
@@ -614,9 +662,10 @@ li.active .star img, li.active .star svg {opacity: 1;}
         font-weight: 400;
     }
     
+    .ddfcs .box-button {width: 100%;height: 100%;display: flex !important;justify-content: center;}
     #sorting-form .top {flex-direction: row-reverse;}
-    #sorting-form ul {display: grid;}
-    #sorting-form li {display: flex;justify-content: space-between;align-items: center;} 
+    #sorting-form ul   {display: grid;}
+    #sorting-form li   {display: flex;justify-content: space-between;align-items: center;} 
 
 
     .not-found {margin: 110px 0px;}
@@ -628,10 +677,4 @@ li.active .star img, li.active .star svg {opacity: 1;}
         
     .not-fount-text {font-size: 16px;}
 
-    
-    .Paginator {padding: 20px 0px;height: 23px;}
-    .Paginator-place   {gap: 16px;}    
-    .Paginator-place p {font-size: 15px;margin: -40% 0px;}
-    .Paginator-box     {width: 60px;height: 100%;}    
-    .NextBack          {height: 55%;margin: 0px 15px;}
 }

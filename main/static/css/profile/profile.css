@@ -2,7 +2,7 @@
     display:         flex;
     gap:             20px;
     position:        relative;
-    padding-top:     65px;
+    padding-top:     70px;
     min-height:      400px;
     justify-content: center;
 }
@@ -14,7 +14,8 @@
     gap:            40px;
 
     position: absolute;
-    left: 0;
+    top:      140px;
+    left:     0;
 }
 
 .menu {
@@ -27,7 +28,7 @@
 .navigation-menu .navigation{
     text-align:  right;
     font-family: 'Inter';
-    font-size:   19px;
+    font-size:   17px;
     font-weight: 600;
     cursor:      pointer;
     text-decoration: none;
@@ -53,14 +54,14 @@
 /* Личная информация */
 #personal {
     font-family: 'Inter';
-    width:   600px;
+    width:   570px;
     display: grid;
     gap:     60px;
     margin:  auto;
 }
 #personal h6{
     font-family: 'Inter';
-    font-size:   24px;
+    font-size:   20px;
     font-weight: 600;
     margin:      5px 0px;
 }
@@ -72,10 +73,13 @@
 }
 
 .input-box {position: relative}
-#personal input {width: 98%;transition: all 0.15s ease-in-out;padding: 0px 0px 12px 20px;}
+#personal .input-box.top-margin    {margin-top: 40px;}
+#personal .type_deliver.top-margin {margin-top: 30px;}
+#personal h6.top-margin            {margin-top: 50px;}
+#personal input {width: 97%;transition: all 0.15s ease-in-out;padding: 0px 0px 12px 20px;}
 
 #personal label,#personal input {
-    font-size: 21px;
+    font-size:   19px;
     font-weight: 400;
     color: var(--grey2);
 }
@@ -105,10 +109,10 @@ input.not-valid::placeholder {color: var(--red1) !important}
 
 .ef {
     color:       var(--grey2);
-    font-size:   16px;
+    font-size:   18px;
     font-weight: 300;
     text-align:  end;
-    margin-top:  20px;
+    margin-top:  50px;
 }
 
 @keyframes CheckError {
@@ -131,8 +135,8 @@ input.not-valid::placeholder {color: var(--red1) !important}
 #personal #politicbox span {
     position: absolute;
     left:     -60px;
-    width:    25px;
-    height:   25px;
+    width:    23px;
+    height:   23px;
     margin:   10px;
     transition: all 0.2s ease-in-out;
     top: 5%;
@@ -158,7 +162,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     display:    flex;
     position:   relative;
     background: #EEE;
-    height:     60px;
+    height:     50px;
     cursor:     pointer;
 }
 
@@ -197,18 +201,17 @@ input.not-valid::placeholder {color: var(--red1) !important}
 
 /* Кнопка сохранить */
 #personal .submit-personal, #personal .personal-leave {
-    background: #2E2E2E;
-    width:      60%;
-    height:     55px;
+    background:  #2E2E2E;
+    width:       100%;
+    height:      55px;
     color:       #FFF;
-    font-size:   20px;
+    font-size:   18px;
     font-weight: 600;
     text-align:  center;
 }
 /* Бонус-систем */
 
-#bonus {font-family: "Inter";}
-#bonus {display: grid; gap: 110px;}
+#bonus {font-family: "Inter";display: grid; gap: 200px;margin-top: 35px;}
 #bonus .info-number {
     height:  600px;
     display: flex;
@@ -293,8 +296,10 @@ input.not-valid::placeholder {color: var(--red1) !important}
 }
 
 #bonus .copy-link {display: flex; gap: 50px; align-items: center;}
-#bonus .copy-link .copy-box {width: 120px; height: 120px; margin: 0px 30px;cursor: pointer;transition: all 0.3s ease-in-out;}
-#bonus .copy-link .copy-box.animate {transform: scale(1.1);}
+#bonus .copy-link .copy-box .mobile {position: absolute;width: 300px;height: 240px;top: -50px;left: -130px;z-index: -4;}
+#bonus .copy-link .copy-box {width: 120px; height: 120px; margin: 0px 30px;cursor: pointer;position: relative;}
+#bonus .copy-link .copy-box #copy-ym {transition: all 0.3s ease-in-out;z-index: 2;}
+#bonus .copy-link .copy-box.animate #copy-ym {transform: scale(1.1);}
 #bonus .copy-link h2 {
     text-align:     right;
     font-size:      64px;
@@ -305,7 +310,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     text-align:     center;
     font-size:      28px;
     font-weight:    600;
-    margin:         110px 0px;
+    margin:         200px 0px 110px 0px;
 }
 
 #bonus .slider-choose {    
@@ -332,30 +337,76 @@ input.not-valid::placeholder {color: var(--red1) !important}
 #bonus .slider-choose .slick-arrow.prev {margin-right: calc(var(--widthslider) + 2.5%);}
 #bonus .slider-choose .slick-arrow.next {margin-left:  calc(var(--widthslider) + 2.5%);}
 
-#bonus .choose-tier-dots div {width: 70px;height: 70px; cursor: pointer;}
+#bonus .choose-tier-dots div {width: 60px;height: 60px; cursor: pointer;}
 #bonus .choose-tier-dots div.cant-go {opacity: 0.5;}
 #bonus .choose-tier-dots .number-bonus:not(.current){display: none;}
 #bonus .choose-tier-dots {
-    display: flex;
-    gap:     40px;
+    display:     flex;
+    align-items: center;
+    gap:         40px;
 
     color:          var(--black3);
     font-size:      96px;
     font-weight:    800;
-    margin:         100px 0px 40px 0px;
+    margin:         140px 0px 55px 0px;
 }
 
+.container-bonus-size {
+    border-top: 3px solid #000;
+    position:   fixed;
+    bottom:     -40vh;
+    left:       0;
+    width:      100vw;
+    transition: bottom 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    padding:    40px 50px;
+    background-color: #FFFFFF;
+    opacity:    0;
+    z-index:    -5;
+}
+.container-bonus-size.active {bottom: -1vh;opacity: 1;z-index: 6;}
+.container-bonus-size.close {transition: bottom 0.4s ease-in-out, opacity 0.6s ease-in-out, z-index 0.9s ease-in-out}
+
+.bonus-size {
+    position:   relative;
+    display:    grid;
+    text-align: center;
+    width:      90%;
+    margin:     auto;
+}
+.bonus-size button{position: absolute;right: 0px;top: 0px;display: grid;width: 20px;height: 20px;}
+
+.bonus-size h4 {font-size: 24px;font-weight: 700;
+    width:    fit-content;
+    margin:   0px auto 30px auto;
+    display:  grid;
+    align-items: center;
+}
+.bonus-sizetwo {
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    text-align:      start;
+    width:           50%;
+    margin:          auto;
+}
+.bonus-size .text .img-bonus-size{width: 120px;height: 120px}
+.bonus-size .text {
+    font-size:   16px;
+    font-weight: 400;
+    color:       var(--grey2);
+    display:     grid;
+}
 
 /* Список покупок и возвратов */
 #buylist, #returns {
     display: grid;
-    gap: 20px;
+    gap:     20px;
+    margin-left: 5%;
 }
 
 
 .blockbuy {
     --marginV:     30px;
-    margin-left:   120px;
     width:         800px;
     max-height:    120px;
     overflow:      hidden;
@@ -512,7 +563,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     justify-content: center;
     align-items:     center;
 }
-#return-query-form button {
+#return-query-form .success,#return-query-form .failed {
     margin-top:  30px;
 
     font-weight: 500;
@@ -520,6 +571,15 @@ input.not-valid::placeholder {color: var(--red1) !important}
     line-height: 24px;
     text-align:  center;
     color:       #FFFFFF;
+}
+
+#return-query-form button{width: 100%;
+    height:           40px;
+    font-size:        16px;
+    font-weight:      600;
+    background-color: var(--black6);
+    color:            #FFF;
+    margin-top:       20px;
 }
 
 #return-query-form .input-box{width: 100%;}
@@ -539,6 +599,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     font-weight:    300;
     color:          var(--grey4);
     text-align:     center;
+    letter-spacing: 0.8px;
     margin-left:    0px !important;
 }
 
@@ -696,15 +757,15 @@ input.not-valid::placeholder {color: var(--red1) !important}
         margin-top:    50px;
         gap:           20px;
     }
-    #return-query-form button {
+    #return-query-form .success, #return-query-form .failed {
         margin-top:  20px;
         font-size:   20px;
         width: 30px;height: 30px;
     }
+    #return-query-form button{height: 35px;font-size: 14px;font-weight: 600;}
     #return-query-form input{font-size: 14px;}
     .else {font-size: 14px;}
 }
-
 
 
 
@@ -783,9 +844,9 @@ input.not-valid::placeholder {color: var(--red1) !important}
     #bonus .bottom-box h5 {font-size: 16px;}
 
     #bonus .copy-link {gap: 40px}
-    #bonus .copy-link .copy-box {width: 90px; height: 90px; margin: 0px 30px;}
+    #bonus .copy-link .copy-box {width: 70px; height: 70px; margin: 0px 30px;}
     #bonus .copy-link h2 {font-size: 48px;}
-    #bonus .choose-product {font-size: 20px;margin: 100px 0px;}
+    #bonus .choose-product {font-size: 20px;margin: 140px 0px 50px 0px;}
     #bonus .slider-choose {--widthslider: 180px;}
     #bonus .slider-choose .slick-slider h1 {font-weight: 600;}
     #bonus .slider-choose .slick-slider {width: var(--widthslider);}
@@ -800,7 +861,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
         margin:    90px 0px 40px 0px;
     }
     /* order */
-    #buylist, #returns {gap: 20px;}
+    #buylist, #returns {gap: 20px;margin-left: unset;}
     .blockbuy {
         --marginV:  0px;
         width:      90vw;
@@ -820,7 +881,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     .blockbuy.active .top-blockbuy #switch-full{display: none;}
     
     .blockbuy.active {
-        max-height: 950px;
+        max-height: 1050px;
     }
     .blockbuy .order-status {max-width: 120px;}
     .blockbuy h1 {font-size: 14px;}
@@ -890,11 +951,12 @@ input.not-valid::placeholder {color: var(--red1) !important}
         gap:           20px;
         width:         85%;
     }
-    #return-query-form button {
+    #return-query-form .success, #return-query-form .failed {
         margin-top:  20px;
         font-size:   20px;
         width: 30px;height: 30px;
     }
+    #return-query-form button{margin-top: 10px;}
     #return-query-form input{font-size: 14px;}
     .else {font-size: 14px;}
 }

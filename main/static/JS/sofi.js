@@ -7,35 +7,65 @@ const FiltersForm   = $("#filter-form"),
       SortingButton = $("#Sorting-button"),
       ProductsList  = $("#product-list");
 
+const lowerSlider = $('#slide_min'),
+      lowerInput = $('#min_price'),
+      upperSlider = $('#slide_max'),
+      upperInput = $('#max_price');
+const defaultMin = lowerSlider.attr("defaultMin"),
+      defaultMax = upperSlider.attr("defaultMax");
+let   Min = parseInt(lowerSlider.attr("min")),
+      Max = parseInt(upperSlider.attr("max"));
 
+var previousWindowHeight = window.innerHeight;
+var previousScrollPosition = window.pageYOffset;
+if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) { // Ебанная панелькак снизу у мобилок
+    $("#filter-form").addClass("open")
+} else {
+    $("#filter-form").removeClass("open")
+}
+window.addEventListener('resize', function() {
+    var currentWindowHeight = window.innerHeight;
+
+    if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) {
+        if (currentWindowHeight < previousWindowHeight) {
+            $("#filter-form").addClass("open")
+        } else if (currentWindowHeight > previousWindowHeight) {
+            $("#filter-form").removeClass("open")
+        }
+    }
+    previousWindowHeight = currentWindowHeight;
+});
       
 function SwitchFilter() { // При клике на фильтр  
     if (FiltersForm.hasClass("active")) {
         FiltersForm.removeClass("active");FilterButton.removeClass("active");
-        $("body").removeClass("stop-scroll");
+        BodyResScroll()
     } else {
         FiltersForm.addClass("active"); FilterButton.addClass("active");
-        $("body").addClass("stop-scroll");
+        BodyStopScroll()
+        if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) {
+            scrollToTop()
+        }
     }
 }
 function RemoveFilter() { // Крестик у ui
     FiltersForm.removeClass("active");FilterButton.removeClass("active");
-    $("body").removeClass("stop-scroll");
+    BodyResScroll()
 }
 
 function SwitchSorting() { // При клике на сортировку 
     if (SortingForm.hasClass("active")) {
         SortingForm.removeClass("active");SortingButton.removeClass("active");
-        $("body").removeClass("stop-scroll");
+        BodyResScroll()
     } else {
         SortingForm.addClass("active");SortingButton.addClass("active");
-        $("body").addClass("stop-scroll");
+        BodyStopScroll()
     }
 }
 
 function RemoveSorting() { // Крестик у ui
     SortingForm.removeClass("active");SortingButton.removeClass("active");
-    $("body").removeClass("stop-scroll");
+    BodyResScroll()
 }
 
 window.is_sofi = true
@@ -53,8 +83,7 @@ $("#sorting-form li.option").click(function(){
 // Фильтры
 var timer_sent
 let timer_test
-last_selected_min_price = $('#slide_min').attr('min')
-last_selected_max_price = $('#slide_max').attr('max')
+
 selected_option = {
     "sizes":          [],
     "stock":          [],
@@ -64,8 +93,8 @@ selected_option = {
     "podcategory":    [],
     "sorting_option": '',
 
-    "min_price":      last_selected_min_price,
-    "max_price":      last_selected_max_price,
+    "min_price":      parseInt(lowerSlider.val()),
+    "max_price":      parseInt(upperSlider.val()),
 
     "query_page": $("#filter-form").data("search"),
     "brand_page": $("#filter-form").data("brand"),
@@ -76,6 +105,7 @@ $(".submit").click(function(){
     if ($(this).hasClass("active")) {
         new_page = true
         get_page(1,true);
+        scrollToTop()
     }
 });
 
@@ -117,15 +147,17 @@ function get_page(page, new_page = false) {
                 '</li>';
             });
             
-            if (!(/Mobi|Android/i.test(navigator.userAgent))) {
+            if (!((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500))) {
                 if (new_page){
                     UpdatePaginator(response.new_pages)
+                    currentPage = 1
                 }
                 ProductsList.html(html);
             } else {
                 if (new_page){
                     UpdatePaginator(response.new_pages)
                     ProductsList.html(html);
+                    currentPage = 1
                 } else {
                     document.getElementById("product-list").insertAdjacentHTML("beforeend", html);
                 }
@@ -139,14 +171,14 @@ function get_page(page, new_page = false) {
 }
 
 // функция фильтра по CSV цене плохо работает и плохо работает установление новых цен(новые цены всегда меняют старые )
-function send_query(slide = false) {
-    if ($('#itlast li.active').length > 0 || slide) {
+
+function send_query(refresh = false) {
         $(".top p").show();
-        const options = {}; // Initialize options object
+        const options = {}; 
         $("#itlast li").each(function() {
             options[$(this).data("value")] = $(this).closest('.mli').attr("type");
         });
-        const jsonData_options = JSON.stringify(options); // Convert options object to JSON string
+        const jsonData_options = JSON.stringify(options); // Конвертируем в JSON
         $.ajax({
             url: `/filter-option-count/`,
             type: "POST",
@@ -188,17 +220,20 @@ function send_query(slide = false) {
                     $(".submit").removeClass("active");
                 }
 
-                min_out = parseInt(response.min_price)
-                max_out = parseInt(response.max_price)
-                if (min_out != "No change"){
-                    $("#slide_min").attr('placeholder', `От ${min_out}`);
-                    $("#slide_min").attr('min', min_out);
-                    $("#slide_max").attr('min', min_out);
+                // if (max_out !== "No change" && typeof max_out == "number")
+                max = response.max_price
+                min = response.min_price
+                if (refresh){ // Если это первая загрузка или перезанрузка* всех фильтров
+                    upperSlider.attr("value", response.max_price);
+                    lowerSlider.attr("value", response.min_price);
                 }
-                if (max_out != "No change"){
-                    $("#slide_max").attr('placeholder', `До ${max_out}`);
-                    $("#slide_max").attr('max', max_out);
-                    $("#slide_min").attr('max', max_out);
+                if (min && min !== "No change" && typeof min == "number"){
+                    Min = response.min_price;
+                    ChangeMinMax();
+                }
+                if (max && max !== "No change" && typeof max == "number"){
+                    Max = response.max_price;
+                    ChangeMinMax();
                 }
                 slidin()
             },
@@ -206,35 +241,36 @@ function send_query(slide = false) {
                 console.error(error);
             }
         });
-    } else {
-        $(".top p").hide();
-        upperSlider.attr("min", defaultMin);
-        lowerSlider.attr("min", defaultMin);
-        upperSlider.attr("max", defaultMax);
-        lowerSlider.attr("max", defaultMax);
-        
-        if (last_selected_min_price < parseInt(lowerSlider.val())) {
-            if (last_selected_min_price > parseInt(lowerSlider.attr("min"))){
-                LowerSet(parseInt(lowerSlider.attr("min")),false);
-            } else {
-                LowerSet(last_selected_min_price,false);
-            }
-        }
-
-        if (last_selected_max_price > parseInt(upperSlider.val())) {
-            if (last_selected_max_price > parseInt(upperSlider.attr("max"))){
-                UpperSet(parseInt(upperSlider.attr("max")),false);
-            } else {
-                UpperSet(last_selected_max_price,false);
-            }
-        }
-        
-        slidin()
-        $(".submit").text(`Применить`);
-        $("#itlast li .number").removeClass("active");
-        $("#itlast li").removeClass("sehide");
-    }
 }
+$(document).ready(function() {
+    option_nav = $(".option-list").data("nav")
+    if (option_nav){
+        $("#itlast li").each(function() {
+            if ($(this).data('value') === option_nav) {
+                $(this).addClass("active");
+            }
+        });
+    }
+
+    $(".attr.last li").each(function() {
+        let value      = $(this).data("value");
+        let parentmli  = $(this).closest('.mli');
+        let numberh6   = parentmli.find('.number.m h6').not('.number.m.copy h6');
+        let conumberh6 = parentmli.find('.number.m.copy h6');
+        let type_value = parentmli.prop("type");                    // Тип = Цена, Бренд...
+        
+        if ($(this).hasClass("active")) {                           // Если опция уже активна уже есть
+            selected_option[type_value].push(value)
+            numberh6.text(1)
+            conumberh6.text(1)
+
+            numberh6.parent().addClass("active");
+            conumberh6.parent().addClass("active");
+        }
+    })
+    send_query(true)
+    $("#slide_min")
+})
 
 // Click to option last attr
 $(".attr.last li").click(function() {
@@ -243,11 +279,11 @@ $(".attr.last li").click(function() {
         let parentmli  = $(this).closest('.mli');
         let numberh6   = parentmli.find('.number.m h6').not('.number.m.copy h6');
         let conumberh6 = parentmli.find('.number.m.copy h6');
-        let type_value = parentmli.prop("type"); // Тип = Цена, Бренд...
+        let type_value = parentmli.prop("type");                    // Тип = Цена, Бренд...
         
-        if ($(this).hasClass("active")) { // Если опция уже активна уже есть
-            $(this).removeClass("active"); // убираем актив
-            numcount = parseInt(numberh6.text()) - 1; // уменьшаем число выбранных
+        if ($(this).hasClass("active")) {                           // Если опция уже активна уже есть
+            $(this).removeClass("active");                          // убираем актив
+            numcount = parseInt(numberh6.text()) - 1;               // уменьшаем число выбранных
             let Index = selected_option[type_value].indexOf(value); // убираем из выбранных эту опцию 
             if (Index !== -1) {
                 selected_option[type_value].splice(Index, 1);
@@ -255,13 +291,12 @@ $(".attr.last li").click(function() {
         } else {
             $(this).addClass("active");
             numcount = parseInt(numberh6.text()) + 1;
-            
             selected_option[type_value].push(value)
         }
         
         numberh6.text(numcount)
         conumberh6.text(numcount)
-        if (numcount > 0) { // Добавляем число сколько выбранных в опции 
+        if (numcount > 0) {                                         // Добавляем число сколько выбранных в опции 
             numberh6.parent().addClass("active");
             conumberh6.parent().addClass("active");
         } else {
@@ -271,11 +306,7 @@ $(".attr.last li").click(function() {
         clearTimeout(timer_sent);
         timer_sent = setTimeout(() => {
             if (type_value === "stock") {
-                if ($(this).hasClass("active")) {
-                    send_query(true)
-                } else {
-                    send_query(false)                    
-                }
+                send_query()                    
             } else {
                 send_query()
             }
@@ -284,7 +315,7 @@ $(".attr.last li").click(function() {
 });
 
 $(".backTomenu").click(() => {
-    $(".mli input[type='checkbox']").prop("checked", false);
+    $(".mli:not(.not-absolute) input[type='checkbox']").prop("checked", false);
 })
 
 
@@ -357,13 +388,6 @@ function ClearBrand() {
 $('.search_brand span').on('click', ClearBrand);
 
 
-// Range input for price
-const lowerSlider = $('#slide_min'),lowerInput = $('#min_price'),
-upperSlider = $('#slide_max'),upperInput = $('#max_price');
-upperSlider.val(upperSlider.attr('max'));
-const defaultMin = lowerSlider.attr("defaultMin")
-const defaultMax = upperSlider.attr("defaultMax")
-
 // Функия для сброса фильтров
 function ClearPrice() { 
     lowerSlider.attr("min",defaultMin);lowerSlider.attr("max",defaultMax);
@@ -373,108 +397,142 @@ function ClearPrice() {
     slidin();
 }
 
-// Рисуем диапозон на input
-function slidin() { 
-    let lowerVal = parseInt(lowerSlider.val());
-    let upperVal = parseInt(upperSlider.val());
-    let max = lowerSlider.attr("max"),
-        min = lowerSlider.attr("min");
+function ChangeMinMax(){
+    upperSlider.attr("min",Min);lowerSlider.attr("min",Min);
+    upperInput.attr("min",Min);lowerInput.attr("min",Min);
+
+    upperSlider.attr("max",Max);lowerSlider.attr("max",Max);
+    upperInput.attr("max",Max);lowerInput.attr("max",Max);
+
+    if (upperInput.val() > Max){
+        upperInput.val(Max)
+    } else if (upperInput.val() < Min){
+        upperInput.val(Min)
+    }
     
-    $('#range').css('width', (((upperVal - lowerVal) / (max - min)) * 100) + '%');
-    $('#range').css('left', (((lowerVal - min) / (max - min)) * 100) + '%');// устанавливаем значения для #range
-    upperInput.val(upperVal);
-    lowerInput.val(lowerVal);
+    if (lowerInput.val() > Max){
+        lowerInput.val(Max)
+    } else if (lowerInput.val() < Min){
+        lowerInput.val(Min)
+    }
+
+    padd = parseInt((upperSlider.attr("max") - upperInput.attr("min")) / 100 * 5)
+}
+
+// Рисуем диапозон на range input
+function slidin() { 
+    valuemax = parseInt(upperSlider.val());
+    valuemin = parseInt(lowerSlider.val());
+    $('#range').css('width', (((valuemax - valuemin) / (Max - Min)) * 100) + '%');
+    $('#range').css('left',  (((valuemin - Min) / (Max - Min)) * 100) + '%');
 }
 slidin();
 
 
-// Функция при изменении range inputa Максимальной цены
-UpperSlider = () => {
-    let upperVal = parseInt(upperSlider.val());
-    let lowerVal = parseInt(lowerSlider.val());
-    if (upperVal < lowerVal + 100) { // отступ от правого
-        if (lowerVal != lowerSlider.attr('min')) {
-            lowerSlider.val(upperVal - 100);
-            selected_option["min_price"] = last_selected_min_price = upperVal - 100
+// Функция при изменении range inputa 
+
+function UpperSlider(){
+    valuemax = parseInt(upperSlider.val()), valuemin = parseInt(lowerSlider.val())
+    if (valuemax - (padd + 5) < valuemin) {             // Если одно больше или меньше другого то
+        if (valuemax < (Min + (padd + 5))){                  // меняем недопустимое значение
+            valuemin = Min
+            valuemax = Min + padd
+            upperSlider.val(valuemax)
+        } else {
+            valuemin = valuemax - padd
         }
+        lowerSlider.val(valuemin)                       // устанавляваем для противоположного допустимое значения
+        lowerInput.val(valuemin)                        // устанавливаем для противоположного допустимое значения
+        selected_option["min_price"] = valuemin         // обновляем значение в словаре фильтрации значение для противоположного
     }
-    slidin();
+    selected_option["max_price"] = valuemax // обновляем значение в словаре фильтрации
+    upperInput.val(valuemax)                // Устанавливаем значение слайдер => инпут
+
     
-    selected_option["max_price"] = last_selected_max_price = upperVal
-    clearTimeout(timer_sent);
+    clearTimeout(timer_sent);               // таймер на отправку запроса на фильтрацию
     timer_sent = setTimeout(() => {
-        send_query(true)
-    },850);
+        send_query()
+    },550);
+    slidin()                                // Рисуем диапозон
 }
-// Функция при вводе number inputa Максимальной цены
-UpperSet = (vvalue = upperInput.val(), refunction = true) => {
-    let upperVal = parseInt(vvalue);
-    upperSlider.val(upperVal); 
-    if (upperVal-1 < lowerInput.val()) {
-        lowerSlider.val(upperVal - 100);
-        lowerInput.val(upperVal - 100)
-        selected_option["min_price"] = last_selected_min_price = upperVal - 100
-    }
-    slidin();
-    if (refunction != false){
-        clearTimeout(timer_sent);
-        timer_sent = setTimeout(() => {
-            send_query(true)
-            selected_option["max_price"] = last_selected_max_price = upperVal
-        },850);
-    }
-}
-
-
-// Функция при изменении range inputa Минимальной цены
-LowerSlider = () => {
-    let lowerVal = parseInt(lowerSlider.val());
-    let upperVal = parseInt(upperSlider.val());
-    if (lowerVal > upperVal - 101) {
-        if (upperVal != upperSlider.attr('max')) {
-            upperSlider.val(lowerVal + 100);
-            selected_option["max_price"] = last_selected_max_price = lowerVal + 100
+function LowerSlider(){
+    valuemax = parseInt(upperSlider.val()), valuemin = parseInt(lowerSlider.val())
+    if (valuemin + (padd + 5) > valuemax) {
+        if (valuemin > (Max - (padd + 5))){                  // меняем недопустимое значение
+            valuemin = Max - padd
+            valuemax = Max
+            lowerSlider.val(valuemin)
+        } else {
+            valuemax = valuemin + padd
         }
+        upperSlider.val(valuemax)
+        upperInput.val(valuemax)
+        selected_option["max_price"] = valuemax
     }
-    slidin();
+    selected_option["min_price"] = valuemin
+    lowerInput.val(valuemin)
+    
+    clearTimeout(timer_sent);
+    timer_sent = setTimeout(() => {
+        send_query()
+    },550);
+    slidin()
+}
+// Функция при вводе number inputa 
+
+function UpperSet(){
+    let valuemax = parseInt(upperInput.val()), valuemin = parseInt(lowerInput.val());
+    if (valuemax > Max){
+        upperInput.val(Max)
+        valuemax = Max
+    }
+    if (valuemax < Min){
+        upperInput.val(Min + padd)
+        valuemax = Min + padd
+    }
+    if (valuemax - (padd + 5) > valuemin) {
+        valuemin       = valuemax - padd
+        lowerInput.val(valuemin)
+        lowerSlider.val(valuemin)
+        selected_option["min_price"] = valuemin
+    } 
+    selected_option["max_price"] = valuemax
+    upperSlider.val(valuemax)
 
     clearTimeout(timer_sent);
     timer_sent = setTimeout(() => {
-        send_query(true)
-    },850);
-    selected_option["min_price"] = last_selected_min_price = lowerVal
+        send_query()
+    },550);
+    slidin()
 }
-// Функция при вводе number inputa Минимальной цены
-LowerSet = (vvalue = lowerInput.val(), refunction = true) => {
-    let lowerVal = parseInt(vvalue);
-    lowerSlider.val(lowerVal); 
-    if (lowerVal+1 > upperSlider.val()) {
-        upperSlider.val(lowerVal + 100);
-        upperInput.val(lowerVal + 100)
-        selected_option["max_price"] = last_selected_max_price = lowerVal + 100
+function LowerSet(){
+    let valuemax = parseInt(upperInput.val()), valuemin = parseInt(lowerInput.val());
+    console.log(valuemin,Min,Max);
+    if (valuemin < Min){
+        lowerInput.val(Min)
+        valuemin = Min
     }
-    slidin();
-    if (refunction != false) {
-        clearTimeout(timer_sent);
-        timer_sent = setTimeout(() => {
-            send_query(true)
-            selected_option["min_price"] = last_selected_min_price = lowerVal
-        },850);
+    if (valuemin > Max){
+        lowerInput.val(Max - padd)
+        valuemin = Max - padd
     }
+    if (valuemin - (padd + 5) > valuemax) {
+        valuemax       = valuemin - padd
+        upperInput.val(valuemax)
+        upperSlider.val(max_price)
+        selected_option["min_price"] = valuemax
+    } 
+    selected_option["min_price"] = valuemin
+    lowerSlider.val(valuemin)
+
+    clearTimeout(timer_sent);
+    timer_sent = setTimeout(() => {
+        send_query()
+    },550);
+    slidin()
 }
 
 upperInput.on('change', UpperSet);
 lowerInput.on('change', LowerSet);
 upperSlider.on('input', UpperSlider);
 lowerSlider.on('input', LowerSlider);
-
-$(document).ready(() => {
-    option_nav = $(".option-list").data("nav")
-    if (option_nav){
-        $("#itlast li").each(function() {
-            if ($(this).data('value') === option_nav) {
-                $(this).addClass("active");
-            }
-        });
-    }
-})

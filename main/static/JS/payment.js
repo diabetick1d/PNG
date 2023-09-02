@@ -50,6 +50,7 @@ function order(){
 function success_order(){
     $(".deliver-info").addClass("success");
     $(".payment-method").addClass("success");
+    $(".top .mobile").addClass("success");
     $(".callback").addClass("success");
     if (success){
         $(".true").addClass("active");

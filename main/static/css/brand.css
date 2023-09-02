@@ -31,7 +31,7 @@
 }
 
 .all-catalog h3 {
-    margin:      100px 0px 80px 0px;
+    margin:      100px 0px 130px 0px;
     text-align:  center;
     font-size:   28px;
     font-weight: 500;
@@ -46,8 +46,8 @@
     display:    grid;
     position:   absolute;
     right:      5%;
-    width:      calc(var(--smallicon) / 2);
-    height:     calc(var(--smallicon) / 2);
+    width:      15px;
+    height:     15px;
     transition: all 0.2s ease-in-out;
 }
 .close-brand-search.hide{transition: all 0.2s ease-in-out;opacity: 0;}
@@ -60,7 +60,7 @@
 
 .search-brand .box-search-brand {
     width:         380px;
-    height:         45px;
+    height:        50px !important;
     background:    #fff;
     border-radius: 2px;
     border:        3px solid var(--white4);
@@ -155,7 +155,7 @@
 
 #touch-more {
     width:  300px;
-    height: 40px;
+    height: 49px;
 
     margin: 60px 0px;
     border-radius: 2px;
@@ -184,6 +184,11 @@
     height:   auto;
 }
 
+.brand-one {
+    display: grid;
+    gap:     70px;
+}
+
 .brand-letter {
     margin:   0px 10%;
     
@@ -193,12 +198,12 @@
     align-items:    center;
     
     grid-template-columns: repeat(3, minmax(50px, 400px));
-    grid-row-gap:    45px;
+    grid-row-gap:    70px;
 }
 
 .brand-catalog {
     display:    grid;
-    gap:        50px;
+    gap:        130px;
 }
 
 .brand-inletter {
@@ -218,7 +223,7 @@
     .brand-main h6 {margin: 60px 0px 80px 0px;font-size: 18px;}
     .Center-page h1 {margin: 30px 0px;}    
     .all-catalog h2 {font-size: 32px;}
-    .all-catalog h3 {font-size: 18px;margin: 100px 0px 60px 0px;}
+    .all-catalog h3 {font-size: 18px;margin: 100px 0px 120px 0px;}
     .search-brand .box-search-brand {width: 300px;height: 35px;}
 
     .close-brand-search {width:  calc(var(--smallicon) / 1.5);height: calc(var(--smallicon) / 1.5);}
@@ -248,7 +253,7 @@
         grid-row-gap: 45px;
     }
 
-    .brand-catalog {gap: 50px;}
+    .brand-catalog {gap: 120px;}
     .brand-inletter {font-size: 16px;}
 }
 
@@ -260,10 +265,10 @@
     .search-brand p {font-size: 14px;}
     .result-brand-box p{height: 50px;}
 
-    .brand-main h6 {margin: 60px 0px 80px 0px;font-size: 18px;}
-    .Center-page h1 {margin: 30px 0px;}    
+    .brand-main h6 {margin: 40px 0px 30px 0px;font-size: 18px;}
+    .Center-page h1 {margin: 30px 0px 50px 0px;}    
     .all-catalog h2 {font-size: 32px;}
-    .all-catalog h3 {font-size: 18px;margin: 100px 0px 60px 0px;}
+    .all-catalog h3 {font-size: 18px;margin: 7 0px 0px 60px 0px;}
     .search-brand .box-search-brand {width: 300px;height: 35px;}
 
     .close-brand-search {width:  calc(var(--smallicon) / 1.5);height: calc(var(--smallicon) / 1.5);}
@@ -294,10 +299,9 @@
     .brand-letter {
         margin:       0px 5%;
         grid-template-columns: repeat(1, auto);
-        grid-row-gap: 45px;
-        
+        grid-row-gap: 50px;
     }
 
-    .brand-catalog {gap: 50px;}
+    .brand-catalog {gap: 40px;}
     .brand-inletter {font-size: 16px;}
 }

@@ -60,16 +60,16 @@
             </div>
             <div id="products-price">
                 <h1>Общая цена</h1>
-                <h4>0</h4>
+                <h4><span id="a-price">0</span> ₽</h4>
             </div>
             <div id="promocode-price" data-price="0">
                 <h1>Промокод</h1>
-                <h4>0</h4>
+                <h4><span id="c-price">0</span> ₽</h4>
             </div>
         </div>
         <div id="summ-price">
             <h1>Итого</h1>
-            <h4>0</h4>
+            <h4><span id="b-price">0</span> ₽</h4>
         </div>
         <div class="buttons" data-price="0">
             <div class="promo-input">
@@ -82,7 +82,7 @@
     </div>
 </form>
 {% else %}
-<div class="else">Пусто...</div>
+<div class="else">Здесь пусто. Добавьте что нибудь в Корзину!</div>
 {% endif %}
 <script type="text/javascript" src="{% static 'JS/cart.js' %}"></script>
 {% endblock %}

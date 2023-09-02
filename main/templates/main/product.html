@@ -13,7 +13,7 @@
 <div class="product-all grid-center" id="allin">
     {% if not user.is_authenticated %}
     <div class="is_authenticated">
-        <h1>Войдите в аккаунт</h1>
+        <div class="tireg">Войдите в аккаунт <button onclick="closereg()"><img src="/static/img/product/close.svg" alt=""> </div>
         <p>Для того что бы продолжить покупку и оформить заказ вам понадобится войти в аккаунт для сохранения вашего выбора</p>
         <a href="/accounts/login/?next=/product/{{ product.uid }}">Войти</a>
     </div>
@@ -66,45 +66,52 @@
         <button class="slider__btn_next"><img src="{% static 'img/datsnext.svg' %}" alt=""></button>
         {% endif %}
     </div>
+    {% load utils_tags %}
     <div class="product-right">
         <div class="not-mobile">
             <div class="brand"><img src="{{MEDIA_URL}}{{ product.brand.font }}" alt=""></div>
         </div>
         <div class="name">{{ product.name }}</div>
-        <div class="price" id="price-display">{{min_price}}</div>
+        <div class="price" id="price-display">
+            <span>{{min_price}}</span>
+            <div class="img-like {% if usercart %}{% if product.uid|to_string in user.favorite %}like{% endif %}{% else %}disabled{% endif %}" data-product-id="{{ product.uid }}">
+                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.7121 5.01862L12.0275 7.22183L13.3019 4.99462C14.4578 2.97458 15.6065 2.04566 16.5325 1.69286C17.4124 1.35763 18.2825 1.46785 19.1329 1.9629C20.9509 3.02122 22.5 5.79097 22.5 8.75356C22.5 11.6323 21.0563 14.4597 18.8579 16.9545C16.8691 19.2114 14.3649 21.0757 12.1087 22.3073C9.83689 21.0719 7.27928 19.2028 5.24002 16.9416C2.98379 14.4399 1.5 11.617 1.5 8.75356C1.5 5.77085 3.0095 3.00862 4.79162 1.95906C5.62129 1.47043 6.48359 1.35572 7.37868 1.69419C8.32365 2.05151 9.50129 2.99067 10.7121 5.01862Z" stroke-width="3"/>
+                </svg>                    
+            </div>
+        </div>
+
         <div class="size-chart">
             <span>Размерная сетка</span>
         </div>
-        <form class="dropdown-size">
-        <nav class="nav">
-            <label for="touch-size">
-                <span>Размеры</span>
-                <div class="arrow">
-                    <img src="{% static 'img/product/arrow.svg' %}" alt="">
+        
+        <div class="dropdown-size">
+            <div class="dropdown">
+                <label for="touch-size">
+                    <span>Размеры</span>
+                    <div class="arrow">
+                        <img src="{% static 'img/product/arrow.svg' %}" alt="">
+                    </div>
+                </label>       
+                <input hidden type="checkbox" id="touch-size"> 
+                <ul class="slideli">
+                    {% for key,value in prices.items %}
+                        <li id="{{ key }}" data-size="{{ key }}" data-value="{{ value|takefirst }}" data-cart="{{ value|takesecond }}">
+                            <div class="pricein">{{value|takefirst}}{% if value|takefirst != "-" %}₽{% endif %}</div>
+                            <div class="sepaprice">PNG</div>
+                            <div class="div-size">{{key}}</div>
+                        </li>  
+                    {% endfor %}
+                </ul>
+                <div class="addBox">
+                    <div class="add-cart-box {% if not usercart %}disabled{% endif %}"> 
+                        <!-- disabled - если пользователь не авторизован -->
+                        <div class="checkmark"><img src="{% static 'img/product/checkmark.svg' %}" alt=""></div>
+                        <div class="add_cart">Добавить в корзину</div>
+                    </div>
                 </div>
-            </label>       
-            <input hidden type="checkbox" id="touch-size"> 
-            {% load utils_tags %}
-            <ul class="slideli">
-                {% for key,value in prices.items %}
-                    <li id="{{ key }}" data-size="{{ key }}" data-value="{{ value|takefirst }}" data-cart="{{ value|takesecond }}">
-                        <div class="pricein">{{value|takefirst}}{% if value|takefirst != "-" %}₽{% endif %}</div>
-                        <div class="sepaprice">PNG</div>
-                        <div class="div-size">{{key}}</div>
-                    </li>  
-                {% endfor %}
-            </ul>
-            <div class="addBox">
-                <div class="box-img-like {% if usercart %}{% if product.uid|to_string in user.favorite %}favorite{% endif %}{% else %}disabled{% endif %}" data-product-id="{{ product.uid }}">
-                    <div class="img-like"><img src="{% static 'img/product/like.png' %}" alt=""></div>
-                </div>
-                <div class="add-cart-box {% if not usercart %}disabled{% endif %}">
-                    <div class="checkmark"><img src="{% static 'img/product/checkmark.svg' %}" alt=""></div>
-                    <div class="add_cart">Добавить в корзину</div>
-                </div>
-            </div>
-        </nav> 
-        </form>
+            </div> 
+        </div>
 
 
         {% if product.composition %}
@@ -125,8 +132,28 @@
         <p>Размеры</p>
         <div class="close-sizechart" ><img src="{% static 'img/product/close.svg' %}" alt=""></div>
     </div>
-    <div  class="img-sizechart" >
+    <div  class="sizechart">
         <img src="{{MEDIA_URL}}{{product.sizechart}}" alt="">
+    </div>
+    <div class="howsize">
+        <button class="buthow" onclick="showsizehow()">Узнать размер стельки</button>
+    </div>
+</div>
+<div class="container-how">
+    <div class="how">
+        <div class="not-mobile"><button onclick="closehow()"><img src="/static/img/product/close.svg" alt=""></button></div>
+        <h4>Узнать размер стельки</h4>
+        <div class="howtwo">
+            <div class="text">
+                1. Достаньте стельку из под вашей обуви
+                <br><br>2. Возьмите рулетку или линейку
+                <br><br>3. Измерьте длину стельки
+                <br><br>4. Полученный результат сверьте с таблицой ( в см )
+            </div>
+            <div class="img-how">
+                <img src="/static/img/support/img-size.png" alt="">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -179,6 +206,5 @@
 <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
 <script defer src="{% static 'slick/slick.min.js' %}"></script>
 
-<script type="text/javascript" src="{% static 'JS/sizechart.js' %}"></script>
 <script type="text/javascript" src="{% static 'JS/product.js' %}"></script>
 {% endblock %}

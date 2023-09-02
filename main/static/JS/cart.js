@@ -1,3 +1,40 @@
+function SetNumber(targetValue, elem) {
+    let element      = document.querySelector(elem);
+    let currentValue = parseInt(element.textContent)
+
+    if (currentValue < targetValue) {
+        Value = targetValue - currentValue;
+    } else if (currentValue > targetValue) {
+        Value = currentValue - targetValue;
+    } else {
+        Value = 0;
+    }
+    let step = parseInt(Value / 100);
+    let n = currentValue
+
+    if (currentValue < targetValue) {
+        let interval = setInterval(() => {
+            n += step;
+            if (n >= targetValue) {
+                clearInterval(interval);
+                n = targetValue
+            }
+            element.innerHTML = n;
+        }, 5);
+    } else if (currentValue > targetValue) {
+        let interval = setInterval(() => {
+            n -= step;
+            if (n <= targetValue) {
+                clearInterval(interval);
+                n = targetValue
+            }
+            element.innerHTML = n;
+        }, 5);
+    }
+    
+}
+
+
 function ChangeInfo(){
     var totalPrice          = 0;
     var semiPrice           = 0;
@@ -18,10 +55,10 @@ function ChangeInfo(){
     if (totalPrice < 0) {
         totalPrice = 0;
     }
-    $("#promocode-price h4").text(`-${promocode * activeProductsCount} ₽`);
     $('#products-count h6').text(`${activeProductsCount} товаров`);
-    $('#products-price h4').text(`${semiPrice} ₽`);
-    $('#summ-price h4').text(`${totalPrice} ₽`);
+    SetNumber((promocode * activeProductsCount), "#c-price");
+    SetNumber(semiPrice, '#a-price');
+    SetNumber(totalPrice, '#b-price');
 }
 
 $(document).ready(function() {

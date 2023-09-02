@@ -8,6 +8,8 @@
     --white3: #D9D9D9;
     --white2: #d2d2d2;
     --white1: #BEBEBE;
+    --grey5:  #ABABAB;
+    --russ:   #A8A8A8;
     --grey4:  #929292;
     --grey3:  #858585;
     --grey2:  #757575;
@@ -19,7 +21,7 @@
     --black2: #2f2f2f;
     --black1: #1B1B1B;
     --paddingPage: 270px;
-    --smallicon:   25px;
+    --smallicon:   22px;
 }
 
 .slide {overflow: auto;}
@@ -54,6 +56,8 @@ button {
     cursor:     pointer;
     outline:    none;
     background: #00000000;
+    display:     grid;
+    align-items: center;
 }
 
 img {
@@ -65,6 +69,7 @@ img {
     -ms-user-select:    none;
     -moz-user-select:   none;
     -webkit-user-select:none;
+    display: grid;
 }
 
 a,a:active,a:visited,a.hover {
@@ -81,13 +86,27 @@ input:disabled {
 }
 
 .mobile {display: none !important}
-.stop-scroll {overflow: hidden;}
+body.stop-scroll {overflow: hidden;}
+
+
+.else {
+    margin:      20px 0px;
+    color:       var(--grey1);
+    text-align:  center;
+    font-family: 'Inter';
+    font-size:   16px;
+    font-weight: 300;
+}
+
 @media screen and (max-width: 1440px) {
     :root {
         --paddingPage: 200px;
-        --smallicon:   20px;
+        --smallicon:   19px;
     }
     .slide::-webkit-scrollbar{width: 3px}
+    .else {
+        font-size: 16px;
+    }
 }
 
 @media screen and (max-width: 500px) {

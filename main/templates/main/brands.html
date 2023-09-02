@@ -40,12 +40,14 @@
         <h3>Каталог</h3>
         <div class="brand-catalog">
             {% for key,value in resultSort.items %}
-            <h2>{{ key }}</h2>
+            <div class="brand-one">
+                <h2>{{ key }}</h2>
                 <div class="brand-letter">
                 {% for el in value %}
                     <a href="/brand/products/{{el.name}}" class="brand-inletter">{{ el.name|title }}</a>
                 {% endfor %}
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>

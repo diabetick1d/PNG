@@ -1,43 +1,43 @@
 .login-social-app{
-    display: grid;
-    font-family: "Inter";
+    font-family:  "Inter";
+    display:       grid;
     justify-items: center;
-    padding: 15px 45px;
+    padding:       25px 45px;
     border-radius: 13px;
-    border: 2px solid var(--black6);
-    width: 23%;
-    text-align: center;
-    margin: auto;
+    border:        2px solid var(--black6);
+    width:         310px;
+    text-align:    center;
+    margin:        auto;
 }
 
 .login-social-app h1 {
-    color: #333;
-    font-size: 27px;
+    color:       #333;
+    font-size:   32px;
     font-weight: 800;
 }
 
 .login-social-app h2 {
-    color: var(--grey1);
-    font-size: 20px;
+    color:       var(--grey1);
+    font-size:   20px;
     font-weight: 800;
-    margin: 20px 0px 50px 0px;
+    margin:      20px 0px 70px 0px;
 }
 
 .login-social-app h3 {
-    font-size: 12px;
+    font-size:   14px;
     font-weight: 300;
-    margin: 50px 0px 30px 0px;
+    margin:      70px 0px 40px 0px;
 }
 
 .login-social-app h4 {
-    color: var(--grey4);
-    font-size: 12px;
+    color:       var(--grey4);
+    font-size:   13px;
     font-weight: 300;
 }
 @media screen and (max-width: 1440px) {
     .login-social-app{
         padding: 15px 35px;
-        width: 23%;
+        width:   23%;
     }
     
     .login-social-app h1 {font-size: 20px;}

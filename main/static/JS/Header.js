@@ -9,6 +9,30 @@ const tablabels = tabs.find("a");
 const dropdowns = contents.find(".dropdown-content");
 var hoverTimer;
 
+function scrollToTop() {
+  window.scrollTo({
+    top:      0,
+    behavior: "smooth"
+  });
+}
+
+function BodyStopScroll() {
+  if ((/Mobi|Android/i.test(navigator.userAgent))) {
+    $("body").addClass("stop-scroll");
+    $(document).on('scroll', function(e) {
+      e.preventDefault();
+    });
+  }
+}
+
+function BodyResScroll() {
+  if ((/Mobi|Android/i.test(navigator.userAgent))) {
+    $("body").removeClass("stop-scroll");
+    $(document).off('scroll');
+  }
+}
+
+
 
 function RemoveSeacrh() {
   SwitchSearchButton();
@@ -79,6 +103,9 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
   
   function handleClick(event, tab, content) {
     if (!tab.hasClass("active")) {
+      if (HeaderSearch.hasClass("active")){
+        RemoveSeacrh();
+      }
       ActiveDropdown(tab, content);
       event.preventDefault();
       console.log("event");
@@ -103,7 +130,7 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
     function DeactiveDropdown(tab, content) {
       if (!HeaderSearch.hasClass("active")) {
         contents.removeClass("active");
-      tab.removeClass("active");
+      tablabels.removeClass("active");
       content.removeClass("active");
       removeOverlay();
     }
@@ -164,14 +191,24 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
   function Swtabs() {
     if ($(".tabs.dropdown").hasClass("active")) {
       $(".tabs.dropdown").removeClass("active");
+      $(".switchtabs").removeClass("active");
     } else {
       $(".tabs.dropdown").addClass("active");
+      $(".switchtabs").addClass("active");
     }
-    RemoveSeacrh()
+    if ($(".Header-search").hasClass("active")) {
+      RemoveSeacrh()
+    }
     if (window.is_sofi === true) {
       RemoveFilter()
       RemoveSorting()
     }
+    if (window.is_product === true) {
+      removeSizeChart()
+    }
+    $("html, body").animate({
+      scrollTop: 0
+    })
   }
 
 }

@@ -1,4 +1,4 @@
 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="10.759" cy="10.759" r="9.25901" stroke="black" stroke-width="3"/>
-<rect width="2.52102" height="5.88238" rx="1.26051" transform="matrix(0.719465 -0.694529 0.719465 0.694529 17.9551 19.9141)" fill="black"/>
+<circle cx="10.759" cy="10.759" r="9.25901" stroke="#3E3E3E" stroke-width="3"/>
+<rect width="2.52102" height="5.88238" rx="1.26051" transform="matrix(0.719465 -0.694529 0.719465 0.694529 17.9551 19.9141)" fill="#3E3E3E"/>
 </svg>

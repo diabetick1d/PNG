@@ -50,6 +50,8 @@ def page_brands(request):
 
 def page_support(request):
     return render(request, "main/support.html")
+def page_callback(request):
+    return render(request, "main/callback.html")
 
 from random import sample
 def product_detail(request, uid):
@@ -153,8 +155,8 @@ def get_min_max_value_price(products): # мин и мах цена в катег
     max_prices = []
     for product in products:
         try:
-            min_att_value = product.eav.min_price
-            max_att_value = product.eav.max_price
+            min_att_value = product.min_price
+            max_att_value = product.max_price
             min_prices.append(min_att_value)
             max_prices.append(max_att_value)
         except:
@@ -200,34 +202,36 @@ def brand_results(request,brand_query):
 
 # Поиск по товарам
 @csrf_exempt
-def search_results(request,query):
-    natquery = query
-    products = models.Product.objects.filter(eav__brand_name__icontains=query)
-    option_dict = get_option_list(products)
-    if len(query) > 20 and not products:
-        query = str(query)[:18] + "..."
-    else:
-        query = str(query)
+def search_results(request):
+    natquery = request.GET.get('query', None)
+    print("natquery:",natquery)
+    if natquery:
+        products = models.Product.objects.filter(eav__brand_name__icontains=natquery)
+        option_dict = get_option_list(products)
+        if len(natquery) > 20 and not products:
+            query = str(natquery)[:18] + "..."
+        else:
+            query = str(natquery)
 
-    notFound = False
-    if option_dict['defcount'] > 0:
-        notFound = True
-    return render(request, 'main/search_results.html', {
-        'natquery': natquery,
-        'query': query,
-        'notFound': notFound,
+        notFound = False
+        if option_dict['defcount'] > 0:
+            notFound = True
+        return render(request, 'main/search_results.html', {
+            'natquery': natquery,
+            'query': query,
+            'notFound': notFound,
 
-        "podcategors":  option_dict['podcategors'],
-        "materials":    option_dict['materials'],
-        "colors":       option_dict['colors'],
-        "sizes":        option_dict['sizes'],
-        "brands":       option_dict['brands'],
-        "min_price":    option_dict['min_price'],
-        "max_price":    option_dict['max_price'],
-        "products":     option_dict['products'],
-        "pages":        option_dict['pages'],
-        "defcount":     option_dict['defcount']
-    })
+            "podcategors":  option_dict['podcategors'],
+            "materials":    option_dict['materials'],
+            "colors":       option_dict['colors'],
+            "sizes":        option_dict['sizes'],
+            "brands":       option_dict['brands'],
+            "min_price":    option_dict['min_price'],
+            "max_price":    option_dict['max_price'],
+            "products":     option_dict['products'],
+            "pages":        option_dict['pages'],
+            "defcount":     option_dict['defcount']
+        })
 
 option_map = {
     "color":       'color',
@@ -254,7 +258,7 @@ objects_title_map = {
 def product_list(request, option_nav=None, option=None):
     path        = request.path.split("/")[2]
     title       = objects_title_map[path].title()
-    products    = models.Product.objects.filter(category=path).exclude(Q(prices__isnull=True) | Q(prices="") | Q(prices="{}") | Q(prices="None"))
+    products    = models.Product.objects.filter(category=path)
     option_dict = get_option_list(products, option, option_nav)
 
     return render(request, "main/all-product-list.html", {
@@ -276,14 +280,12 @@ def product_list(request, option_nav=None, option=None):
 
 # Словарь со всеми опциями фильтрации списка товаров
 def get_option_list(products, option=None, option_nav=None):
-    default_products = products
 
     if option and option_nav:
-        products = products.filter(**{option_map[option]: option_nav}).exclude(Q(prices__isnull=True) | Q(prices="") | Q(prices="{}") | Q(prices="None"))
+        products = products.filter(**{option_map[option]: option_nav})
         count = products.count()
-        print(products)
     else:
-        count = default_products.count()
+        count = products.count()
 
     paginator = Paginator(products.order_by('uid'), 4)
     results_products = [
@@ -300,11 +302,11 @@ def get_option_list(products, option=None, option_nav=None):
 
     value_min_price, value_max_price = get_min_max_value_price(products)
     return {
-        "materials":    get_attr_text_unique_values('material',default_products),
-        "podcategors":  get_category(default_products),
-        "colors":       get_color_dict(default_products),
-        "sizes":        get_sizes(default_products),
-        "brands":       get_Brands(default_products),
+        "materials":    get_attr_text_unique_values('material',products),
+        "podcategors":  get_category(products),
+        "colors":       get_color_dict(products),
+        "sizes":        get_sizes(products),
+        "brands":       get_Brands(products),
         "min_price":    value_min_price,
         "max_price":    value_max_price,
         "products":     results_products,
@@ -444,6 +446,8 @@ def filtering_products_by_option(request):
         filtered_products = models.Product.objects.filter(uid__in=filtered_uid_list) # Фильтруем по uid
     else:
         filtered_products = semifil_products
+        new_max_price     = "No change"
+        new_min_price     = "No change"
     return filtered_products, new_min_price, new_max_price
 
 

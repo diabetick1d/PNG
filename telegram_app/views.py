@@ -182,30 +182,24 @@ def add_cart(request):
             user = request.user
         except:
             return JsonResponse({'success': False, 'message': 'Пользователь не авторизован.'})
+        
         try:
             product_size  = request.POST.get('size')
             product_price = request.POST.get('price')
-            product_uid = request.POST.get('uid')
-            product = f"{product_uid}#{product_size}"
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
-        response = {'success': False, 'message': 'Товар не удалось добавить в корзину.'}  # default response
-        try:
+            product_uid   = request.POST.get('uid')
+            product       = f"{product_uid}#{product_size}"
+        
+        
             if product not in user.cart:
                 user.cart[product] = product_price
                 user.save()
-                response = {'success': True, "option": "add"}
+                return JsonResponse({'success': True, "option": "add"})
             else:
-                try:
-                    del user.cart[product]
-                    user.save()
-                    response = {'success': True, "option": "remove"}
-                except Exception as e:
-                    response['error'] = str(e)
-                    return JsonResponse(response)
+                del user.cart[product]
+                user.save()
+                return JsonResponse({'success': True, "option": "remove"})
         except Exception as e:
-            response['error'] = str(e)
-        return JsonResponse(response)
+            return JsonResponse({'success': False, 'error': str(e)})
 
 
 
@@ -246,7 +240,6 @@ def remove_favorite(request):
 
 @login_required 
 def page_favorite(request):
-    
     raw_favorites = MAINmodels.Product.objects.filter(uid__in=request.user.favorite)
 
     favorites = [{
@@ -326,9 +319,12 @@ def payment(request):
     if  promocode:
         try:
             promocode   = models.Promocode.objects.get(promocode=promocode)
-            summ_price -= promocode.price * len(uid_list)
+            promoprice  = int(unseparate(promocode.price))
         except:
             promocode   = ''
+            promoprice  = 0
+    else:
+        promoprice  = 0
 
     for i in uid_list:
         ps       = i.split(' ')[0]
@@ -339,7 +335,7 @@ def payment(request):
         product   = MAINmodels.Product.objects.get(uid=uid)
         prd_price = int(json.loads(product.prices)[onl_size]["price"])
         if prd_price != 0 or prd_price != '-' or prd_price != '0' or cartps != '-':
-                price      = unseparate(cartps) - int(promocode.price) if promocode != '' else unseparate(cartps)
+                price      = unseparate(cartps) - promoprice
                 if price < 0: price = 0
                 pricesepar = separate(price)
                 products.append({
@@ -390,13 +386,30 @@ def payment_get(request):
     user            = request.user
     summ_price      = 0
 
-
-        
-
     if  ftype_delivery == "true":
-        type_delivery = "Почта россии"
+        type_delivery = "Почта России"
     else: 
         type_delivery = "СДЭК"
+
+    if  promocode:
+        try:
+            promocode = models.Promocode.objects.get(promocode=promocode)
+            try: 
+                promoprice = int(unseparate(promocode.price))
+            except: 
+                promoprice = int(promocode.price)
+
+            if  promocode.count > 0 and (promocode.promocode not in request.user.used_promo):
+                promocode.count -= 1
+                promocode.save()
+                user.used_promo.append(promocode.promocode)
+                user.save(update_fields=['used_promo'])
+        except:
+            promocode   = ''
+            promoprice  = 0
+    else:
+        promoprice  = 0
+
 
     products = json.loads(request.POST.get('products'))
 
@@ -407,43 +420,25 @@ def payment_get(request):
 
     cart_products = []
     user_cart = request.user.cart
-    for product in products:
-        uid_cart  = product.split('#')[0]
-        size_cart = product.split('#')[1]
-        onl_size  = product.split(" ")[0]
-        try:
-            producta = MAINmodels.Product.objects.get(uid=uid_cart)
-            price = user_cart[onl_size]
-            summ_price += price
-            cart_products.append({
-                'uid':       producta.uid,
-                'url':       producta.url,
-                'name':      producta.name,
-                'brand':     producta.brand.name,
-                'img':       str(producta.image1),
-                'size':      size_cart,
-                'price':     price,
-            })
-        except Exception as e:
-            response = {
-                'status': 'fail',
-                'error': str(e)
-            }
-            return JsonResponse(response)
-        
-    if  not promocode:
-        promocode = "Нету"
-    else:
-        promocode = models.Promocode.objects.filter(promocode=promocode)
-        if  promocode.count > 0 and (promocode.promocode not in request.user.used_promo):
-            summ_price      -= promocode.price * len(cart_products)
-            promocode.count -= 1
-            promocode.save()
-            user.used_promo.append(promocode.promocode)
-            user.save(update_fields=['used_promo'])
-
-
     try:
+        for product in products:
+            uid_cart   = product.split('#')[0]
+            size_cart  = product.split('#')[1]
+            onl_size   = product.split(" ")[0]
+            
+            producta    = MAINmodels.Product.objects.get(uid=uid_cart)
+            price       = unseparate(user_cart[onl_size])
+            summ_price += price - promoprice
+            cart_products.append({
+                'uid':           producta.uid,
+                'url':           producta.url,
+                'name':          producta.name,
+                'brand':         producta.brand.name,
+                'img':           str(producta.image1),
+                'size':          size_cart,
+                'price':         price,
+            })
+
         order = models.Order.objects.create(
             first_name     = first_name,
             last_name      = last_name,
@@ -458,8 +453,8 @@ def payment_get(request):
             promocode      = promocode,
         )
         response = {
-            'id_order':  order.number_order,
             'status':    'success',
+            'id_order':  order.number_order,
         }
     except Exception as e:
         response = {

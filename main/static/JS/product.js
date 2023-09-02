@@ -1,3 +1,72 @@
+window.is_product = true
+
+const $overlayfull = $('.overlay-full-z5')
+const $sizechart   = $('.size-chart-box')
+const how          = $(".container-how")
+
+$(".is_authenticated").on("click", function(event) {
+  if (event.target != document.querySelector(".is_authenticated button")) {
+    $(".is_authenticated").addClass("active")
+  }
+})
+
+function closereg() {$(".is_authenticated").removeClass("active") }
+
+
+function removeSizeChart() {
+    $sizechart.removeClass('active');
+    $overlayfull.removeClass('active');
+    how.removeClass('active');
+    how.addClass("close")
+    setTimeout(() => {
+      how.removeClass("close")
+    },1000)
+}
+
+$(".size-chart span").on('click', function() {
+    $sizechart.addClass('active');
+    $overlayfull.addClass('active');
+    window.scrollTo(0, 1);
+});
+
+$('.close-sizechart').on('click', function() {
+    removeSizeChart();
+});
+
+$overlayfull.on('click', function() {
+    removeSizeChart();
+});
+
+let timerhow;
+function showsizehow() {
+  if (how.hasClass("active")) {
+    how.removeClass("active")
+    how.addClass("close")
+    timerhow =setTimeout(() => {
+      how.removeClass("close")
+    },900)
+  } else {
+    how.removeClass("close")
+    clearTimeout(timerhow)
+    how.addClass("active")
+    setTimeout(() => {
+      $("body").on('click', function(e){
+        if (!how.is(e.target)) {
+          closehow()
+        }
+      })
+    }, 100)
+  }
+} 
+function closehow() {
+  how.removeClass("active")
+  how.addClass("close")
+  $("body").off('click')
+  setTimeout(() => {
+    how.removeClass("close")
+  },1000)
+}
+
 $(document).ready(function(){
   // Размер для всего меню от 1 li
   const ul        = document.querySelector('.slideli');  // подсчёт количество элементов в списке
@@ -12,7 +81,7 @@ $(document).ready(function(){
     ul.style.setProperty('--liHeight', lires);
 
     let touch   = document.querySelector(".dropdown-size #touch-size");
-    let nav     = document.querySelector(".dropdown-size nav");
+    let nav     = document.querySelector(".dropdown-size .dropdown");
     let arrow   = document.querySelector(".dropdown-size .arrow");
     nav.addEventListener("click", function() { // активация выпадающего меню
         if (touch.checked) {
@@ -77,19 +146,21 @@ $('.slideli li').click(function() {
   var value  = $(this).data('value');
   if (value == "-"){
     value = 0
+    $(".add-cart-box").addClass("no")
+  } else {
+    $(".add-cart-box").removeClass("no")
   }
   var size   = $(this).data('size');
   var inCart = $(this).data('cart');
   box_price  = $('.price')
 
-  if (!$(".box-img-like").hasClass("disabled")){
-    if (inCart == "False") {
-      $(".add_cart").text("Добавить в корзину");
-    } else if (inCart == "True") {
-      $(".add_cart").text("Убрать из корзины");
-    }
+  if (inCart == "False") {
+    $(".add_cart").text("Добавить в корзину");
+  } else if (inCart == "True") {
+    $(".add_cart").text("Убрать из корзины");
   }
-  box_price.text(value + ' ₽');box_price.attr("size", size);box_price.attr("price", value); // добавляем переменные для дальнейшей работы с запросами
+  
+  box_price.find("span").text(value + ' ₽');box_price.attr("size", size);box_price.attr("price", value); // добавляем переменные для дальнейшей работы с запросами
   $(".slideli li").removeClass('selected');
   $(this).addClass('selected');
   $(".dropdown-size label span").text(size);
@@ -107,19 +178,18 @@ $(document).ready(function() {
   function Buybutton() {
     return new Promise(function(resolve) {
         $(".add-cart-box").addClass("active");
-        // Automatically remove the notification after 3 seconds
         setTimeout(function() {
             $(".add-cart-box").removeClass("active");
-            resolve(); // Resolve the promise after the notification is removed
+            resolve();
         }, 800);
     });
   }
 
 
   let timerId
-  const product_uid = $(".box-img-like").attr("data-product-id")
+  const product_uid = $(".img-like").attr("data-product-id")
   // Добавление в избранное
-  $(".box-img-like").click(function(){
+  $(".img-like").click(function(){
     if (!$(this).hasClass("disabled")){
       if (!timerId) {
         $.post("/add_favorite/", 
@@ -127,30 +197,32 @@ $(document).ready(function() {
             uid: product_uid,
           },
           function(data){
-            if (!$(".box-img-like").hasClass("active")){
+            if (!$(".img-like").hasClass("active")){
               if (data.success){
                 if (data.option == "add") {
-                  $(".box-img-like").removeClass("unlike");
-                  $(".box-img-like").addClass("like");
+                  $(".img-like").removeClass("unlike");
+                  $(".img-like").addClass("like");
                 } else if (data.option == "remove") {
-                  $(".box-img-like").removeClass("favorite");
-                  $(".box-img-like").removeClass("like");
-                  $(".box-img-like").addClass("unlike");
+                  $(".img-like").removeClass("favorite");
+                  $(".img-like").removeClass("like");
+                  $(".img-like").addClass("unlike");
                 }
               } else {
                 if (data.message == "Пользователь не авторизован."){
-                  $(".is_authenticated").addClass("active");
+                  console.error("Пользователь не авторизован.");
+                  $(".is_authenticated").addClass("active")
                 } else if (data.message){
                   Notifications(data.message,data.error);
                 }
               }
-              timerId = setTimeout(() => {timerId = null},1100);
+              timerId = setTimeout(() => {timerId = null},250);
               }
             }
-          );
-        }
-      }
-    });
+        )}
+    } else {
+      $(".is_authenticated").addClass("active")
+    }
+  });
   // Добавление в корзину
   $(".add-cart-box").click(function(){
     if (!$(this).hasClass("disabled")){
@@ -177,9 +249,10 @@ $(document).ready(function() {
                 }
               } else{
                 if (data.message == "Пользователь не авторизован."){
-                  $(".is_authenticated").addClass("active");
+                  console.error("Пользователь не авторизован.");
+                  $(".is_authenticated").addClass("active")
                 } else if (data.message){
-                  Notifications(data.message,data.error);
+                  console.error(data.message,data.error);
                 }
               }
             }
@@ -190,6 +263,8 @@ $(document).ready(function() {
         setTimeout(() => {$(".dropdown-size").removeClass("no")},600)
       }
     }
+  } else {
+    $(".is_authenticated").addClass("active")
   }
   });
 

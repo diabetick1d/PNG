@@ -24,12 +24,13 @@ urlpatterns = [
     path("productlist/toys",                              views.product_list),
     path("productlist/sport",                             views.product_list),
 
+    path("callback/",                        views.page_callback, name="callback"),
     path("support/",                        views.page_support, name="support"),
     path("filter-option-count/",            views.number_of_options),
     path("filter-option-page/",             views.get_filtered_products),
 
     path('search/products/',                views.search_products),
-    path('search/results/<str:query>/',     views.search_results),
+    path('search/results/',                 views.search_results),
     path("brands/search/",                  views.search_brand),
     path("brand_search/",                   views.search_brand_name, name='search_brand_name'),
     path("brand/products/<str:brand_query>",views.brand_results, name='brand_results'),

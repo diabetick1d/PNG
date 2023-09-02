@@ -3,9 +3,9 @@
 
 body {margin: 40px 300px;font-family: 'Inter';}
 
-h1 {font-size: 76px; font-weight: 800;}
-.top p {font-size: 76px;font-weight: 800;text-align:unset; margin: -30px 0px 0px 0px;}
-h2 {font-size: 24px; font-weight: 600;}
+h1 {font-size: 96px; font-weight: 800;}
+.top p {font-size: 76px;font-weight: 800;text-align:unset; margin: -20px 0px 0px 0px;}
+h2 {font-size: 24px; font-weight: 600;color: var(--black2);}
 h3 {color: var(--black2); font-size: 20px; font-weight: 400;}
 .h3s {display: flex; align-items: center; justify-content: space-between;}
 h4 {text-align: right; font-size: 12px; font-weight: 500;}
@@ -23,7 +23,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 .order-list, .deliver-info, .payment-method {
     flex-direction: column;
     display:    flex;
-    width:      calc(80% / 3);
+    width:      calc(70% / 3);
     gap:        15px;
     max-height: 480px;
 }
@@ -34,7 +34,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
     border:  2px solid var(--black6);
     padding: 20px 30px;
     display: grid;
-    gap:     20px;
+    gap:     22px;
 }
 .order-list li {display: flex; text-align: end;}
 
@@ -131,7 +131,7 @@ h6 {color: var(--white4);
     display:    block;
     width:      15px;
     height:     15px;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.3s ease-in-out;
     background: var(--white3);
     bottom:     65%;
 }
@@ -196,11 +196,11 @@ h6 {color: var(--white4);
 
 .callback, .true, .false {display: none;}
 .callback.success {display: grid; width: 70%;}
-.callback .true.active,.callback .false.active  {display: block;}
+.callback .true.active,.callback .false.active  {display: block;margin-top: 80px;margin-left: 40px;}
 
-.callback h1{color: unset; font-size: 76px; font-weight: 800;  line-height: 2;}
-.callback h2{font-size: 55px; font-weight: 800;  line-height: 0;}
-.callback a{color: var(--white3); font-size: 48px; font-weight: 800; margin-top: 100px;}
+.callback h1{color: unset; font-size: 68px; font-weight: 800;}
+.callback h2{font-size: 48px; font-weight: 800;margin-top: 15px;}
+.callback a{color: var(--white3); font-size: 28px; font-weight: 800; margin-top: 50px;}
 .callback #resubm {color: var(--white3);font-size: 40px;font-weight: 800;}
 
 @media screen and (max-width: 1440px) {
@@ -240,9 +240,10 @@ h6 {color: var(--white4);
         height:           30px;
     }
 
-    .callback h1{font-size: 76px;}
-    .callback h2{font-size: 55px;}
-    .callback a{font-size: 48px; margin-top: 100px;}
+    .callback .true.active,.callback .false.active  {margin-top: 60px;margin-left: 30px;}
+    .callback h1{font-size: 60px;}
+    .callback h2{font-size: 40px;}
+    .callback a{font-size: 35px; margin-top: 70px;}
     .callback #resubm {font-size: 40px}
     
     .payment-method button {height: 45px;}
@@ -302,12 +303,14 @@ h6 {color: var(--white4);
     .politic-box label {height: unset;}
     .politic-box {margin: 25px 0px;}
 
-    .callback .true.active,.callback .false.active  {display: grid;justify-items:center}
-    .callback.success {width: 95%;margin: 0px auto 60px auto;}
+    .callback .true.active,.callback .false.active  {display: grid;justify-items:center;margin-top: unset;margin-left: unset;}
+    .callback.success {width: 95%;margin: 0px auto 60px auto !important;}
+    .callback .false.active {margin: 50px 0px 40px 0px;}
 
+    .top .mobile.success{display: none !important;}
     .callback{order: -1;margin-bottom: 70px;}
-    .callback h1{font-size: 38px;}
-    .callback .false h1{font-size: 25px;}
+    .callback h1{font-size: 40px;}
+    .callback .false h1{font-size: 28px;}
     .callback h2{font-size: 24px;line-height: 2;}
     .callback a{font-size: 20px; margin-top: 50px;}
     .callback #resubm {font-size: 20px;margin-top: 50px;}

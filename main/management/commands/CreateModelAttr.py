@@ -11,8 +11,6 @@ class Command(BaseCommand):
         Attribute.objects.get_or_create(name='podcategory',          datatype=Attribute.TYPE_TEXT) 
         Attribute.objects.get_or_create(name='brand',                datatype=Attribute.TYPE_TEXT) 
         Attribute.objects.get_or_create(name='brand_name',           datatype=Attribute.TYPE_TEXT) 
-        Attribute.objects.get_or_create(name='min_price',            datatype=Attribute.TYPE_INT) 
-        Attribute.objects.get_or_create(name='max_price',            datatype=Attribute.TYPE_INT)
         Attribute.objects.get_or_create(name='sizes',                datatype=Attribute.TYPE_CSV)
         Attribute.objects.get_or_create(name='prices',               datatype=Attribute.TYPE_CSV)
         Attribute.objects.get_or_create(name='available_size_price', datatype=Attribute.TYPE_JSON) # Берем items для вывода уже отфильтрованных, выводим как значение, если получаем значение смотрим есть ли в диапозоне цены

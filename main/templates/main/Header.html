@@ -13,6 +13,7 @@
     {% block link %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
     <link type="image/x-icon" href="{% static 'img/logo.svg'%}" rel="shortcut icon">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 
 
@@ -26,7 +27,12 @@
             <a href="{% url 'support' %}">Помощь клиентам</a> 
         </div>
         <div class="mobile">
-            <button class="small-icon" onclick="Swtabs()"><img src="{% static 'img/header/tripoloski.svg' %}" alt=""></button> 
+            <button class="small-icon switchtabs" onclick="Swtabs()">
+                <span></span>
+                <span></span>
+                <span></span>
+                <!-- <img src="{% static 'img/header/tripoloski.svg' %}" alt=""> -->
+            </button> 
             <a class="small-icon" href="{% url 'favorite' %}"><img src="{% static 'img/like.svg' %}" alt=""></a>
         </div>
     </div>
@@ -38,30 +44,30 @@
     <div class="Header-right">
         <div class="not-mobile">
             <a onclick="AddSearch()" class="small-icon search-button"><img src="{% static 'img/header/search.svg' %}" alt=""></a> 
-            <a onclick="RemoveSeacrh()" class="small-icon hidden close-search"><img src="{% static 'img/header/close.svg' %}" alt="" ></a> 
+            <a onclick="RemoveSeacrh()" class="small-icon hidden close-search"><img src="{% static 'img/header/close-search.svg' %}" alt="" ></a> 
         </div>
-        <a class="small-icon" href="{% url 'profile' %}">
+        <a class="small-icon cart" href="{% url 'cart' %}"><img src="{% static 'img/header/cart.svg' %}" alt=""></a> 
+        <div class="not-mobile">
+            <a class="small-icon" href="{% url 'favorite' %}"><img src="{% static 'img/like.svg' %}" alt=""></a> 
+        </div>
+        <a class="small-icon" href="{% url 'profile' %}" style="display: grid;">
             {% if user.is_authenticated %}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10.5" stroke="black" stroke-width="3"/>
-                <text x="52%" y="55%" text-anchor="middle" alignment-baseline="middle" font-size="12" font-weight="900" font-family="Inter" fill="black">{{ user.username|first|title }}</text>
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="9.5" stroke="#3E3E3E" stroke-width="3"/>
+                <text x="50%" y="55%" text-anchor="middle" alignment-baseline="middle" font-size="12" font-weight="900" font-family="Inter" fill="#3E3E3E">{{ user.username|first|title }}</text>
             </svg>        
             {% else %}
             <img src="{% static 'img/header/profile.svg' %}" alt="">
             {% endif %}
         </a>
-        <div class="not-mobile">
-            <a class="small-icon" href="{% url 'favorite' %}"><img src="{% static 'img/like.svg' %}" alt=""></a> 
-        </div>
-        <a class="small-icon cart" href="{% url 'cart' %}"><img src="{% static 'img/header/cart.svg' %}" alt=""></a> 
     </div>
 </div>
 <div class="Header-cat">
     <div class="tabs dropdown">
-        <div class="mobile">
-            <button onclick="AddSearch()" class="small-icon search-button not-hidden"><img src="{% static 'img/header/search.svg' %}" alt=""></button>
+        <div class="mobile top-catalog">
+            <div></div>
             <h1>КАТАЛОГ</h1>
-            <button onclick="Swtabs()"><img src="{% static 'img/header/close-catalog.svg' %}" alt=""></button>
+            <button onclick="AddSearch()" class="small-icon search-button not-hidden"><img src="{% static 'img/header/search.svg' %}" alt=""></button>
         </div>
         <a href="/brands"                  id="tab-btn-1"  data-content="#brand"> Бренды</a>
         <a href="/productlist/shoe"        id="tab-btn-2"  data-content="#shoe"> Обувь</a>
@@ -74,14 +80,19 @@
         <a href="/productlist/toys"        id="tab-btn-9"  data-content="#toys"> Игрушки</a>
         <a href="/productlist/sport"       id="tab-btn-10" data-content="#sport"> Спорт</a>
         <a href="/productlist/sport"       id="tab-btn-11" data-content="#rubrand"> РУ-Бренды</a>
+        <div class="mobile bottom-catalog">
+            <a class="not" href="/support">Помощь клиентам</a>
+            <a class="not" href="/callback">Связь с нами</a>
+            <a class="not" href="https://ru.wikipedia.org/wiki/Россия" style="color: var(--russ);">Россия</a>
+        </div>
     </div>
     <div class="contents">
         {% include  'main/Header-nav.html' %}
     </div>
 </div>
 <div class="Header-search">
-    <form class="form-search" method="get">
-        <div class="mobile" onclick="searchinput(event)"><img src="{% static 'img/header/search.svg' %}" alt=""></div>    
+    <form class="form-search" method="get" action="/search/results">
+        <button class="mobile" type="submit"><img src="{% static 'img/header/search.svg' %}" alt=""></button>    
         <input id="Header-search-input" type="search" name="query" placeholder="Поиск товаров" autocomplete="off">
         <div class="mobile" onclick="RemoveSeacrh()"><img src="{% static 'img/header/close-search.svg' %}" alt=""></div>    
     </form>
@@ -103,12 +114,15 @@
         <div class="center-footer">
             <div class="title    footer-text">PNG</div>
             <div class="not-mobile">
-                <div class="ftext    footer-text"><p> Выгоднейшие и самые низкие цены на исключительно оригинальные товары в России с постоянным наличием товаров каждой позиции. Надежные доставки и приятность интерфейса как на сайте так и в мобильном приложении. </p></div>
+                <div class="ftext    footer-text">Выгоднейшие и самые низкие цены на исключительно оригинальные товары в России с постоянным наличием товаров каждой позиции. Надежные доставки и приятность интерфейса как на сайте так и в мобильном приложении.</div>
             </div>
             <div class="mobile">
                 <div class="ftext    footer-text"><p> Выгоднейшие и самые низкие цены на исключительно оригинальные товары в России с постоянным наличием товаров каждой позиции. </p></div>
             </div>
-            <h1>Связь с нами</h1>
+            <div class="helpcallback">
+                <a href="/support">Помощь клиентам</a>
+                <a href="/callback">Связь с нами</a>
+            </div>
         </div>
     </div>
     <div class="bottom-footer">

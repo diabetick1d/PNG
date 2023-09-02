@@ -7,17 +7,16 @@ function HighLight(text, query) {
     return text.replace(regex, '<span class="HighLight">$1</span>');
 }
 
-function searchinput(e) {
-    e.preventDefault(); // Prevent the form from submitting normally
+// function searchinput() {
+//     const query = $('#Header-search-input').val();
+//     const url = `/search/results/${encodeURIComponent(query)}`;
+//     window.location.href = url;
+// }
 
-    const query = $('#Header-search-input').val();
-    const url = `/search/results/${encodeURIComponent(query)}`;
-    window.location.href = url;
-}
-
-$('.form-search-inline').submit(function(event) {
-    searchinput(event);
-});
+// $('.form-search-inline').submit(function(event) {
+//     event.preventDefault();
+//     searchinput();
+// });
 
 let timer_search
 searchInput.on('input', function() {
@@ -44,5 +43,5 @@ searchInput.on('input', function() {
         } else {
             results.html('');
         }
-    }, 150)
+    }, 350)
 });

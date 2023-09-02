@@ -11,7 +11,7 @@ SECRET_KEY = 'django-insecure-9f@#6fi91hv^@8)87!*b+9aj2)8p=$mf*=yv2v+0*8n&u7stqq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DOMEN                 = "126b-2a00-1e88-d050-e00-1d1f-f25e-73f3-8144.ngrok-free.app" # БЕЗ https
+DOMEN                 = "*" # БЕЗ https
 CORS_ORIGIN_WHITELIST = CSRF_TRUSTED_ORIGINS = [f'https://{DOMEN}', 'https://127.0.0.1'] 
 ALLOWED_HOSTS   = ['127.0.0.1',DOMEN] # '127.0.0.1','diabetick1d.pythonanywhere.com'    , "*"
 

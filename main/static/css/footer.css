@@ -8,34 +8,37 @@
 
 .footer .title {
     font-weight:    800;
-    font-size:      52px;
-    margin-bottom:  15px;
+    font-size:      58px;
+    margin-bottom:  50px;
+    letter-spacing: 0.48px;
 }
 .footer .ftext {
     color:          var(--grey1);
     text-align:     center;
-    font-size:      14px;
+    font-size:      15px;
     font-weight:    400;
+    letter-spacing: 0.6px;
 }
 
 .footer h1, .footer h2, .footer h3 {
-    font-size:    14px;
-    font-weight:  500;
+    font-size:    15px;
+    font-weight:  400;
+    letter-spacing: 0.6px;
 }
 .footer h1 {margin:      5px 0px;}
-.footer h3 {font-weight: 200;}
+.footer h3 {font-weight: 200}
 
-.footer .top-footer h1 {
-    font-size:   15px;
+.footer .top-footer a {
+    font-size:   16px;
     font-weight: 600;
-    margin-top:  10px;
+    margin-top:  40px;
+    letter-spacing: 0.64px;
 }
 
 .footer .top-footer {
     justify-content: center;
     display:         flex;
-    margin-bottom:   30px;
-    padding:         20px 0px;
+    padding:         40px 0px;
     border-top: 2px solid #EEE;
 }
 .footer .right-footer, .footer .left-footer {
@@ -55,30 +58,31 @@
     padding: 15px 0px;
     display: flex;
 }
+.footer .top-footer .helpcallback{display: grid}
 
 @media screen and (max-width: 1440px) {
     .footer .title {
-        font-size:     36px;
-        margin-bottom: 10px;
+        font-size:     48px;
+        margin-bottom: 40px;
     }
-    .footer .ftext         {font-size: 12px;}
-    .footer .top-footer h1 {font-size: 13px;}
+    .footer .ftext        {font-size: 13px;letter-spacing: 0.52px;}
+    .footer .top-footer a {font-size: 14px;margin-top: 30px;letter-spacing: 0.56px;}
     .footer h1, .footer h2, .footer h3 {
         font-size:     13px;
-        font-weight:   500;
+        letter-spacing: 0.52px;
     }
     .footer h1 {margin: 5px 0px;}
     .footer h3 {font-weight: 200;}
 
 
     .footer .top-footer {
-        margin-bottom: 30px;
-        padding:       20px 0px;
+        margin-bottom: unset;
+        padding:       40px 0px 30px 0px;
     }
 }
 @media screen and (max-width: 500px) {
     .footer {align-items: center;}
-    .bottom-footer {flex-direction: column;align-items: center; width: 75%;border-top: 1px solid #EEE;gap: 20px;}
+    .bottom-footer {flex-direction: column;align-items: center; width: 75%;border-top: 1px solid #EEE;gap: 20px;padding: 25px 0px;}
     .footer .center-footer {width: 90%;}
     
     .footer .title {
@@ -86,10 +90,10 @@
         margin-bottom: 18px;
     }
     .footer .ftext         {font-size: 12px;}
-    .footer .top-footer h1 {font-size: 15px;padding: 20px 0px;margin: 30px 0px 0px 0px;border-top: 1px solid #EEE;;}
+    .footer .top-footer .helpcallback{padding: 20px 0px;margin: 30px 0px 0px 0px;border-top: 1px solid #EEE;display: grid;gap: 10px;}
+    .footer .top-footer a {font-size: 15px;}
     .footer h1, .footer h2, .footer h3 {
         font-size:     13px;
-        font-weight:   500;
     }
     .footer h1 {margin: 5px 0px;}
     .footer h3 {font-weight: 200;}

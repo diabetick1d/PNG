@@ -15,10 +15,10 @@
             </div>
             <ul class="option-list slide" data-nav="{{ option_nav }}">
 
-                <li class="mli Category" type="podcategory"><input id="Category" type="checkbox" hidden>
+                <li class="mli Category first" type="podcategory"><input id="Category" type="checkbox" hidden>
                     <label for="Category">
                         <h2>Категория <div class="number m"> (<h6>0</h6>) </div></h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
                         <div class="mobile">
@@ -39,7 +39,7 @@
                 <li class="mli Brand" type="brand"><input id="Brand" type="checkbox" hidden>
                     <label for="Brand">
                         <h2>Бренды <div class="number m"> (<h6>0</h6>) </div></h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
                         <div class="mobile">
@@ -66,7 +66,7 @@
                 <li class="mli Material" type="material"><input id="Material" type="checkbox" hidden>
                     <label for="Material">
                         <h2>Материал <div class="number m"> (<h6>0</h6>) </div></h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
                         <div class="mobile">
@@ -85,7 +85,7 @@
                 <li class="mli Color" type="color"><input id="Color" type="checkbox" hidden>
                     <label for="Color">
                         <h2>Цвет <div class="number m"> (<h6>0</h6>) </div></h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
                         <div class="mobile">
@@ -106,7 +106,7 @@
                 <li class="mli Size" type="sizes"><input id="Size" type="checkbox" hidden>
                     <label for="Size">
                         <h2>Размеры <div class="number m"> (<h6>0</h6>) </div></h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
                         <div class="mobile">
@@ -127,50 +127,44 @@
                     </div>
                 </li>
 
-                <li class="mli Price" type="Price"><input id="Price" type="checkbox" hidden>
+                <li class="mli Price not-absolute" type="Price"><input id="Price" type="checkbox" hidden>
                     <label for="Price">
                         <h2>Цена</h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
-                        <div class="mobile">
-                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
-                            <h1>Цена <div class="number m copy"> (<h6>0</h6>) </div></h1>
-                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
-                        </div>
                         <div class="attr">
                             <div class="inputs">
-                                <input onsubmit="StopEvent()" type="number" autocomplete="off" id="min_price" placeholder="От {{ min_price }}">
-                                <input onsubmit="StopEvent()" type="number" autocomplete="off" id="max_price" placeholder="До {{ max_price }}">
+                                <div class="not-mobile"><h6>От</h6></div>
+                                <div class="not-mobile"><h6>До</h6></div>
+                                <input onsubmit="StopEvent()" type="number" autocomplete="off" id="min_price" placeholder="От {{ min_price }}" value="{{ min_price }}">
+                                <input onsubmit="StopEvent()" type="number" autocomplete="off" id="max_price" placeholder="До {{ max_price }}" value="{{ max_price }}">
                             </div>
                             <div class="range_slider">
                                 <div id="range"></div>
-                                <input type="range" id="slide_min" min="{{ min_price }}" max="{{ max_price }}" defaultMin="{{ min_price }}" value="0" step="100">
-                                <input type="range" id="slide_max" min="{{ min_price }}" max="{{ max_price }}" defaultMax="{{ max_price }}" value="1" step="100">
+                                <input type="range" id="slide_min" min="{{ min_price }}" max="{{ max_price }}" defaultMin="{{ min_price }}" value="{{ min_price }}" step="10">
+                                <input type="range" id="slide_max" min="{{ min_price }}" max="{{ max_price }}" defaultMax="{{ max_price }}" value="{{ max_price }}" step="10">
                             </div>
                         </div>
                     </div>
                 </li>
 
-                <li class="mli In_stock" type="stock"><input id="In_stock" type="checkbox" hidden>
+                <li class="mli In_stock not-absolute last" type="stock"><input id="In_stock" type="checkbox" hidden>
                     <label for="In_stock">
                         <h2>Наличие <div class="number m"> (<h6>0</h6>) </div></h2>
-                        <div class="not-mobile"><div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div></div>
+                        <div class="arrow"><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></div>
                     </label>
                     <div class="box-last">
-                        <div class="mobile">
-                            <div class="backTomenu"><img src="{% static 'img/product-list/back.svg'%}" alt=""></div>
-                            <h1>Наличие <div class="number m copy"> (<h6>0</h6>) </div></h1>
-                            <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
-                        </div>
                         <ul class="attr last">
                             <li data-value="InStock"><div class="star"><img src="{% static 'img/product-list/star_black.svg'%}" alt=""></div><h3>В наличии</h3></li>
                         </ul>
                     </div>
                 </li>
             </ul>
-            <div type="submit" class="submit">Применить</div>
-            <div class="mobile"><div type="submit" class="reset_button">Cбросить</div></div>
+            <div class="bottom">
+                <div class="submit-box"><div type="submit" class="submit">Применить</div></div>
+                <div class="mobile"><div type="submit" class="reset_button">Cбросить</div></div>
+            </div>
         </nav>
     </div>
 
@@ -179,7 +173,7 @@
             <div class="not-mobile">
                 <button class="button-switch" id="Filter-button" onclick="SwitchFilter()"><span>Фильтры</span><img src="{% static 'img/product-list/arrow.svg'%}" alt=""></button>
             </div>
-            <div class="mobile">
+            <div class="mobile box-button">
                 <button class="button-switch" id="Filter-button" onclick="SwitchFilter()"><img class="mobile" src="{% static 'img/product-list/filter.svg'%}" alt=""></button>
             </div>
         </div>
@@ -190,10 +184,10 @@
 
         <div id="sorting-form">
             <div class="box-sort">
-                <div class="not-mobile" style="width: 100%;height: 100%;display: flex;justify-content: center;">
+                <div class="not-mobile">
                     <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2" src="{% static 'img/product-list/arrow.svg'%}" alt=""><span>Сортировка</span></button>
                 </div>
-                <div class="mobile" style="width: 100%;height: 100%;display: flex !important;justify-content: center;">
+                <div class="mobile box-button">
                     <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2 mobile" src="{% static 'img/product-list/sorting.svg'%}" alt=""></button>
                 </div>
                 <ul>

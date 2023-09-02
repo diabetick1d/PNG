@@ -108,7 +108,7 @@ class Product(models.Model): # Базовая модель для всех то�
 
     composition = models.TextField("Состав", blank=True, null=True)
     content     = models.TextField("Содержание", blank=True, null=True)
-    sizechart   = models.ImageField("Размерная сетка", upload_to='size_chart/')
+    sizechart   = models.ImageField("Размерная сетка (изначально в ~600px)", upload_to='size_chart/')
 
     image1 = models.ImageField(upload_to="product_images/", verbose_name="Картинка #1")
     image2 = models.ImageField(upload_to="product_images/", blank=True, null=True,verbose_name="Картинка #2")
@@ -132,10 +132,8 @@ class Product(models.Model): # Базовая модель для всех то�
         self.eav.brand       = str(self.brand)
         self.eav.material    = str(self.material)
         self.eav.category    = str(self.category)
-        self.eav.min_price   = int(self.min_price)
-        self.eav.max_price   = int(self.max_price)
         self.eav.podcategory = str(self.podcategory)
-        self.eav.brand_name = str(self.brand.name) + " " + str(self.name)
+        self.eav.brand_name  = str(self.brand.name) + " " + str(self.name)
 
         # Список рекомендованных (20шт.) берем только 5 штук на вывод в представлении
         category = self.eav.category
@@ -181,8 +179,8 @@ class Product(models.Model): # Базовая модель для всех то�
             if type(jSon) == dict:
                 prices     = []
                 eav_prices = {}
-                for key, value in jSon.items():
-                    if int(value["count"]) > 0:
+                for key, value in jSon.items(): #       Проходимся по ценам в jsonе и вычисляем и минимум и максимум
+                    if int(value["count"]) > 0: # !!!!! Если у такой цены есть наличие то добавляем
                         prices.append(int(value["price"]) if int(value["price"]) > 0 else 0)
                     eav_prices[f"{key}_{typd}"] = value
                 self.min_price = min(prices)
@@ -193,7 +191,8 @@ class Product(models.Model): # Базовая модель для всех то�
             self.eav.sizes  = sizes      # Для фильтрации по размерам
             priceslist = ";".join([f"{price}" for price in prices])
             self.eav.prices = priceslist # для фильтрации по цене
-        except:
+        except Exception as e:
+            print("prices error:", e)
             pass
 
         if "#" in self.name:

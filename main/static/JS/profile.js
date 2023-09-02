@@ -101,8 +101,8 @@ $(document).ready(function() {
     let isAnimating = false
     
     $('.submit-personal').click(function(e) {
+        e.preventDefault();
         if ($("#personal").hasClass('active')){
-            e.preventDefault();
             var firstError = null;
             var isValid = true;
             $('#personal input').each(function() {
