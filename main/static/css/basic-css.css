@@ -90,7 +90,7 @@ body.stop-scroll {overflow: hidden;}
 
 
 .else {
-    margin:      20px 0px;
+    margin:      60px 0px;
     color:       var(--grey1);
     text-align:  center;
     font-family: 'Inter';
@@ -105,7 +105,7 @@ body.stop-scroll {overflow: hidden;}
     }
     .slide::-webkit-scrollbar{width: 3px}
     .else {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
@@ -129,4 +129,8 @@ body.stop-scroll {overflow: hidden;}
         height:  unset;
         display: none;
     }
+}
+
+@media screen and (max-width: 380px) {
+    :root {--smallicon: 22px;}
 }

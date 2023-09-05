@@ -119,7 +119,7 @@ def page_profile(request):
                         'brand': product["brand"],
                         'size':  product["size"],
                         'img':   product["img"],
-                        'price': product["price"],
+                        'price': separate(product["price"]),
                     } for product in json.loads(cart.cart_order)
                 ] 
             } for cart in carts
@@ -141,7 +141,7 @@ def page_profile(request):
                         'brand': product["brand"],
                         'size':  product["size"],
                         'img':   product["img"],
-                        'price': product["price"],
+                        'price': separate(product["price"]),
                     } for product in json.loads(ret.cart_return)
                 ] 
             } for ret in returns
@@ -206,8 +206,8 @@ def add_cart(request):
 @csrf_exempt
 def remove_cart(request):
     if request.method == 'POST':
-        product_uid = request.POST.get('uid')
-        user        = request.user
+        product_uid  = request.POST.get('uid')
+        user         = request.user
         product_size = str(request.POST.get('size')).split(" eu")[0]
         product_uid  = request.POST.get('uid')
         product      = f"{product_uid}#{product_size}"
@@ -327,10 +327,10 @@ def payment(request):
         promoprice  = 0
 
     for i in uid_list:
-        ps       = i.split(' ')[0]
-        size     = i.split('#')[1]
-        uid      = ps.split('#')[0]
-        onl_size = size.split(" ")[0]
+        ps        = i.split(' ')[0]
+        size      = i.split('#')[1]
+        uid       = ps.split('#')[0]
+        onl_size  = size.split(" ")[0]
         cartps    = cart[ps]
         product   = MAINmodels.Product.objects.get(uid=uid)
         prd_price = int(json.loads(product.prices)[onl_size]["price"])
@@ -402,13 +402,16 @@ def payment_get(request):
             if  promocode.count > 0 and (promocode.promocode not in request.user.used_promo):
                 promocode.count -= 1
                 promocode.save()
+                checkprice = True
                 user.used_promo.append(promocode.promocode)
                 user.save(update_fields=['used_promo'])
         except:
-            promocode   = ''
-            promoprice  = 0
+            promocode  = ''
+            promoprice = 0
+            checkprice = False
     else:
         promoprice  = 0
+        checkprice = False
 
 
     products = json.loads(request.POST.get('products'))
@@ -422,21 +425,23 @@ def payment_get(request):
     user_cart = request.user.cart
     try:
         for product in products:
-            uid_cart   = product.split('#')[0]
-            size_cart  = product.split('#')[1]
-            onl_size   = product.split(" ")[0]
+            uid_cart    = product.split('#')[0]
+            size_cart   = product.split('#')[1]
+            onl_size    = product.split(" ")[0]
             
             producta    = MAINmodels.Product.objects.get(uid=uid_cart)
-            price       = unseparate(user_cart[onl_size])
-            summ_price += price - promoprice
+            price       = unseparate(user_cart[onl_size]) - promoprice
+            if price < 0: price = 0
+           
+            summ_price += price
             cart_products.append({
-                'uid':           producta.uid,
-                'url':           producta.url,
-                'name':          producta.name,
-                'brand':         producta.brand.name,
-                'img':           str(producta.image1),
-                'size':          size_cart,
-                'price':         price,
+                'uid':   producta.uid,
+                'url':   producta.url,
+                'name':  producta.name,
+                'brand': producta.brand.name,
+                'img':   str(producta.image1),
+                'size':  size_cart,
+                'price': price,
             })
 
         order = models.Order.objects.create(
@@ -447,10 +452,10 @@ def payment_get(request):
             adress         = adress,
             delivery_point = delivery_point,
             cart_order     = json.dumps(cart_products),
-            client         = user.uid,
+            client         = user,
             type_delivery  = type_delivery,
             summ_price     = summ_price,
-            promocode      = promocode,
+            promocode      = promocode if checkprice else None,
         )
         response = {
             'status':    'success',
@@ -466,35 +471,35 @@ def payment_get(request):
 @csrf_exempt
 def add_return(request):
     if request.user.is_superuser:
-        data         = json.loads(request.body)
-        uid_products = json.loads(data['uid_list'])
-        uid_order    = data['uid_order']
-        products     = []
-        summ_price   = 0
-
-        for k, v in uid_products.items():
-            product = MAINmodels.Product.objects.get(uid=k)
-            products.append({
-                'uid':   product.uid,
-                'name':  product.name,
-                'brand': product.brand.name,
-                'img':   str(product.image1),
-                'price': v["price"],
-                'size':  v["size"],
-                'url':   v["url"],
-            })
-            summ_price += unseparate(v["price"]) 
-
-        if request.user.bonus:
-            usera = request.user.bonus
-            usera.bonus_number -= len(json.loads(products))
-            usera.save()
-
-        order = models.Order.objects.get(uid=uid_order)
-
         try:
+            data         = json.loads(request.body)
+            uid_products = json.loads(data['uid_list'])
+            uid_order    = data['uid_order']
+            products     = []
+            summ_price   = 0
+
+            for k, v in uid_products.items():
+                product = MAINmodels.Product.objects.get(uid=k)
+                products.append({
+                    'uid':   product.uid,
+                    'name':  product.name,
+                    'brand': product.brand.name,
+                    'img':   str(product.image1),
+                    'price': v["price"],
+                    'size':  v["size"],
+                    'url':   v["url"],
+                })
+                summ_price += unseparate(v["price"]) 
+
+            if request.user.bonus:
+                usera = request.user.bonus
+                usera.bonus_number -= len(json.loads(products))
+                usera.save()
+
+            order = models.Order.objects.get(uid=uid_order)
+
             models.Returns.objects.create(
-                number_order = order.number_order,
+                number_order = order,
                 promocode    = order.promocode,
                 cart_return  = json.dumps(products),
                 summ_price   = summ_price,
@@ -506,10 +511,10 @@ def add_return(request):
             return JsonResponse({'success': False, 'error': str(e)})
 
 def update_return(request):
-    uid        = request.POST.get('uid')
+    uid         = request.POST.get('uid')
     card_number = request.POST.get('card_number')
-    bank       = request.POST.get('bank')
-    name       = request.POST.get('name')
+    bank        = request.POST.get('bank')
+    name        = request.POST.get('name')
 
     try:
         return_obj = models.Returns.objects.get(uid=uid)

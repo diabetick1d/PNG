@@ -31,7 +31,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 .payment-method {max-width: 300px;}
 
 .order-list ul {
-    border:  2px solid var(--black6);
+    border:  2px solid var(--white3);
     padding: 20px 30px;
     display: grid;
     gap:     22px;
@@ -208,7 +208,8 @@ h6 {color: var(--white4);
     .bottom {margin-top: 40px;}
     .order-list, .deliver-info, .payment-method {
         gap:        11px;
-        max-height: 400px;
+        max-height: 430px;
+        width: calc(80% / 3);
     }
     .payment-method {
         gap:        13px;
@@ -216,10 +217,13 @@ h6 {color: var(--white4);
 
     .product-img {width: 65px;height: 65px;}
 
+    .politic-box label {height: unset;}
+    .politic-box {margin: 15px 0px;font-size: 12px;}
+
     h1 {font-size: 78px}
     .top p {font-size: 64px}
-    h2 {font-size: 18px}
-    h3 {font-size: 16px}
+    h2 {font-size: 18px;margin-bottom: 10px;}
+    h3 {font-size: 16px;margin-bottom: 5px;}
     h4 {font-size: 12px}
     h5 {font-size: 14px}
     h6 {font-size: 12px;}
@@ -232,22 +236,23 @@ h6 {color: var(--white4);
         gap: 15px;
         height: 180px;
     }
-    .deliver-info input, .deliver-info input::placeholder {font-size: 13px;}
-    .deliver-info input {width: calc(100% - (14px * 2) - 2px);padding: 7px 14px;height: 12px;}
+    .deliver-info input, .deliver-info input::placeholder {font-size: 12px;}
+    .deliver-info input {width: calc(100% - (14px * 2) - 2px);padding: 7px 14px;height: 11px;}
 
     .type {
         margin-bottom:    10px;
         height:           30px;
     }
 
-    .callback .true.active,.callback .false.active  {margin-top: 60px;margin-left: 30px;}
-    .callback h1{font-size: 60px;}
-    .callback h2{font-size: 40px;}
-    .callback a{font-size: 35px; margin-top: 70px;}
-    .callback #resubm {font-size: 40px}
+    .callback .true.active  {margin-top: 60px;margin-left: 30px;}
+    .callback .false.active {margin-top: 90px;margin-left: 30px;}
+    .callback h1{font-size: 55px;}
+    .callback h2{font-size: 33px;margin-bottom: 0px;}
+    .callback a{font-size: 24px; margin-top: 70px;}
+    .callback #resubm {font-size: 24px;margin-top: 40px;}
     
     .payment-method button {height: 45px;}
-    #summ-price {padding: 14px;}
+    #summ-price {padding: 15px;margin-top: 10px;}
 }
 
 
@@ -289,7 +294,7 @@ h6 {color: var(--white4);
 
     .payment-method .checkout {width: 85%;}
     .checkout-box {
-        gap: 15px;
+        gap: 20px;
         height: 180px;
     }
     .deliver-info input, .deliver-info input::placeholder {font-size: 15px;}

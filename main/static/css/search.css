@@ -35,29 +35,30 @@
 }
 .form-search {
     background:     #FFF;
-    height:         fit-content;
-    width:          65%;
+    width:          50%;
     height:         300px;
+    transition: all 0.2s cubic-bezier();
 }
 .form-search input, .form-search input::placeholder {
     color:       var(--white1);
     font-family: 'Inter';
     font-size:   96px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0.96px;
     
     margin-top:  var(--MarginSearch);
     width:       100%;
     border:      none;
     padding:     0px;
+    caret-color: var(--grey1);
 }
 
 .search-result ul {
     display:       grid;
-    grid-template: "a b";
+    /* grid-template: "a b"; */
 }
 .search-result {
-    margin: var(--MarginSearch);
+    margin: var(--MarginSearch) var(--MarginSearch) var(--MarginSearch) calc(var(--MarginSearch) + 10%);
     flex-grow: 1;
     height: 100%;
 }
@@ -79,7 +80,8 @@
 }
 
 @media screen and (max-width: 1440px) {
-    .list-group-item a {font-size: 20px;}
+    .list-group-item {margin-bottom: 20px;}
+    .list-group-item a {font-size: 16px;}
     .form-search input, .form-search input::placeholder {font-size: 64px;}
     .Header-search.active {
         min-height:       300px;
@@ -96,6 +98,8 @@
         justify-content: flex-start;
         align-items: center;
     }
+    .search-result ul {grid-template: unset;}
+
     .form-search {height: unset;
         width:           calc(100% - 40px);
         margin:          70px 20px 85px 20px;
@@ -129,6 +133,9 @@
         height: 22px;
     }
 }
+@media screen and (max-width: 400px) {
+    .form-search input, .form-search input::placeholder {font-size: 24px;height: unset;width: 80%;text-align: center;}
+}
 @media screen and (max-width: 350px) {
-    .form-search input, .form-search input::placeholder {font-size: 30px;height: unset;width: 80%;text-align: center;}
+    .form-search input, .form-search input::placeholder {font-size: 20px;height: unset;width: 80%;text-align: center;}
 }

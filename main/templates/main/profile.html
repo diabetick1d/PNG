@@ -32,7 +32,7 @@
             <div class="not-mobile"><a class="navigation" id="button_leave" href="{% url 'logout' %}">Выйти</a></div>
         </div>
         <div class="menu">
-            <form class="blockmenu " id="personal" action="" method="POST">
+            <form class="blockmenu active" id="personal" action="" method="POST">
                 {% csrf_token %}
                 <h6>Персональные данные</h6>
                 <div class="input-box top-margin">
@@ -187,7 +187,7 @@
                 <div class="else">У вас пока нет ни одной покупки...</div>
                 {% endif %}
             </div>
-            <div class="blockmenu active" id="returns">
+            <div class="blockmenu " id="returns">
                 {% if returns %}
                 {% for el in returns %}
                 <div class="blockbuy" id="return-{{ el.id }}">

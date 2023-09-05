@@ -6,7 +6,7 @@ import telebot
 
 
 class Promocode(models.Model):
-    promocode   = models.CharField(verbose_name="Промокод",blank=False,max_length=40)
+    promocode   = models.CharField(verbose_name="Промокод (Промокоды лучше не удалять только в крайней мере, тк у заказов где был промокод вместо него будет null)",blank=False,max_length=40)
     count       = models.IntegerField(verbose_name="Кол-во использований", default=99999)
     price       = models.IntegerField(verbose_name="Скидка")
     description = models.TextField(verbose_name="Описание", blank=True, null=True)
@@ -73,9 +73,6 @@ class User(AbstractUser):
     used_promo        = models.JSONField(verbose_name="Ипользованные промокоды", default=list)
     favorite          = models.JSONField(verbose_name="Избранное пользователя",default=list)
     cart              = models.JSONField(verbose_name="Корзина пользователя",default=dict)
-
-    list_buy          = models.JSONField(verbose_name="Возвраты пользователя",null=True,blank=True)
-    list_returns      = models.JSONField(verbose_name="Возвраты пользователя",null=True,blank=True)
     
     def save(self, *args, **kwargs):
         letters = ['a', 'c', 'e', 'P', 'N', 'G', 'g', 'I', 'k', 'm', 'o', 'q', 's', 'v', 'x', 'y', 'z', 'P', 'N', 'G', '1', '2', '3','2', '3', '4', '5'] 
@@ -127,7 +124,7 @@ class Order(models.Model):
     tracknumber   = models.CharField(max_length=120, blank=True, null=True,verbose_name="Номер отслеживания")
     status_order  = models.CharField(max_length=40,choices=STATUS_CHOICES,default="ordered",verbose_name="Статус заказа")
     type_delivery = models.CharField(max_length=40,verbose_name="Способ доставки заказа")
-    promocode     = models.CharField(max_length=40,verbose_name="Промокод при оформлении заказа",blank=True,null=True)
+    promocode     = models.ForeignKey(Promocode,on_delete=models.SET_NULL,verbose_name="Промокод при оформлении заказа",blank=True,null=True)
 
     
     first_name    = models.CharField(max_length=40,verbose_name="Имя получателя")
@@ -140,7 +137,7 @@ class Order(models.Model):
     cart_order    = models.JSONField(verbose_name="Товары в заказе")
     summ_price    = models.CharField(max_length=40,verbose_name="Сумма заказа")
 
-    client        = models.IntegerField(verbose_name="id покупателя в telegram")
+    client        = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name="username in the telegram")
     data_order    = models.DateField(auto_now_add=True, editable=False,verbose_name="Дата заказа")
 
     def save(self, *args, **kwargs):
@@ -168,10 +165,10 @@ RETURN_CHOICES = (
 
 class Returns(models.Model):
     uid           = models.AutoField(primary_key=True,editable=False,verbose_name="Номер Возврата")
-    number_order  = models.CharField(max_length=12, editable=False,verbose_name="Номер заказа от которого идет возврат",auto_created=True)
+    number_order  = models.ForeignKey(Order,verbose_name="Номер заказа от которого идет возврат",on_delete=models.CASCADE)
     status_return = models.CharField(max_length=40,choices=RETURN_CHOICES,default="return_1",verbose_name="Статус заказа")
     
-    promocode     = models.CharField(max_length=40,verbose_name="Промокод при оформлении заказа",blank=True,null=True)
+    promocode     = models.ForeignKey(Promocode,on_delete=models.SET_NULL,verbose_name="Промокод при оформлении заказа",blank=True,null=True)
     cart_return   = models.JSONField(verbose_name="Товары в возврате")
     summ_price    = models.CharField(max_length=40,verbose_name="Сумма возврата")
 
@@ -179,7 +176,7 @@ class Returns(models.Model):
     bank          = models.CharField(max_length=40,verbose_name="Банк получателя",blank=True,null=True)
     name          = models.CharField(max_length=90,verbose_name="Получатель",blank=True,null=True)
 
-    client        = models.IntegerField(verbose_name="id покупателя в telegram")
+    client        = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name="username in the telegram")
     data_order    = models.DateField(auto_now_add=True, editable=False,verbose_name="Дата заказа")
     data_return   = models.DateField(auto_now_add=True, editable=False,verbose_name="Дата возврата")
 
@@ -188,7 +185,7 @@ class Returns(models.Model):
         verbose_name_plural = "Возвраты"
 
     def __str__(self):
-        return self.number_order
+        return str(self.number_order.uid)
 
 from main.management.commands import UpBonusSystem
 class BonusProducts(models.Model):

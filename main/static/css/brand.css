@@ -60,13 +60,11 @@
 
 .search-brand .box-search-brand {
     width:         380px;
-    height:        50px !important;
+    height:        50px;
     background:    #fff;
     border-radius: 2px;
     border:        3px solid var(--white4);
-}
 
-.search-brand .box-search-brand {
     display:        grid;
     position:       relative; 
     align-items:    center;
@@ -220,18 +218,18 @@
     .search-brand p {font-size: 26px;}
     .result-brand-box p{height: 50px;}
 
-    .brand-main h6 {margin: 60px 0px 80px 0px;font-size: 18px;}
+    .brand-main h6 {margin: 55px 0px 60px 0px;font-size: 18px;}
     .Center-page h1 {margin: 30px 0px;}    
     .all-catalog h2 {font-size: 32px;}
-    .all-catalog h3 {font-size: 18px;margin: 100px 0px 120px 0px;}
-    .search-brand .box-search-brand {width: 300px;height: 35px;}
+    .all-catalog h3 {font-size: 18px;margin: 70px 0px 80px 0px;}
+    .search-brand .box-search-brand {width: 270px;height: 40px;}
 
     .close-brand-search {width:  calc(var(--smallicon) / 1.5);height: calc(var(--smallicon) / 1.5);}
     .search-brand input {margin: 8px;font-size: 14px;width: 95%;}
     .boxes-rc {--ImgBrandHeight: 140px}
 
     .results,.compilations{gap: 80px;}
-
+    .brand-one {gap: 60px;}
     .img-brand {
         width:  100px;  /* w(140px)-2xpadding */
         height: 100px;
@@ -243,7 +241,7 @@
     #touch-more {
         width:  280px;
         height: 40px;
-        margin: 30px 0px;
+        margin: 20px 0px;
     }
     #touch-more p {font-size: 14px}
 

@@ -104,11 +104,12 @@ input.not-valid::placeholder {color: var(--red1) !important}
     font-size:   20px;
     font-weight: 400;
     position:    relative;
+    width:       85%;
 }
 #personal #politicbox a {font-weight: 700;}
 
 .ef {
-    color:       var(--grey2);
+    color:       var(--grey1);
     font-size:   18px;
     font-weight: 300;
     text-align:  end;
@@ -202,7 +203,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
 /* Кнопка сохранить */
 #personal .submit-personal, #personal .personal-leave {
     background:  #2E2E2E;
-    width:       100%;
+    width:       60%;
     height:      55px;
     color:       #FFF;
     font-size:   18px;
@@ -630,7 +631,10 @@ input.not-valid::placeholder {color: var(--red1) !important}
 
 @media screen and (max-width: 1440px) {
     /* personal */
-    .navigation-menu {gap: 30px;}
+    #personal .input-box.top-margin    {margin-top: 20px;}
+    #personal .type_deliver.top-margin {margin-top: 10px;}
+    #personal h6.top-margin            {margin-top: 30px;}
+    .navigation-menu {gap: 30px;top: 100px;}
     .navigation-menu .navigation{font-size: 16px;}
     #personal {
         width:   460px;
@@ -644,7 +648,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     #personal .type_deliver h5{font-size: 14px;}    
     
     .ef {
-        font-size:   13px;
+        font-size:   14px;
         margin-top:  15px;
     }
     #personal #politicbox {font-size: 15px;}

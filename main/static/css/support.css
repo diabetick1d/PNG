@@ -88,7 +88,7 @@
     letter-spacing: 0.32px;
     color:          var(--grey2);
 
-    width:       45%;
+    width:       600px;
     margin:      0px auto;
     overflow:    hidden;
     transition:  all 0.5s ease-in-out;
@@ -142,14 +142,14 @@
     .question:not(:first-child) .img-question {width: calc(var(--imgquestions) - 75px);height: calc(var(--imgquestions) - 70px);padding: 35px;}
     
     .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
-    .question p {font-weight: 400;font-size: 16px;} /* текст в вопросах сверху */
+    .question p {font-size: 16px;} /* текст в вопросах сверху */
     
     .questions h2 {
         padding:     50px 0px 20px 0px;
         font-size:   20px;
     }
     .question-a label{ /* заголовок + стрелка */
-        margin:      30px auto 10px auto;
+        margin:      40px auto 40px auto;
     }
     
     .question-a p {
@@ -157,12 +157,15 @@
         font-size:   16px;
         cursor:      pointer;
         color: var(--black3);
+        letter-spacing: 0.8px;
     }
     
     .question-a .text-question {
         font-size:  14px;
         overflow:   hidden;
         max-height: 0px;
+        letter-spacing: 0.28px;
+        width: 490px;
     }
 
     .question-a label .arroy-question {opacity: 0.6;}
@@ -224,7 +227,9 @@
         overflow:       hidden;
         max-height:     0px;
         line-height:    120%;
-        letter-spacing: 0.328px
+        letter-spacing: 0.328px;
+        width:  unset;
+        margin: unset;
     }
 
     .question-a label .arroy-question {opacity: 0.6;}

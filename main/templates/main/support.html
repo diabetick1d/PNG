@@ -5,34 +5,33 @@
 {% block link %} <link rel="stylesheet" href="{% static 'css/support.css'%}"> {% endblock %}
 
 {% block body %}
-<div class="not-mobile"><div class="support-img"><img src="{% static 'img/support.png' %}" class="logo" alt="" style="height: 100%;"></div> </div>
 <div class="questions-al">
-    <h3><div class="mobile">ПОМОЩЬ</div><div class="not-mobile">Часто задаваемые вопросы</div></h3>
+    <h3>ПОМОЩЬ</h3>
     <div class="listquestions">
-        <a class="question" href="#original" onclick="openhelp('.original')"><div></div>
+        <a class="question" href="#nav-original" onclick="openhelp('.original')"><div></div>
             <div class="img-question"><img src="{% static 'img/support/original.png' %}" alt=""></div>
             <p>О товарах</p></a>
-        <a class="question" href="#wheremy" onclick="openhelp('.wheremy')">
+        <a class="question" href="#nav-wheremy" onclick="openhelp('.wheremy')">
             <div class="img-question"><img src="{% static 'img/support/wheremy.svg' %}" alt=""></div>
             <p>Где мой заказ?</p></a>
-        <a class="question" href="#deliver" onclick="openhelp('.deliver')">
+        <a class="question" href="#nav-deliver" onclick="openhelp('.deliver')">
             <div class="img-question"><img src="{% static 'img/support/deliver.svg' %}" alt=""></div>
             <p>Доставка</p></a>
-        <a class="question" href="#bonus" onclick="openhelp('.bonus')">
+        <a class="question" href="#nav-bonus" onclick="openhelp('.bonus')">
             <div class="img-question"><img src="{% static 'img/support/bonus.svg' %}" alt=""></div>
             <p>Бонусы</p></a>
-        <a class="question" href="#order" onclick="openhelp('.order')">
+        <a class="question" href="#nav-order" onclick="openhelp('.order')">
             <div class="img-question"><img src="{% static 'img/support/order.svg' %}" alt=""></div>
             <p>Как оформить</p></a>
         <div class="mobile">
-            <a class="question" href="#about" onclick="openhelp('.about')">
+            <a class="question" href="#nav-about" onclick="openhelp('.about')">
                 <div class="img-question"><img src="{% static 'img/support/about.svg' %}" alt=""></div>
                 <p>О PNG</p></a>
         </div>
     </div>
     <ul class="questions">
         <h2>Вопросы</h2>
-        <li class="question-a wheremy">
+        <li class="question-a wheremy" id="nav-wheremy">
             <label for="wheremy">
                 <p>Где мой заказ?</p>
                 <div class="arroy-question"><img src="{% static 'img/support/arrow.svg' %}" alt=""></div>
@@ -52,7 +51,7 @@
                 Товары поставляются из разных магазинов и стран. Мы работаем с надежными производителями и поставщиками. Цель - предложить широкий ассортимент товаров по разумным ценам. Цены могут меняться в течение дня. Сроки доставки зависят от страны отправления. Мы непрерывно расширяем нашу сеть поставок и стремимся обеспечить быструю доставку.
             </div>
         </li>
-        <li class="question-a original">
+        <li class="question-a original" id="nav-original">
             <label for="original">
                 <p>Оригинал ли это?</p>
                 <div class="arroy-question"><img src="{% static 'img/support/arrow.svg' %}" alt=""></div>
@@ -62,7 +61,7 @@
                 Все товары, которые мы предлагаем, являются абсолютно оригинальными. Мы гарантируем, что каждый товар, который вы приобретаете у нас, соответствует высочайшим стандартам качества и подлинности. При получении вы можете проверить это через экспертов или лично.
             </div>
         </li>
-        <li class="question-a order">
+        <li class="question-a order" id="nav-order">
             <label for="order">
                 <p>Как оформить заказ?</p>
                 <div class="arroy-question"><img src="{% static 'img/support/arrow.svg' %}" alt=""></div>
@@ -100,7 +99,7 @@
                 <div class="img-size"><img src="{% static 'img/support/img-size.png' %}" alt=""></div>
             </div>
         </li>
-        <li class="question-a bonus">
+        <li class="question-a bonus" id="nav-bonus">
             <label for="bonus">
                 <p>Бонусная система</p>
                 <div class="arroy-question"><img src="{% static 'img/support/arrow.svg' %}" alt=""></div>
@@ -114,7 +113,7 @@
                 <br><br>Если вы пригласили кого-то, но он не сделал заказ, в вашем счетчике будет серая метка которая говорит о том, что покупатель еще не сделал заказ
             </div>
         </li>
-        <li class="question-a deliver">
+        <li class="question-a deliver" id="nav-deliver">
             <label for="deliver">
                 <p>СДЭК и Почта России</p>
                 <div class="arroy-question"><img src="{% static 'img/support/arrow.svg' %}" alt=""></div>
@@ -125,7 +124,7 @@
                 Мы стремимся отправить все заказы в течение 1-3 дней после подтверждения заказа. Если прошло больше времени и вы не получили обновлений о доставке, рекомендуется обратиться в нашу службу поддержки клиентов.
             </div>
         </li>
-        <li class="question-a about">
+        <li class="question-a about" id="nav-about">
             <label for="about">
                 <p>О ПНГ</p>
                 <div class="arroy-question"><img src="{% static 'img/support/arrow.svg' %}" alt=""></div>

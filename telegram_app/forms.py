@@ -12,15 +12,19 @@ class CartOrderWidget(Widget):
             for item in val: # нужно сделать норм json в html и
                 item_str = f"""
                 <div class="product-lcheck" data-url="{item['url']}" data-uid="{item['uid']}" data-price='{item['price']}' data-size="{item['size']}">
-                <span></span>
+                <span class="box"><span></span><span></span></span>
                 Url: {item['url']}, uid-PNG: {item['uid']}, Name: {item['name']}, Size: {item['size']}, Price: {item['price']}
                 </div>"""
                 items.append(item_str)
             button = "<button style='width: 150px;'>На возврат</button>"
             style  = """<style>
-            .product-lcheck {width:100% !important;display:flex !important;align-items:center;border:solid #417690;border-width: 2px 0px;margin:5px 0px; gap: 15px;}
-            span {display:block; width: 15px;height: 15px; background-color: #417690; margin: 5px ;}
-            .product-lcheck.active span {display:block;background-color: #FFF;}
+            .product-lcheck {width:100% !important;display:flex !important;align-items:center;border:solid #417690;border-width: 2px 0px;margin:5px 0px; gap: 15px;padding: 5px 0px}
+            .box {display:block; width: 15px;height: 15px; margin: 5px ;position: relative;}
+            .box span {width: 100%;height: 3px;position: absolute;bottom: 0;left: 0;background-color: #919191;transition: all 0.4s ease-in-out;}
+            .box span:nth-child(1) {height: 3px;top: 6px;left: 0; transform: rotateZ(360deg);}
+            .box span:nth-child(2) {height: 3px;top: 6px;left: 0; transform: rotateZ(-180deg);}
+            .product-lcheck.active .box span:nth-child(1) {transform: rotateZ(90deg);}
+            .product-lcheck.active .box span:nth-child(2) {transform: rotateZ(0deg);}
             </style>"""
             js     = """<script>
                 var labels = document.querySelectorAll('.product-lcheck');

@@ -37,7 +37,7 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(models.Order, OrderAdmin)
 
 class ReturnsAdmin(admin.ModelAdmin):
-    readonly_fields = ["summ_price",'card_number','bank','name',"data_order","data_return","client", "number_order"]
+    readonly_fields = ["summ_price",'card_number','bank','name',"data_order","data_return","client", "number_order","promocode"]
     formfield_overrides = {
         JSONField: {'widget': forms.CartOrderWidgetSimple},
     }

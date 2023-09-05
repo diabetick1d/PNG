@@ -18,9 +18,9 @@
         <a href="/accounts/login/?next=/product/{{ product.uid }}">Войти</a>
     </div>
     {% endif %}
-    <div class="mobile">
-        <div class="brand"><img src="{{MEDIA_URL}}{{ product.brand.font }}" alt=""></div>
-    </div>
+        <div class="mobile">
+            <div class="brand"><img src="{{MEDIA_URL}}{{ product.brand.font }}" alt=""></div>
+        </div>
     <div class="not-mobile">
         {% if product.image2%}
         <ul class="itc-slider__indicators product-left flex-center">
@@ -41,8 +41,6 @@
                 <li id="ind-2" data-slide-to="2" class="slider-indicator img-left"><img src="{{MEDIA_URL}}{{ product.image3 }}" alt=""></li>{% endif %}
             </div> 
         </ul>
-        {% else %}
-            <style>.product-all {grid-template:"a b";}</style>
         {%  endif %}
     </div>
     <div class="product-center flex-center">

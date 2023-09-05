@@ -14,7 +14,8 @@ const lowerSlider = $('#slide_min'),
 const defaultMin = lowerSlider.attr("defaultMin"),
       defaultMax = upperSlider.attr("defaultMax");
 let   Min = parseInt(lowerSlider.attr("min")),
-      Max = parseInt(upperSlider.attr("max"));
+      Max = parseInt(upperSlider.attr("max")),
+      oldmax, oldmin;
 
 var previousWindowHeight = window.innerHeight;
 var previousScrollPosition = window.pageYOffset;
@@ -170,13 +171,15 @@ function get_page(page, new_page = false) {
     })
 }
 
-// функция фильтра по CSV цене плохо работает и плохо работает установление новых цен(новые цены всегда меняют старые )
-
 function send_query(refresh = false) {
-        $(".top p").show();
         const options = {}; 
+        let topp      = false
         $("#itlast li").each(function() {
             options[$(this).data("value")] = $(this).closest('.mli').attr("type");
+
+            if ($(this).hasClass("active")) {topp = true;}
+            if (topp) {$(".top p").show();}
+            else      {$(".top p").hide();}
         });
         const jsonData_options = JSON.stringify(options); // Конвертируем в JSON
         $.ajax({
@@ -228,11 +231,13 @@ function send_query(refresh = false) {
                     lowerSlider.attr("value", response.min_price);
                 }
                 if (min && min !== "No change" && typeof min == "number"){
-                    Min = response.min_price;
+                    oldmin = Min;
+                    Min = min;
                     ChangeMinMax();
                 }
                 if (max && max !== "No change" && typeof max == "number"){
-                    Max = response.max_price;
+                    oldmax = Max;
+                    Max = max;
                     ChangeMinMax();
                 }
                 slidin()
@@ -321,11 +326,11 @@ $(".backTomenu").click(() => {
 
 function ResetFunc() {
     ClearBrand();
-    ClearPrice();
+    // ClearPrice();
     $(".submit").removeClass("active");
     $("#itlast li").removeClass("active");
     $("#itlast li").removeClass("sehide");
-    $("#itlast li .number").removeClass("active");
+    // $("#itlast li .number").removeClass("active");
     $(".mli .number.m").removeClass("active");
     $(".mli.In_stock .box-last li").removeClass("active");
     $(".mli .number h6").text(0);
@@ -342,6 +347,7 @@ function ResetFunc() {
     }
     $(".submit").text(`Применить`)
     $(".top p").hide();
+    send_query(true);
 } 
 
 // Reset button
@@ -383,19 +389,18 @@ function ClearBrand() {
     $('.search_brand input').val('');
     $('#bjin ul li').show();
     $('#bjin ul').show();
-    $(".top p").hide();
 }
 $('.search_brand span').on('click', ClearBrand);
 
 
 // Функия для сброса фильтров
-function ClearPrice() { 
-    lowerSlider.attr("min",defaultMin);lowerSlider.attr("max",defaultMax);
-    upperSlider.attr("min",defaultMin);upperSlider.attr("max",defaultMax);
-    lowerSlider.val(defaultMin);lowerInput.val(defaultMin);
-    upperSlider.val(defaultMax);upperInput.val(defaultMax);
-    slidin();
-}
+// function ClearPrice() { 
+//     lowerSlider.attr("min",defaultMin);lowerSlider.attr("max",defaultMax);
+//     upperSlider.attr("min",defaultMin);upperSlider.attr("max",defaultMax);
+//     lowerSlider.val(defaultMin);lowerInput.val(defaultMin);
+//     upperSlider.val(defaultMax);upperInput.val(defaultMax);
+//     slidin();
+// }
 
 function ChangeMinMax(){
     upperSlider.attr("min",Min);lowerSlider.attr("min",Min);
@@ -404,16 +409,24 @@ function ChangeMinMax(){
     upperSlider.attr("max",Max);lowerSlider.attr("max",Max);
     upperInput.attr("max",Max);lowerInput.attr("max",Max);
 
-    if (upperInput.val() > Max){
-        upperInput.val(Max)
-    } else if (upperInput.val() < Min){
-        upperInput.val(Min)
-    }
-    
-    if (lowerInput.val() > Max){
+    let maxvalue = parseInt(upperInput.val()), minvalue = parseInt(lowerInput.val());
+    if (maxvalue > Max || maxvalue < Min){           // Если старые значения не допустимы после обновления max или min
+        upperInput.val(Max)                          // то ставит новое значение под новые max или min
+    }     
+    if (minvalue > Max || minvalue < Min){
         lowerInput.val(Max)
-    } else if (lowerInput.val() < Min){
-        lowerInput.val(Min)
+    }
+
+    if (oldmin == minvalue){                         // Если значение было максимальным или минимальным после обновления max или min
+        lowerInput.val(Min)                     // то ставит новое значение под новые max или min
+        lowerSlider.val(Min)
+        slidin()
+    }
+
+    if (oldmax == maxvalue){
+        upperInput.val(Max)
+        upperSlider.val(Max)
+        slidin()
     }
 
     padd = parseInt((upperSlider.attr("max") - upperInput.attr("min")) / 100 * 5)
@@ -421,8 +434,7 @@ function ChangeMinMax(){
 
 // Рисуем диапозон на range input
 function slidin() { 
-    valuemax = parseInt(upperSlider.val());
-    valuemin = parseInt(lowerSlider.val());
+    valuemax = parseInt(upperSlider.val());valuemin = parseInt(lowerSlider.val());
     $('#range').css('width', (((valuemax - valuemin) / (Max - Min)) * 100) + '%');
     $('#range').css('left',  (((valuemin - Min) / (Max - Min)) * 100) + '%');
 }
@@ -485,12 +497,10 @@ function UpperSet(){
     if (valuemax > Max){
         upperInput.val(Max)
         valuemax = Max
-    }
-    if (valuemax < Min){
+    } else if (valuemax < Min){
         upperInput.val(Min + padd)
         valuemax = Min + padd
-    }
-    if (valuemax - (padd + 5) > valuemin) {
+    } else if (valuemax - (padd + 5) > valuemin) {
         valuemin       = valuemax - padd
         lowerInput.val(valuemin)
         lowerSlider.val(valuemin)
@@ -507,16 +517,13 @@ function UpperSet(){
 }
 function LowerSet(){
     let valuemax = parseInt(upperInput.val()), valuemin = parseInt(lowerInput.val());
-    console.log(valuemin,Min,Max);
     if (valuemin < Min){
         lowerInput.val(Min)
         valuemin = Min
-    }
-    if (valuemin > Max){
+    } else if (valuemin > Max){
         lowerInput.val(Max - padd)
         valuemin = Max - padd
-    }
-    if (valuemin - (padd + 5) > valuemax) {
+    } else if (valuemin - (padd + 5) > valuemax) {
         valuemax       = valuemin - padd
         upperInput.val(valuemax)
         upperSlider.val(max_price)

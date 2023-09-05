@@ -31,7 +31,7 @@ searchInput.on('input', function() {
                 let html = '';
                 for (let i = 0; i < data.results.length; i++) {
                     html += '<li class="list-group-item">' +
-                    '<a href="/product/' + data.results[i].uid + '">' + HighLight(data.results[i].name, searchInput.val()) + '</a>' +
+                    '<a href="/product/' + data.results[i].id + '">' + HighLight(data.results[i].name, searchInput.val()) + '</a>' +
                     '</li>';
                 }
                 results.html(html);

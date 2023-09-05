@@ -21,10 +21,9 @@
 
 @media screen and (max-width: 1440px) {
     #deletefavourite {
-        width:    15px;
-        height:   15px;
+        width:    16px;
+        height:   16px;
         top:      3px;
         right:    3px;    
     }
-    
 }

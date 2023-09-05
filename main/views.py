@@ -204,7 +204,6 @@ def brand_results(request,brand_query):
 @csrf_exempt
 def search_results(request):
     natquery = request.GET.get('query', None)
-    print("natquery:",natquery)
     if natquery:
         products = models.Product.objects.filter(eav__brand_name__icontains=natquery)
         option_dict = get_option_list(products)

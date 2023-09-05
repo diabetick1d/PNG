@@ -1,7 +1,7 @@
-.slider-indicator:hover {border-color: var(--grey3);cursor: pointer;}
-.slider-indicator.active {border-color: var(--black4);cursor: unset !important;}
-.slider-indicator{border: 2px solid #00000000;}
-
+.slider-indicator:hover {cursor: pointer;}
+.slider-indicator.active {border-color: #4E4E4E;cursor: unset !important;}
+.slider-indicator{border: 2px solid #EEEEEE;border-radius: 2px;padding: var(--paddingimg);}
+.product-all.left-0 .slider-indicator{border: none !important;cursor: default !important;}
 /* Dropdown sizes */
 
 body {font-family: 'Inter';}
@@ -36,8 +36,13 @@ body {font-family: 'Inter';}
     font-weight: 600;
 }
 
+.dropdown-size .dropdown.active label {
+    border:        2px solid var(--white5);
+    border-bottom: 0px;
+    background:    #FFFFFF
+}
 .dropdown-size .dropdown label {
-    width:           100%;
+    width:           calc(100% - 4px);
     height:          45px;
     cursor:          pointer;
     position:        relative;
@@ -46,6 +51,8 @@ body {font-family: 'Inter';}
     align-items:     center;
     background:      var(--white6);
     justify-content: center;
+    border: 2px solid transparent;
+    border-bottom: 0px;
 }
 
 .dropdown-size label .arrow {
@@ -70,34 +77,35 @@ body {font-family: 'Inter';}
 
     height:     0px;
     top:        100%;
-    width:      100%;
+    width:      calc(100% - 4px);
     background: var(--white5);
 }
+.dropdown-size .dropdown.active .slideli {border: 2px solid var(--white5);border-top: 0px;}
 
 .dropdown-size .slideli.scrolling {overflow-y: scroll;}
 
 .dropdown-size .slideli::-webkit-scrollbar-track{background-color: #ffffff00;}
-.dropdown-size .slideli::-webkit-scrollbar{width: 4px;background-color: #D9D9D9;}
+.dropdown-size .slideli::-webkit-scrollbar{width: 4px;background-color: var(--white3);}
 .dropdown-size .slideli::-webkit-scrollbar-thumb{background-color: var(--grey4);}
 
 .dropdown-size .slideli li  {
     font-weight:     600;
     font-size:       16px;
     height:          45px;
-    background:      var(--white6);
+    background:      #FFF;
     color:           var(--black6);
     display:         flex;
     justify-content: space-between;
     align-items:     center;
     cursor:          pointer;
 }
-.dropdown-size .slideli li:nth-child(even) {background: #CCCCCC;}
+.dropdown-size .slideli li:nth-child(odd) {background: #F0F0F0;}
 
 .dropdown-size .pricein               {width: 40%; text-align: center;}
 .dropdown-size li .div-size           {width: 40%}
 .dropdown-size .slideli li .sepaprice {width: 20%; font-weight: 900;}
 
-.dropdown-size .slideli li.selected {background: var(--black5);color: #fff;}
+.dropdown-size .slideli li.selected {background: var(--grey3);color: #fff;}
 
 .dropdown-size #touch-size {position: absolute; height: 0px;}    
 .dropdown-size #touch-size:checked + .slideli {height:var(--liHeight);opacity:1;z-index: 1;} 
@@ -166,7 +174,7 @@ body {font-family: 'Inter';}
     left:       0;
     width:      100vw;
     transition: bottom 0.4s ease-in-out, opacity 0.3s ease-in-out;
-    padding:    20px 30px 50px 30px;
+    padding:    20px 0px 50px 0px;
     background-color: #FFFFFF;
     opacity:    0;
     z-index:    -5;
@@ -198,9 +206,11 @@ body {font-family: 'Inter';}
     margin:          auto;
 }
 .how .text {
+    margin-right: 20px;
     font-size:   16px;
     font-weight: 400;
     color:       var(--grey2);
+    line-height: 1.6;
 }
 
 .sizechart {width: 425px;margin: 10px 80px 40px 80px;}
@@ -241,12 +251,11 @@ body {font-family: 'Inter';}
 .product-left div{display: grid;gap:var(--gapleft);}
 
 /* Pictures */
-.product-all{--centerimg: 550px;--leftimg:   140px;--gapleft: 45px;}
-.product-all.left-4{--leftimg:   140px;--gapleft: 10px;}
-.product-all.left-3{--leftimg:   175px;--gapleft: 10px;}
-.product-all.left-2{--leftimg:   250px;--gapleft: 50px;}
-.product-all.left-1{--leftimg:   300px;}
-.product-all.left-0{gap: 20vw;}
+.product-all{--centerimg: 550px;--leftimg:   140px;--gapleft: 45px;--paddingimg: 0px;}
+.product-all.left-4{--leftimg:   140px;--gapleft: 10px;--paddingimg: 0px;}
+.product-all.left-3{--leftimg:   175px;--gapleft: 10px;--paddingimg: 0px;}
+.product-all.left-2{--leftimg:   250px;--gapleft: 50px;--paddingimg: 0px;}
+.product-all.left-1{--leftimg:   300px;--paddingimg: 0px;}
 
 
 /* Slider */
@@ -260,7 +269,6 @@ body {font-family: 'Inter';}
     width:           300px;
     display:         grid;
     justify-items:   center;
-    justify-content: space-between;
 }
 
 .brand{width: 100%;height: 75px;margin-bottom: 20px;}
@@ -271,7 +279,7 @@ body {font-family: 'Inter';}
     font-size:     14px;
     font-weight:   400;
     margin-bottom: 33px;
-    margin:        0px 10px;
+    margin:        10px 0px;
 }
 
 .price {
@@ -361,7 +369,7 @@ body {font-family: 'Inter';}
     flex-direction: column;
     align-items:    center;
     display:        flex;
-    width:          100%;
+    width:          98%;
     text-align:     center;
 }
 
@@ -421,17 +429,17 @@ body {font-family: 'Inter';}
     width:          100vw;
     justify-items:  center;
     position:       fixed;
-    bottom:         -20.5%;
+    bottom:         -180px;
     left:           0;
     transition:     bottom 0.4s ease-in-out;
 }
-.is_authenticated {z-index: 3;padding-bottom: 15px;}
+.is_authenticated {z-index: 3;padding-bottom: 10px;}
 .is_authenticated .tireg,.is_authenticated p,.is_authenticated a{width: 300px;text-align: center;}
 .is_authenticated button{
     width:      20px;
     height:     20px;
     position:   absolute;
-    right:      20px;
+    right:      40px;
     opacity:    0;
     pointer-events: none;
     transition:     opacity 0.3s ease-in-out;
@@ -448,7 +456,7 @@ body {font-family: 'Inter';}
     margin:        25px 0px;
 }
 .is_authenticated p{
-    color: var(--black6);
+    color: var(--grey3);
     font-size:   16px;
     font-weight: 400;
 }
@@ -505,7 +513,7 @@ body {font-family: 'Inter';}
     }
 
     .dropdown-size span {font-size: 12px;}
-    .dropdown-size .dropdown label {width: 100%;height: 33px;}
+    .dropdown-size .dropdown label {height: 33px;}
     .dropdown-size label .arrow {
         width:      8px;
         height:     5px;
@@ -525,12 +533,11 @@ body {font-family: 'Inter';}
     }
     .add-cart-box.active .checkmark {transform: translateY(33px);}
 
-    .product-all{--centerimg: 430px;--leftimg:   90px;--gapleft: 20px;}
-    .product-all.left-4{--leftimg:   100px;--gapleft: 10px;}
-    .product-all.left-3{--leftimg:   120px;--gapleft: 25px;}
-    .product-all.left-2{--leftimg:   190px;--gapleft: 20px;}
-    .product-all.left-1{--leftimg:   220px;}
-    .product-all.left-0{gap: 20vw;}
+    .product-all{--centerimg: 430px;--leftimg:   87px;--gapleft: 20px;--paddingimg: 8px;}
+    .product-all.left-4{--leftimg: 87px;--gapleft: 25px;--paddingimg: 8px;}
+    .product-all.left-3{--leftimg: 101px;--gapleft: 25px;--paddingimg: 10px;}
+    .product-all.left-2{--leftimg: 148px;--gapleft: 25px;--paddingimg: 20px;}
+    .product-all.left-1{--leftimg: 220px;--paddingimg: 0px;}
     .product-center button {width: 10px;height: 20px;margin: 10px 0.6vw;}
 
     .howsize .buthow {
@@ -545,7 +552,7 @@ body {font-family: 'Inter';}
         bottom:     -40vh;
         left:       0;
         width:      100vw;
-        padding:    40px 50px;
+        padding:    25px 0px 45px 0px;
         background-color: #FFFFFF;
         opacity:    0;
         z-index:    -5;
@@ -553,21 +560,21 @@ body {font-family: 'Inter';}
     
     .how button{position: absolute;right: 0px;top: 0px;display: grid;width: 20px;height: 20px;}
     
-    .how h4 {font-size: 24px;font-weight: 700;margin:   0px auto 30px auto}
+    .how h4 {font-size: 24px;font-weight: 700;margin: 0px auto 30px auto}
     .howtwo {width: 50%;}
-    .how .text {font-size:   16px;}
+    .how .text {font-size:   15px;}
 }
 
 
 
 
 @media screen and (max-width: 500px) {
-    .is_authenticated {padding-bottom: 15px;bottom: -19.1%;}
+    .is_authenticated {padding-bottom: 15px;bottom: -155px;}
     .is_authenticated .tireg,.is_authenticated p,.is_authenticated a{width: 65%;text-align: center;}
     .is_authenticated .tireg{font-size: 24px;margin: 25px 0px 15px 0px;width: 100%;}
     .is_authenticated p {font-size: 14px;}
-    .is_authenticated a {border-radius: 2px;background-color: var(--black5);height: 40px;margin: 25px 0px;display: grid;align-items: center;
-    }
+    .is_authenticated a {border-radius: 2px;background-color: var(--black5);height: 40px;margin: 25px 0px;display: grid;align-items: center;}
+    .is_authenticated button {right: 20px;}
 
 
     .recommendation-box {flex-wrap: wrap; gap: 20px;margin: 0px 20px;}
@@ -628,7 +635,7 @@ body {font-family: 'Inter';}
     }
 
     .dropdown-size span {font-size: 16px;}
-    .dropdown-size .dropdown label {width: 100%;height: 45px;}
+    .dropdown-size .dropdown label {height: 45px;}
     .dropdown-size label .arrow {
         width:      8px;
         height:     5px;
@@ -654,11 +661,11 @@ body {font-family: 'Inter';}
         grid-template:   unset;
     }
     .product-all{--centerimg: 240px;--leftimg:   0;--gapleft: 0;justify-content: unset;}
-    .product-all.left-4{--leftimg:   0;--gapleft: 0;}
-    .product-all.left-3{--leftimg:   0;--gapleft: 0;}
-    .product-all.left-2{--leftimg:   0;--gapleft: 0;}
-    .product-all.left-1{--leftimg:   0;}
-    .product-all.left-0{gap: 0;}
+    .product-all.left-4{--leftimg:   0;--gapleft: 0;--paddingimg: 0px;}
+    .product-all.left-3{--leftimg:   0;--gapleft: 0;--paddingimg: 0px;}
+    .product-all.left-2{--leftimg:   0;--gapleft: 0;--paddingimg: 0px;}
+    .product-all.left-1{--leftimg:   0;--paddingimg: 0px;}
+    .product-all.left-0{gap: 0;--paddingimg: 0px;}
     .product-center button {width: 10px;height: 20px;}
     .product-center .slider__btn_prev {margin-right: 30px;}
     .product-center .slider__btn_next {margin-left: 30px;}
@@ -680,7 +687,7 @@ body {font-family: 'Inter';}
     .how {width: unset;}
     .how h4 {font-size: 24px;font-weight: 700;margin:   0px auto 30px auto}
     .howtwo {width: 100%;}
-    .how .text {font-size: 16px;width: 75%;padding-left: 26px;}
+    .how .text {font-size: 16px;width: 75%;padding-left: 26px;margin-right: 0px;}
 }
 @media screen and (max-width: 350px) {
     .product-all{--centerimg: 200px;--leftimg:   0;--gapleft: 0;}

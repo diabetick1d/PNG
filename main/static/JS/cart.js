@@ -31,24 +31,28 @@ function SetNumber(targetValue, elem) {
             element.innerHTML = n;
         }, 5);
     }
-    
 }
 
-
 function ChangeInfo(){
-    var totalPrice          = 0;
-    var semiPrice           = 0;
-    var activeProductsCount = 0; 
-    var promocode = $("#promocode-price").data('price')
+    var totalPrice          = 0,
+        semiPrice           = 0,
+        activeProductsCount = 0,
+        promocode           = $("#promocode-price").data('price'),
+        promocodep          = 0;
     
     $('.product').each(function() {
         if ($(this).hasClass('active')) {
-            price = parseInt($(this).data('price'));
-            semiPrice += price
+            trueprice = parseInt($(this).data('price'));
+            semiPrice += trueprice
             if (promocode) {
-                price = price - parseInt(promocode);
+                price      = trueprice - parseInt(promocode)
+                if (price < 0) {price = 0}
+                promocodep += trueprice - price
+            } else {
+                price      = trueprice
             }
-            activeProductsCount += 1
+            
+            activeProductsCount += 1;
             totalPrice          += price;
         }
     });
@@ -56,7 +60,7 @@ function ChangeInfo(){
         totalPrice = 0;
     }
     $('#products-count h6').text(`${activeProductsCount} товаров`);
-    SetNumber((promocode * activeProductsCount), "#c-price");
+    SetNumber(promocodep, "#c-price");
     SetNumber(semiPrice, '#a-price');
     SetNumber(totalPrice, '#b-price');
 }

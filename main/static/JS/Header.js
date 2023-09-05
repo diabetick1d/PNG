@@ -5,7 +5,7 @@ const HeaderSearch      = $('.Header-search');
 const HeaderCat = $(".Header-cat");
 const tabs      = $(".tabs.dropdown");
 const contents  = HeaderCat.find(".contents");
-const tablabels = tabs.find("a");
+const tablabels = $('[id^="tab-btn"]');
 const dropdowns = contents.find(".dropdown-content");
 var hoverTimer;
 
@@ -100,101 +100,78 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
       removeOverlay();
     }
   });
-  
-  function handleClick(event, tab, content) {
-    if (!tab.hasClass("active")) {
-      if (HeaderSearch.hasClass("active")){
-        RemoveSeacrh();
-      }
-      ActiveDropdown(tab, content);
-      event.preventDefault();
-      console.log("event");
-    }
-  }
 
-  function handleHover(event, tab, content) {
-    ActiveDropdown(tab, content);
-  }
-  
-  function handleMouseLeave(event, tab, content) {
-    if (
-      event.relatedTarget != contents ||
-      event.relatedTarget != tabs ||
-      event.relatedTarget != content ||
-      event.relatedTarget != HeaderCat
-      ) {} else {
-        DeactiveDropdown(tab, content);
-      }
-    }
-    
-    function DeactiveDropdown(tab, content) {
-      if (!HeaderSearch.hasClass("active")) {
-        contents.removeClass("active");
+  // console.log($(".contents"),"\n",$(".dropdown-content"),"\n",$(".Header-cat"));
+  function deactivetabs(event) {
+    if (!($(event.relatedTarget).closest(".Header-cat").length > 0)) {
       tablabels.removeClass("active");
-      content.removeClass("active");
+      dropdowns.removeClass("active");
+      contents.removeClass("active");
       removeOverlay();
     }
+    clearTimeout(hoverTimer);
   }
-  
-  function ActiveDropdown(tab, content) {
-    if (
-      !HeaderSearch.hasClass("active") &&
-      !tab.hasClass("active")
-      ) {
-        tablabels.removeClass("active");
-        dropdowns.removeClass("active");
-        contents.addClass("active");
-        tab.addClass("active");
-        content.addClass("active");
-        addOverlay();
-      }
-    }
-    
-    tablabels.each(function() {
-      let content = contents.find($(this).attr("data-content"));
-      
-      $(this).on('mouseenter', function(event) {
-        if (!contents.hasClass("active")) {
-          hoverTimer = setTimeout(function() {
-            handleHover(event, $(this), content);
-          }.bind(this), 200);
-        } else {
-          handleHover(event, $(this),content);
-          clearTimeout(hoverTimer);
-        }
-      });
-      
-      $(this).on('mouseleave', function(event) {
-        handleMouseLeave(event, $(this), content);
-        if (hoverTimer) {
-          clearTimeout(hoverTimer);
-        }
-      });
 
-      $(this).on('click', function(event) {
-      handleClick(event, $(this), content);
-    });
-    
-    HeaderCat.on('mouseleave', function(event) {
-      if (event.relatedTarget != tabs.get(0)) {
-        DeactiveDropdown($(this), content);
-      }
-    });
-    
-    if ('ontouchstart' in window) {
-      $(this).on('touchstart', function(event) {
-        handleClick(event, $(this), content);
-      });
+  function activetab(tab) {
+    if (tablabels.hasClass("active")) {
+      tablabels.removeClass("active"); // $('[id^="tab-btn"]')
+      dropdowns.removeClass("active");
+      $(tab.data("content")).addClass("active");
+      tab.addClass("active");
+    } else {
+      event.preventDefault();
+      hoverTimer = setTimeout(function() {
+        contents.addClass("active");
+        addOverlay();
+        $(tab.data("content")).addClass("active");
+        tab.addClass("active");
+      }, 200)
+    }
+  }
+
+  tablabels.on('click', function(event) {
+    if (!$(event.target).hasClass("active")){
+      event.preventDefault();
+      activetab($(this)); 
+    }
+    if (HeaderSearch.hasClass("active")){RemoveSeacrh();}
+  });
+  tablabels.on('touchstart', function(event) {
+    if (!$(event.target).hasClass("active")){
+      event.preventDefault();
+      activetab($(this));
+    }
+    if (HeaderSearch.hasClass("active")){RemoveSeacrh();}
+  });
+
+  tablabels.on("mouseenter", function(event) {
+    if (!HeaderSearch.hasClass("active")){
+      activetab($(this));
+      console.log("adas");
     }
   });
+  tabs.on("mouseleave", function(event) {
+    if (contents.hasClass("active")){
+      deactivetabs(event);
+      if (hoverTimer) {clearTimeout(hoverTimer);}
+    }
+  });
+  contents.on("mouseleave", function(event) {
+    if (contents.hasClass("active")){
+      deactivetabs(event);
+    }
+  });
+
 } else {
   function Swtabs() {
     if ($(".tabs.dropdown").hasClass("active")) {
       $(".tabs.dropdown").removeClass("active");
       $(".switchtabs").removeClass("active");
+      BodyResScroll();
     } else {
       $(".tabs.dropdown").addClass("active");
       $(".switchtabs").addClass("active");
+      BodyStopScroll();
     }
     if ($(".Header-search").hasClass("active")) {
       RemoveSeacrh()
@@ -210,5 +187,4 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
       scrollTop: 0
     })
   }
-
 }
