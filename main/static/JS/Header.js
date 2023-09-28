@@ -101,7 +101,6 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
     }
   });
 
-  // console.log($(".contents"),"\n",$(".dropdown-content"),"\n",$(".Header-cat"));
   function deactivetabs(event) {
     if (!($(event.relatedTarget).closest(".Header-cat").length > 0)) {
       tablabels.removeClass("active");
@@ -147,7 +146,6 @@ if (!(/Mobi|Android/i.test(navigator.userAgent))) {
   tablabels.on("mouseenter", function(event) {
     if (!HeaderSearch.hasClass("active")){
       activetab($(this));
-      console.log("adas");
     }
   });
   tabs.on("mouseleave", function(event) {

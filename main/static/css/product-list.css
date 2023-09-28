@@ -1,7 +1,6 @@
 .ddfcs {
     display: grid;
-    grid-template-columns: minmax(150px,250px) 1fr minmax(150px,250px);
-    justify-items: center;
+    grid-template-columns: minmax(150px,230px) 1fr minmax(150px,230px);
     align-items: center;
 }
 
@@ -18,6 +17,7 @@ input[type="number"]::-webkit-outer-spin-button {
     display:    flex;
     align-items:center;
     position:   relative;
+    margin: 0px 3px;
 }
 
 .button-switch span {
@@ -46,47 +46,57 @@ input[type="number"]::-webkit-outer-spin-button {
     width:    100%;
     height:   100%;
     display:  grid;
-    justify-items: center;
-    --one_line: 50px;
+    justify-items: end;
 }
-#sorting-form .box-sort {
-    transition:    height 0.4s ease-in-out, border-color 0.2s ease-in-out, background-color 0.4s ease-in-out;
-    width:         100%;
-    height:        var(--one_line);
-    position:      absolute;
-    justify-items: center;
-    display:       grid;
-    border:        2px solid #ffffff00;
-    overflow:      hidden;
-}
-#sorting-form.active .box-sort {height: calc(var(--one_line) * 5);}
+/* #sorting-form .box-sort {
+transition:    height 0.4s ease-in-out, border-color 0.2s ease-in-out, background-color 0.4s ease-in-out;
+width:         100%;
+height:        var(--one_line);
+position:      absolute;
+justify-items: end;
+overflow:      hidden;
+} */
 
-#sorting-form .box-sort ul{
-    width:    100%;
-    height:   calc(var(--one_line) * 4);
-    top:      100%;
+.bpx-ul {
+    position:   absolute;
+    max-height: 0px;
+    top:        100%;
+    width:      100%;
+    overflow:   hidden;
+}
+#sorting-form.active .bpx-ul {
+    max-height: 400px !important;
+}
+
+#sorting-form ul{
+    width:    98%;
     
     display:       grid;
     justify-items: center;
-    align-items:   center;
+    align-items:   end;
+    border:        2px solid #EBEBEB;
+    background:    #FFF;
 }
-#sorting-form .box-sort button {height: var(--one_line);}
-#sorting-form.active .box-sort {
-    background:   #FFF;
-    border-color: #EBEBEB;
-}
+#sorting-form button {height: 100%}
 
+#sorting-form ul li.active{background: #F4F4F4;}
+#sorting-form ul li:hover{background: #E3E3E3;}
 #sorting-form ul li{
-    color:       var(--black4);
-    font-family: 'Inter';
-    font-size:   18px;
-    font-weight: 500;
+    display: flex;justify-content: flex-end;align-items: center;
     cursor:      pointer;
+    width:       100%;
+    height:      60px;
+}
+#sorting-form ul li h3{
+    color:        var(--black4);
+    font-family:  'Inter';
+    font-size:    16px;
+    font-weight:  500;
+    margin-right: 19px;
+    letter-spacing: 0.64px;
 }
 
 #sorting-form .top {flex-direction: row-reverse;}
-#sorting-form ul {display: grid;}
-#sorting-form li {display: flex;justify-content: space-between;align-items: center;} 
 
 
 
@@ -437,19 +447,28 @@ li.active .star img, li.active .star svg {opacity: 1;}
 
 
 @media screen and (max-width: 1440px) {
+
+    #sorting-form ul li{
+        height:      53px;
+        font-size: 14px;
+    }
+    #sorting-form ul li h3{
+        font-size:    14px;
+        margin-right: 18px;
+        letter-spacing: 0.56px;
+    }
+
     .product-list { 
     grid-row-gap: 110px;
     grid-column-gap: 100px;
     margin: 80px 0px 100px 0px;
-}
+    }
     .Center-page p      {font-size: 12px;}
     .button-switch span {font-size: 16px;}
     
     #Filter-button img    {right:-20px;}
     #Sorting-button .img2 {left: -20px;width: 10px; height: 7px;}
-    #sorting-form ul li   {font-size: 14px;}
     .ddfcs {grid-template-columns: minmax(150px,200px) 1fr minmax(150px,200px);}
-    #sorting-form{--one_line: 40px; }
 
     #filter-form {
         left:        -350px;
@@ -495,7 +514,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
     #filter-form .arrow, #filter-form .arrow_in {width: 12px; height: 7px;}
 
     .search_brand {height: 30px;margin-top: 10px;}
-    .search_brand input, .search_brand input::placeholder {padding-left: 18px;font-size: 13px;letter-spacing: 0.65px;}
+    .search_brand input {padding-left: 18px;font-size: 13px;letter-spacing: 0.65px;}
     .search_brand span {
         right:    20px;
         width:    10px;
@@ -520,79 +539,99 @@ li.active .star img, li.active .star svg {opacity: 1;}
     .NextBack          {height: 55%;margin: 0px 15px;}
 }
 @media screen and (max-width: 500px) {
+    #sorting-form ul li.active{background: unset;}
+    #sorting-form ul li:hover{background: unset;}
+
+    #sorting-form h1, #sorting-form ul li h3 {margin-right: 19px;}
+    #sorting-form ul li h3 {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
     .product-list {
         grid-template-columns: repeat(2, 1fr);
-        grid-row-gap:    30px;
+        grid-row-gap:    70px;
         grid-column-gap: unset;
-        margin:          50px 0px 60px 0px;
+        margin:          60px 0px;
     }
     #filter-form, #sorting-form ul {box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);}
-    .Center-page p                 {font-size: 12px;font-weight: 400;}
+    .Center-page p                 {font-size: 14px;font-weight: 400;letter-spacing: 0.84px;}
+    .mobile.center                 {text-align: center;font-size: 20px;font-weight: 900;letter-spacing: 2.9px;width: 100%;font-family: "Inter";
+        display: block !important;
+        margin: 0px 0px 35px 0px;
+        text-transform: uppercase;
+    }
     
     #Filter-button img    {right:-20px;}
-    #Sorting-button .img2 {left: -20px;width: 40px; height: 40px;}
-    #sorting-form ul li   {font-size: 14px;}
+    #Sorting-button .img2 {left: -20px;width: 100%; height: 100%;}
+    #sorting-form ul li {height: unset !important;}
+    #sorting-form ul .mobile li  {font-size: 14px;border-bottom: 1px solid #E1E1E1;padding-bottom: 40px;}
 
     .ddfcs        {grid-template-columns: minmax(50px,80px) 1fr minmax(50px,80px);padding: 0px 10px;}
-    #sorting-form {--one_line: 40px;}
 
     #filter-form .bottom {border-top:    1px solid #E1E1E1;margin-bottom: 20px; }
     #filter-form .top    {border-bottom: 1px solid #E1E1E1;}
     #filter-form {
-        top:         55px;
-        height:      calc(100vh - 55px);
-        left:        -100vw;
-        width:       100vw;
-        --gap:       28px;  /* гап много где */
-        --gapB:      30px;  /* гап между всем  */
+        top:    unset;
+        bottom: 0;
+        height: calc(100dvh - 55px);
+        left:   -100vw;
+        width:  100vw;
+        --gap:  40px;  /* гап много где */
+        --gapB: 30px;  /* гап между всем  */
     }
 
 
-    #filter-form .close, .backTomenu,#sorting-form .box-sort ul .button-switch{width: 16px !important; height: 16px !important;}
+    #filter-form .close, .backTomenu,#sorting-form ul .button-switch{width: 20px !important; height: 20px !important;}
     
-    #filter-form nav {--pform: 40px;position: relative;}
+    #filter-form nav {--pform: 30px;position: relative;}
     
-    #filter-form h1, #sorting-form h1  {font-size: 22px; gap: 10px;font-family: "Inter";font-weight: 700;}
+    #filter-form h1, #sorting-form h1  {font-size: 20px; gap: 10px;font-family: "Inter";font-weight: 700;letter-spacing: 0.8px;}
     #filter-form p     {font-size: 11px;}
-    #filter-form h2    {font-size: 20px; gap: 5px;}
-    #filter-form h3    {font-size: 20px; gap: 10px; font-weight: 400;}
-    #filter-form h4    {font-size: 18px;}
-    #filter-form h5    {font-size: 18px;font-weight: 600;}
-    li .star {padding: 5px; border: 1px solid var(--white2);}
-    .box-sort ul .button-switch {margin: 0px 5px;}
+    #filter-form h2    {font-size: 17px; gap: 5px;letter-spacing: 1.02px;}
+    #filter-form h3    {font-size: 16px; gap: 10px; font-weight: 400;}
+    #filter-form h4    {font-size: 16px;}
+    #filter-form h5    {font-size: 16px;font-weight: 600;letter-spacing: 0.8px; }
+    li .star {width: 15px; height: 15px;padding: 5px; border: 2px solid var(--white2);}
+    #sorting-form ul .button-switch {margin: 0px 4px;}
+    .button-switch {width: 28px !important;height: 22px !important;margin: 0px 15px;}
 
-    #filter-form .attr{margin: 0px 4px 0px 0px;max-height:unset;}
+    #filter-form .mli:not(.Price, .In_stock) .attr{margin: 0px var(--pform) 0px var(--pform);max-height:unset;}
 
     .mli:not(.not-absolute) .box-last {
-        padding: var(--pform) var(--pform) 3px var(--pform);
+        padding:    40px 0px;
         transition: all 0.4s ease-in-out;
-        position: absolute;
+        position:   absolute;
         top:            0px;
         left:           -100vw;
-        height:         calc(100% - (var(--pform) * 6));
-        width:          calc(100%  - (var(--pform) * 2));
+        height:         calc(100% - (var(--pform) * 7.7));
+        width:          100%;
         background:     #FFF;
         display:        flex;
         flex-direction: column;
-        gap:            35px;
+        gap:            40px;
+        
         
         z-index:        4;
         max-height:     unset;
         overflow:       unset;
         margin-bottom:  0px;
+        border-bottom:  1px solid #E1E1E1;
     }
-    .mli:not(.not-absolute) .box-last .mobile {display: flex !important;justify-content: space-between;align-items: center;}
+    .mli:not(.not-absolute) .box-last .mobile {display: flex !important;justify-content: space-between;align-items: center;border-bottom: 1px solid var(--white4);padding: 0px var(--pform) 40px var(--pform);}
     .mli.Price:not(.not-absolute) .box-last {width: calc(90% - var(--pform) - 3px);}
     .range_slider input[type="range"]::-webkit-slider-thumb {
-        height:         24px;
-        width:          24px;
-        border-radius:  24px;
+        height:         21px;
+        width:          21px;
+        border-radius:  21px;
     }
 
+    
     #filter-form .mli.Price .attr {gap: 10px;}
-    #filter-form .inputs {column-gap: 30px;row-gap: 0px;}
-    .inputs input {height: 37px;}
-    #filter-form .mli:not(.not-absolute) label {margin-bottom: 20px;}
+    #filter-form .inputs {column-gap: 30px;row-gap: 0px;margin-top: 20px;}
+    .inputs input {height: 35px;font-size: 14px;}
+    
+    #filter-form .mli:not(.not-absolute) label {margin-bottom: 25px;}  #filter-form .option-list .mli.first {margin-top: 30px;}
     #filter-form .mli:not(.not-absolute) input:not(:checked) ~ .box-last {max-height: unset;}
     #filter-form .mli:not(.not-absolute) input:checked ~ .box-last {left: 0px;}
     #filter-form .option-list .mli:not(.not-absolute) input:checked ~ label     {margin-bottom: 20px;}
@@ -605,11 +644,10 @@ li.active .star img, li.active .star svg {opacity: 1;}
     #filter-form .arrow, #filter-form .arrow_in {width: 15px; height: 10px;}
     #filter-form .mli:not(.not-absolute) .arrow, #filter-form .mli:not(.not-absolute) .arrow_in {rotate: -90deg;}
 
-    .search_brand {height: 35px;border: 2px solid var(--white4);}
-    .search_brand input {padding: 0px 30px;text-align: center;}
-    .search_brand input, .search_brand input::placeholder {font-size:14px;font-weight: 500}
+    .search_brand {height: 41px;margin-top: 20px;}
+    .search_brand input {padding: 0px 25px;font-size:14px;font-weight: 500}
     .search_brand span {
-        right:    11px;
+        right:    25px;
         width:    12px;
         height:   12px;
     }
@@ -619,7 +657,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
         position: unset;
         width:    100%;
     }
-    #sorting-form .box-sort {
+    /* #sorting-form .box-sort {
         transition:    all 0.4s ease-in-out;
         width:         100%;
         height:        unset;
@@ -629,37 +667,32 @@ li.active .star img, li.active .star svg {opacity: 1;}
         border:        unset;
         overflow:      hidden;
     }
-    #sorting-form.active .box-sort {height: unset;}
-    
-    #sorting-form .box-sort ul{
+     */
+    #sorting-form ul{
         transition: all 0.4s ease-in-out;
         position:   fixed;
-        width:      calc(100vw - 60px);
-        padding:    40px 30px 60px 30px;
+        width:      100vw;
+        padding:    40px 0px 60px 0px;
         height:     auto;
         right:      -100vw;
         top:        55px;
-        gap:        30px;
+        gap:        50px;
 
 
-        background: #FFF;
+        background:    #FFF;
         display:       grid;
-        justify-items: center;
         align-items:   unset;
+        justify-items: end;
     }
-    #sorting-form .box-sort button {height: unset;}
-    #sorting-form.active .box-sort ul{right: 0px;}
-    #sorting-form.active .box-sort {
-        background:   unset;
-        border-color: unset;
-    }
+    #sorting-form button {height: unset;}
+    #sorting-form.active ul{right: 0px;}
 
     #sorting-form ul li{
-        width:           100%;
+        width:           unset !important;
         justify-content: flex-end;
-        gap:         30px;
         font-size:   20px;
         font-weight: 400;
+        padding:     0px 30px;
     }
     
     .ddfcs .box-button {width: 100%;height: 100%;display: flex !important;justify-content: center;}
@@ -667,13 +700,15 @@ li.active .star img, li.active .star svg {opacity: 1;}
     #sorting-form ul   {display: grid;}
     #sorting-form li   {display: flex;justify-content: space-between;align-items: center;} 
 
+    #filter-form .submit-box {padding-top: unset;}
 
-    .not-found {margin: 110px 0px;}
+    .not-found {margin: 170px 0px;}
     .not-found-img {
-        width:       200px;
-        height:      150px;
-        margin-bottom: 60px;
+        width:         200px;
+        height:        150px;
+        margin-bottom: 70px;
     }
+
         
-    .not-fount-text {font-size: 16px;}
+    .not-fount-text {font-size: 15px;font-weight: 600;}
 }

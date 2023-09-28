@@ -58,6 +58,7 @@
     align-items:    center;
 }
 
+.result-box, .compilation-box {width: 100%;}
 .search-brand .box-search-brand {
     width:         380px;
     height:        50px;
@@ -129,12 +130,12 @@
 .compilations.open {max-height: 1000px;}
 .results,.compilations{
     z-index: 0;
+    width:   100%;
     grid-template-columns: repeat(5, var(--ImgBrandHeight));
     display:         grid;
-    gap:    100px;
+    justify-content: space-between;
     justify-items:   center;
     align-items:     center;
-    justify-content: center;
 }
 
 .result-box{position: absolute;z-index: -2;}
@@ -184,7 +185,7 @@
 
 .brand-one {
     display: grid;
-    gap:     70px;
+    gap:     100px;
 }
 
 .brand-letter {
@@ -196,7 +197,7 @@
     align-items:    center;
     
     grid-template-columns: repeat(3, minmax(50px, 400px));
-    grid-row-gap:    70px;
+    grid-row-gap:          70px;
 }
 
 .brand-catalog {
@@ -218,18 +219,18 @@
     .search-brand p {font-size: 26px;}
     .result-brand-box p{height: 50px;}
 
-    .brand-main h6 {margin: 55px 0px 60px 0px;font-size: 18px;}
-    .Center-page h1 {margin: 30px 0px;}    
+    .brand-main h6 {margin: 70px 0px 60px 0px;font-size: 18px;}
+    .Center-page h1 {margin: 20px 0px 40px 0px;}    
     .all-catalog h2 {font-size: 32px;}
-    .all-catalog h3 {font-size: 18px;margin: 70px 0px 80px 0px;}
-    .search-brand .box-search-brand {width: 270px;height: 40px;}
+    .all-catalog h3 {font-size: 22px;margin: 70px 0px 80px 0px;}
+    .search-brand .box-search-brand {width: 280px;height: 40px;}
 
     .close-brand-search {width:  calc(var(--smallicon) / 1.5);height: calc(var(--smallicon) / 1.5);}
     .search-brand input {margin: 8px;font-size: 14px;width: 95%;}
     .boxes-rc {--ImgBrandHeight: 140px}
 
     .results,.compilations{gap: 80px;}
-    .brand-one {gap: 60px;}
+    .brand-one {gap: 65px;}
     .img-brand {
         width:  100px;  /* w(140px)-2xpadding */
         height: 100px;
@@ -241,7 +242,7 @@
     #touch-more {
         width:  280px;
         height: 40px;
-        margin: 20px 0px;
+        margin: 50px 0px 90px 0px;
     }
     #touch-more p {font-size: 14px}
 
@@ -251,7 +252,7 @@
         grid-row-gap: 45px;
     }
 
-    .brand-catalog {gap: 120px;}
+    .brand-catalog {gap: 100px;}
     .brand-inletter {font-size: 16px;}
 }
 
@@ -259,7 +260,6 @@
 
 
 @media screen and (max-width: 500px) {
-
     .search-brand p {font-size: 14px;}
     .result-brand-box p{height: 50px;}
 
@@ -276,6 +276,8 @@
     .results,.compilations{
         gap: 20px;
         grid-template-columns: repeat(3, var(--ImgBrandHeight));
+        width: 80%;
+        margin: auto;
     }
     .compilations{max-height: calc(var(--ImgBrandHeight) * 4.75);}
 

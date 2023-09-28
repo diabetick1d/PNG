@@ -17,7 +17,7 @@
     position:       absolute;
     max-height:     0px;
     z-index:        -1;
-    --MarginSearch: 50px;
+    --MarginSearch: 100px;
     justify-content:  space-between;
     display: flex;
 }
@@ -40,7 +40,7 @@
     transition: all 0.2s cubic-bezier();
 }
 .form-search input, .form-search input::placeholder {
-    color:       var(--white1);
+    color:       var(--white3);
     font-family: 'Inter';
     font-size:   96px;
     font-weight: 600;
@@ -68,18 +68,19 @@
     margin-bottom: 25px;
 }
 .list-group-item a {
-    color:       var(--black5) !important;
+    color:       var(--black6) !important;
     font-size:   18px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0.18px;
 }
 
 .list-group-item .HighLight {
     color:       black;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 @media screen and (max-width: 1440px) {
+    .Header-search {--MarginSearch: 55px;}
     .list-group-item {margin-bottom: 20px;}
     .list-group-item a {font-size: 16px;}
     .form-search input, .form-search input::placeholder {font-size: 64px;}
@@ -87,6 +88,7 @@
         min-height:       300px;
         max-height:       400px;
     }
+
 }
 @media screen and (max-width: 500px) {
     .Header-search {

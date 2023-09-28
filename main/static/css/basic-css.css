@@ -25,9 +25,9 @@
 }
 
 .slide {overflow: auto;}
-.slide::-webkit-scrollbar-track{background-color: #ffffff00;}
-.slide::-webkit-scrollbar{width: 4px;background-color: #D9D9D9;}
-.slide::-webkit-scrollbar-thumb{background-color: var(--grey4);}
+.slide::-webkit-scrollbar-track {background-color: #ffffff00;}
+.slide::-webkit-scrollbar       {background-color: #D9D9D9;width: 4px;}
+.slide::-webkit-scrollbar-thumb {background-color: var(--grey4);}
 
 
 .hidden {

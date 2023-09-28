@@ -1,21 +1,26 @@
 @import url(basic-css.css);
 @import url(../font/font.css);
 
-body {margin: 40px 300px;font-family: 'Inter';}
+body {margin: 45px 300px;font-family: 'Inter';}
 
-h1 {font-size: 96px; font-weight: 800;}
+h1 {font-size: 86px;font-weight: 800;letter-spacing: 0.86px;}
+h1 {font-size: 86px; font-weight: 800;}
 .top p {font-size: 76px;font-weight: 800;text-align:unset; margin: -20px 0px 0px 0px;}
-h2 {font-size: 24px; font-weight: 600;color: var(--black2);}
-h3 {color: var(--black2); font-size: 20px; font-weight: 400;}
+h2 {font-size: 22px; font-weight: 600;color: var(--black2);margin-bottom: 10px;}
+h3 {color: var(--black2); font-size: 18px; font-weight: 400;}
 .h3s {display: flex; align-items: center; justify-content: space-between;}
 h4 {text-align: right; font-size: 12px; font-weight: 500;}
 h5 {font-size: 14px; font-weight: 600;}
-.politic-text {font-size: 16px; font-weight: 500;  color: var(--grey4);}
+.politic-text {font-size: 14px; font-weight: 500;  color: var(--grey4);}
 .politic-text b {color: #000; font-weight: 500;}
 p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 
 .bottom {display: flex; justify-content: space-between; margin-top: 50px;}
-
+@media screen and (min-width: 2200px) {
+    body {
+        margin: 45px 20%;
+    }
+}
 /* Данные о заказе */
 .deliver-info.success, .payment-method.success {
     display: none;
@@ -24,15 +29,14 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
     flex-direction: column;
     display:    flex;
     width:      calc(70% / 3);
-    gap:        15px;
-    max-height: 480px;
+    gap:        25px;
 }
 
 .payment-method {max-width: 300px;}
 
 .order-list ul {
     border:  2px solid var(--white3);
-    padding: 20px 30px;
+    padding: 25px 30px;
     display: grid;
     gap:     22px;
 }
@@ -40,6 +44,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 
 #summ-price p{color: unset;}
 #summ-price {
+    margin-top:  10px;
     display:     flex;
     align-items: center;
     border-top:  1px solid var(--white3);
@@ -50,7 +55,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 
 .product-info{justify-content: space-between;}
 .product-det {display: grid;}
-.product-img {width: 80px; height: 80px; display: grid;}
+.product-img {width: 84px; height: 84px; display: grid;}
 
 /* Данные доставки */
 
@@ -61,7 +66,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
     background-color: #D9D9D9;
     position:         relative;
     cursor:           pointer;
-    margin-bottom:    10px;
+    margin-bottom:    6px;
     height:           40px;
 }
 .type .fakebox {
@@ -83,7 +88,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 .type #pr {width: 70%;}
 
 h6 {color: var(--white4);
-    font-size:       16px;
+    font-size:       14px;
     font-weight:     600; 
     display:         flex;
     align-items:     center;
@@ -102,7 +107,24 @@ h6 {color: var(--white4);
     font-weight:    500;
     transition: all 0.6s ease-in-out;
 }
-.deliver-info input {width: calc(100% - (15px * 2) - 2px);border: 2px solid var(--white4);height: 15px;padding: 6px 15px;}
+.deliver-info input {
+    width:       calc(100% - (14px * 2) - 2px);
+    border:      2px solid var(--white4);
+    height:      14px;
+    padding:     7px 14px;
+    
+    font-family: "Inter";
+    color:       var(--black1);
+    font-size:   14px;
+    font-weight: 500;
+    transition: all 0.6s ease-in-out;
+}
+
+.box-inputs.margin {margin-bottom: 6px;}
+.box-inputs {
+    display: grid;
+    gap: 8px;
+}
 
 .input-box {position: relative}
 .input-box input::placeholder {transition: all 0.15s ease-in-out;}
@@ -123,7 +145,7 @@ h6 {color: var(--white4);
 
 /* Способ оплаты */
 
-.politic-box {display: flex;}
+.politic-box {display: flex;margin-top: 10px;}
 .politic-box label{position: relative;height: 100%;min-width: 15px;}
 .politic-box.box-not-valid label span{background: var(--red2); transform: scale(1.2);}
 .politic-box label span{
@@ -152,7 +174,7 @@ h6 {color: var(--white4);
 
 .checkout-box {
     display:        flex;
-    gap:            30px;
+    gap:            25px;
     height:         220px;
     flex-direction: column;
     transition:     all 0.4s ease-in-out;
@@ -198,32 +220,28 @@ h6 {color: var(--white4);
 .callback.success {display: grid; width: 70%;}
 .callback .true.active,.callback .false.active  {display: block;margin-top: 80px;margin-left: 40px;}
 
-.callback h1{color: unset; font-size: 68px; font-weight: 800;}
-.callback h2{font-size: 48px; font-weight: 800;margin-top: 15px;}
-.callback a{color: var(--white3); font-size: 28px; font-weight: 800; margin-top: 50px;}
+.callback h1{color: unset; font-size: 68px; font-weight: 800;margin-bottom: 80px;}
+.callback h2{font-size: 48px; font-weight: 800;margin: 20px 0px 80px 0px;}
+.callback a{color: var(--white3); font-size: 28px; font-weight: 800;}
 .callback #resubm {color: var(--white3);font-size: 40px;font-weight: 800;}
 
 @media screen and (max-width: 1440px) {
     body {margin: 40px 190px;}
     .bottom {margin-top: 40px;}
     .order-list, .deliver-info, .payment-method {
-        gap:        11px;
-        max-height: 430px;
+            gap:        18px;
         width: calc(80% / 3);
-    }
-    .payment-method {
-        gap:        13px;
     }
 
     .product-img {width: 65px;height: 65px;}
 
     .politic-box label {height: unset;}
-    .politic-box {margin: 15px 0px;font-size: 12px;}
+    .politic-box {font-size: 12px;}
 
     h1 {font-size: 78px}
     .top p {font-size: 64px}
-    h2 {font-size: 18px;margin-bottom: 10px;}
-    h3 {font-size: 16px;margin-bottom: 5px;}
+    h2 {font-size: 18px;margin-bottom: 7px;}
+    h3 {font-size: 16px;}
     h4 {font-size: 12px}
     h5 {font-size: 14px}
     h6 {font-size: 12px;}
@@ -231,24 +249,26 @@ h6 {color: var(--white4);
     p {font-size: 14px;}
     .payment-method .checkout {font-size: 14px;}
 
+    .box-inputs.margin {margin-bottom: 7px;}
+
     .payment-method .checkout {width: 85%;}
     .checkout-box {
         gap: 15px;
         height: 180px;
     }
-    .deliver-info input, .deliver-info input::placeholder {font-size: 12px;}
-    .deliver-info input {width: calc(100% - (14px * 2) - 2px);padding: 7px 14px;height: 11px;}
+    .deliver-info input {font-size: 12px;width: calc(100% - (14px * 2) - 2px);padding: 7px 14px;height: 11px;}
 
     .type {
-        margin-bottom:    10px;
-        height:           30px;
+        margin-bottom: 7px;
+        height:        30px;
     }
 
     .callback .true.active  {margin-top: 60px;margin-left: 30px;}
     .callback .false.active {margin-top: 90px;margin-left: 30px;}
-    .callback h1{font-size: 55px;}
-    .callback h2{font-size: 33px;margin-bottom: 0px;}
-    .callback a{font-size: 24px; margin-top: 70px;}
+    .callback h1{font-size: 55px;margin-bottom: 20px;}
+    .callback .false h1{font-size: 40px !important;}
+    .callback h2{font-size: 33px;margin-bottom: 65px;}
+    .callback a{font-size: 24px;}
     .callback #resubm {font-size: 24px;margin-top: 40px;}
     
     .payment-method button {height: 45px;}
@@ -274,9 +294,6 @@ h6 {color: var(--white4);
         max-height: unset;
     }
     .order-list{gap: 16px;}
-    .payment-method {
-        gap:        13px;
-    }
 
     .product-img {width: 85px;height: 85px;}
 
@@ -297,8 +314,7 @@ h6 {color: var(--white4);
         gap: 20px;
         height: 180px;
     }
-    .deliver-info input, .deliver-info input::placeholder {font-size: 15px;}
-    .deliver-info input {width: calc(100% - (20px * 2) - 2px);padding: 12px 20px;height: 12px;}
+    .deliver-info input {font-size: 15px;width: calc(100% - (20px * 2) - 2px);padding: 12px 20px;height: 12px;}
 
     .type {
         margin-bottom:    10px;
@@ -317,7 +333,7 @@ h6 {color: var(--white4);
     .callback h1{font-size: 40px;}
     .callback .false h1{font-size: 28px;}
     .callback h2{font-size: 24px;line-height: 2;}
-    .callback a{font-size: 20px; margin-top: 50px;}
+    .callback a{font-size: 20px;}
     .callback #resubm {font-size: 20px;margin-top: 50px;}
     
     .payment-method button {height: 45px;}

@@ -35,6 +35,7 @@
     font-weight:    400;
     color:          var(--black4);
     margin:         20px 0px 5px 0px;
+    text-align:     center;
 }
 .product-down .brand {
     margin:  5px 0px;
@@ -75,6 +76,8 @@
         padding: 10px;
     }
     
+    .product-down {grid-row-gap:  5px;}
+
     .product {width: 140px;}
     .product-down .name {
         font-size:      10px;

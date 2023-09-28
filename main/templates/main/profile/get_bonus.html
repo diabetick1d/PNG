@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/payment.css'%}">
+    <link rel="stylesheet" href="{% static 'css/profile/get_bonus.css'%}">
+    <script src="{% static 'JS/Jquery.js' %}"></script>
+    <title>Бонусы</title>
+    <link type="image/x-icon" href="{% static 'img/logo.svg'%}" rel="shortcut icon">
+</head>
+
+<body>
+    {% if success %}
+    <div>
+        <div class="top">
+            <h1><a href="{% url 'home' %}">PNG</a></h1>
+            <p style="color: #E9E9E9;">БОНУСЫ</p>
+            <div class="mobile">Данные отправки</div>
+        </div>
+        <form class="bottom">
+            {% csrf_token %}
+            
+            <div class="deliver-info">
+                <div class="not-mobile"><h2>Данные доставки</h2></div>
+                <h3>Получатель</h3>
+                <div class="input-box">
+                    <input autocomplete="off" type="text" name="first_name"   id="first_name" value="{{ deliver_info.first_name }}" placeholder="Имя">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input autocomplete="off" type="text" name="last_name"    id="last_name" value="{{ deliver_info.last_name }}" placeholder="Фамилия">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input autocomplete="off" type="text" name="surname"      id="surname" value="{{ deliver_info.surname }}" placeholder="Отчество">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box">
+                    <input autocomplete="off" type="text" name="number_phone" id="number_phone" value="{{ deliver_info.number_phone }}" placeholder="Номер телефона">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+            </div>
+            <div class="deliver-info">
+                <h2 style="opacity: 0;">Данные доставки</h2>
+                <h3>Способ доставки</h3>
+                <label class="type">
+                    <input type="checkbox" {% if deliver_info.type %} checked {% endif %} hidden>
+                    <div class="fakebox"></div>
+                    <h6 id="sd">СДЭК</h6>
+                    <h6 id="pr">Почта России</h6>
+                </label>
+                <h3>Адрес пункта выдачи</h3>
+                <div class="input-box">
+                    <input autocomplete="off" type="text" name="adress"       id="adress" value="{{ deliver_info.adress }}" placeholder="Город, область, регион">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+                <div class="input-box unmargin">
+                    <input autocomplete="off" type="text" name="delivery_point"  id="point" value="{{ deliver_info.delivery_point }}" placeholder="Адрес пункта доставки СДЭКа или индекс Почты России">
+                    <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                </div>
+            </div>
+            
+            <div class="payment-method">
+                <h2>Ваш заказ</h2>
+                <div class="bonus-product-info">
+                    <div class="bonus-img"><img src="{{MEDIA_URL}}{{ product.image1 }}" alt=""></div>
+                    <div class="prod-info">
+                        <h6>{{ product.brand.name }} {{ product.name }}</h6>
+                        <div class="dropdown-size">
+                            <div class="dropdown">
+                                <label for="touch-size">
+                                    <div style="display: flex;align-items: baseline;">
+                                        <span>Размеры</span><div id="typesize">{{ typesize }}</div>
+                                    </div>
+                                    <div class="arrow">
+                                        <img src="{% static 'img/payment/arrow_bonus.svg' %}" alt="">
+                                    </div>
+                                </label>       
+                                <input hidden type="checkbox" id="touch-size"> 
+                                <div class="slideli-box">
+                                    <ul class="slideli">
+                                        {% for el in sizes %}
+                                            <li data-size="{{ el }}">{{ el }}</li>  
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>Выберите размер*</p>
+                <button id="subm">Заказать</button>
+            </div>
+            <div class="callback">
+                <div class="true">
+                    <h1>Заказ 000-000</h1>
+                    <h2 class="bottom">Успешно оформлен!</h2>
+                    <a href="{% url 'home' %}">Вернуться на сайт</a>
+                </div>
+                <div class="false">
+                    <h1>Что-то пошло не так...</h1>
+                    <button id="resubm">Повторить попытку</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% else %}
+    <div class="top">
+        <h1><a href="{% url 'home' %}">PNG</a></h1>
+        <p style="color: #E9E9E9;">БОНУСЫ</p>
+    </div>
+    <div class="bottom">
+        <h2>{{ message }}</h2>
+        {% if error %}
+            <h2>{{ error }}</h2>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+<script> const uid_list = `{{ uid_list|safe }}`</script>
+<script src="{% static 'JS/get_bonus.js'%}"></script>

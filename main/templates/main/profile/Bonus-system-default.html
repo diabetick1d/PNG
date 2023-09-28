@@ -5,7 +5,7 @@
             <img src="/media/{{ bonsys.0.products.0.img}}" alt="">
         </div>
         
-        <h1>0 друзей приглашено</h1>
+        <h1><span1 id="invited">0</span1> друзей приглашено</h1>
 
         
         <div><div class="indicator-selected">
@@ -38,7 +38,7 @@
             </div>
         </div></div>
 
-        <button type="submit" disabled>Обменять</button>
+        <button id="submit-bonus">Обменять</button>
         
     </div>
     <ul class="tier-list">
@@ -51,9 +51,8 @@
         </li>{% endfor %}
     </ul>
 </div>
-
-<div class="bottom-box">
-    <div class="mobile Copy-link">Ссылка для приглашений</div>
+<div>
+<div class="mobile Copy-link">Ссылка для приглашений</div>
     <div class="copy-link">
         <div class="not-mobile">
             <h2 style="color: var(--white1);">COPY</h2>
@@ -76,6 +75,8 @@
             <h2>Ссылка для <br> приглашений</h2>
         </div>
     </div>
+</div>
+<div class="bottom-box">
 
     <div class="choose-product">Выбрать другой товар</div>
 

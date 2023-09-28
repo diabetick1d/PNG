@@ -1,3 +1,12 @@
+gotopa = $(".menu").data("open");
+if (["bonus", "buylist", "returns"].includes(gotopa)) {
+    $("[id='navigation " + gotopa).attr("checked", true);
+    $("[id='" + gotopa).addClass("active");
+} else {
+    $("[id='navigation personal").attr("checked", true);
+    $("#personal").addClass("active");
+}
+
 $(document).ready(function() {
     // Смена страниц по навигации
     $('.navigation-menu input').change(function() {
@@ -183,13 +192,14 @@ $(document).ready(function() {
     // bonus
     userbonus = $("#bonus").data("bonus")
     $("#bonus .center-number span1").text(userbonus)
+    $("#bonus #invited").text(userbonus)
 
     // Обновление индикаторов
     function update_indicators() {
         $(".indicator-box").removeClass("semi");
         $(".indicator-box").removeClass("full");
-        var need = parseInt($("#bonus .center-number span").text());
-        var indnumber = (userbonus / need) * 20;
+        need = parseInt($("#bonus .center-number span").text());
+        indnumber = (userbonus / need) * 20;
         for (var i = 1; i <= Math.floor(indnumber - 1); i++) {
             $("#indicator-" + i).addClass("full");
         }
@@ -197,6 +207,11 @@ $(document).ready(function() {
             $("#indicator-" + (Math.floor(indnumber))).addClass("full");
         } else {
             $("#indicator-" + (Math.floor(indnumber))).addClass("semi");
+        }
+        if (userbonus >= need) {
+            $("#submit-bonus").addClass("full");
+        } else {
+            $("#submit-bonus").removeClass("full");
         }
     }
     update_indicators()
@@ -220,6 +235,7 @@ $(document).ready(function() {
             infinity:      true,
             centerMode:    true,
             arrows:        false,
+            draggable:     false,
             centerPadding: '20px',
             responsive: [
                 {
@@ -250,6 +266,8 @@ $(document).ready(function() {
             if ($(this).hasClass('active')) {
                 $(this).slick("slickNext")
                 current = $(this).find(".slick-slide.slick-current img").attr("src")
+                $(".selected-img").attr("data-product", $(this).find(".slick-slide.slick-current div").attr("id"))
+                $(".selected-img").attr("data-product-name", $(this).find(".slick-slide.slick-current h1").text())
                 $(".selected-img img").attr("src", current)
             }
         })
@@ -260,6 +278,8 @@ $(document).ready(function() {
             if ($(this).hasClass('active')) {
                 $(this).slick("slickPrev")
                 current = $(this).find(".slick-slide.slick-current img").attr("src")
+                $(".selected-img").attr("data-product", $(this).find(".slick-slide.slick-current div").attr("id"))
+                $(".selected-img").attr("data-product-name", $(this).find(".slick-slide.slick-current h1").text())
                 $(".selected-img img").attr("src", current)
             }
         })
@@ -287,10 +307,12 @@ $(document).ready(function() {
             $(".slick-slider").removeClass("active")
             $(".ppromo").removeClass("cant-go")
 
+            let bon = $("#bonus-" + count[index_cur - 1])
+            bon.addClass("active")
             $("#number-bonus-" + count[index_cur - 1]).addClass("current")
-            $("#bonus-"        + count[index_cur - 1]).addClass("active")
-            current = $("#bonus-" + count[index_cur - 1]).find(".slick-slide.slick-current img").attr("src")
-            $(".selected-img img").attr("src", current)
+            $(".selected-img").attr("data-product", bon.find(".slick-slide.slick-current div").attr("id"))
+            $(".selected-img").attr("data-product-name", bon.find(".slick-slide.slick-current h1").text())
+            $(".selected-img img").attr("src", bon.find(".slick-slide.slick-current img").attr("src"))
 
             if (count[index_cur - 2]){
                 $(".mpromo").removeClass("cant-go")
@@ -308,10 +330,12 @@ $(document).ready(function() {
             $(".slick-slider").removeClass("active")
             $(".mpromo").removeClass("cant-go")
 
+            let bon = $("#bonus-" + count[index_cur + 1])
+            bon.addClass("active")
             $("#number-bonus-" + count[index_cur + 1]).addClass("current")
-            $("#bonus-"        + count[index_cur + 1]).addClass("active")
-            current = $("#bonus-" + count[index_cur + 1]).find(".slick-slide.slick-current img").attr("src")
-            $(".selected-img img").attr("src", current)
+            $(".selected-img").attr("data-product", bon.find(".slick-slide.slick-current div").attr("id"))
+            $(".selected-img").attr("data-product-name", bon.find(".slick-slide.slick-current h1").text())
+            $(".selected-img img").attr("src", bon.find(".slick-slide.slick-current img").attr("src"))
 
             if (count[index_cur + 2]){
                 $(".ppromo").removeClass("cant-go")
@@ -334,10 +358,14 @@ $(document).ready(function() {
         $(".mpromo").removeClass("cant-go")
         $(".ppromo").removeClass("cant-go")
 
+        $(".get-it").removeClass("active")
+        
+        let bon = $("#bonus-" + count_this)
+        bon.addClass("active")
         $("#number-bonus-" + count_this).addClass("current")
-        $("#bonus-"        + count_this).addClass("active")
-        current = $("#bonus-" + count_this).find(".slick-slide.slick-current img").attr("src")
-        $(".selected-img img").attr("src", current)
+        $(".selected-img").attr("data-product", bon.find(".slick-slide.slick-current div").attr("id"))
+        $(".selected-img").attr("data-product-name", bon.find(".slick-slide.slick-current h1").text())
+        $(".selected-img img").attr("src", bon.find(".slick-slide.slick-current img").attr("src"))
 
         if (count[index_cur - 1]){
             $(".mpromo").removeClass("cant-go")
@@ -352,4 +380,28 @@ $(document).ready(function() {
         }
         update_indicators()
     })
+
+    // Кнопка обменять
+    $("#submit-bonus").on("click", function(){
+        if (userbonus >= need){
+            if (!$(".selected-img").attr("data-product-name")){
+                let bon = $('[id^="bonus-"]:first')
+                $(".selected-img").attr("data-product", bon.find(".slick-slide.slick-current div").attr("id"))
+                $(".selected-img").attr("data-product-name", bon.find(".slick-slide.slick-current h1").text())
+            }
+            $(".get-it").addClass("active")
+            
+            $(".bonus-get img").attr("src", $(".selected-img img").attr("src"))
+            $(".get-it p span").text($(".selected-img").attr("data-product-name"))
+
+            let sid = $(".slick-slider.active").attr("id").replace("bonus-", "")
+            let pid = $(".selected-img").attr("data-product").replace("product-", "")
+            $("#bonushref").attr("href", "/get-bonus/" + sid + "&" + pid)
+        }
+    })
 });
+
+// Кнопка убрать обменять
+function removebonget(){
+    $(".get-it").removeClass("active")
+}

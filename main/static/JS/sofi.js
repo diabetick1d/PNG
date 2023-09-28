@@ -17,25 +17,25 @@ let   Min = parseInt(lowerSlider.attr("min")),
       Max = parseInt(upperSlider.attr("max")),
       oldmax, oldmin;
 
-var previousWindowHeight = window.innerHeight;
-var previousScrollPosition = window.pageYOffset;
-if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) { // Ебанная панелькак снизу у мобилок
-    $("#filter-form").addClass("open")
-} else {
-    $("#filter-form").removeClass("open")
-}
-window.addEventListener('resize', function() {
-    var currentWindowHeight = window.innerHeight;
+// var previousWindowHeight = window.innerHeight;
+// var previousScrollPosition = window.pageYOffset;
+// if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) { // Ебанная панелькак снизу у мобилок
+//     $("#filter-form").addClass("open")
+// } else {
+//     $("#filter-form").removeClass("open")
+// }
+// window.addEventListener('resize', function() {
+//     var currentWindowHeight = window.innerHeight;
 
-    if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) {
-        if (currentWindowHeight < previousWindowHeight) {
-            $("#filter-form").addClass("open")
-        } else if (currentWindowHeight > previousWindowHeight) {
-            $("#filter-form").removeClass("open")
-        }
-    }
-    previousWindowHeight = currentWindowHeight;
-});
+//     if ((/mobile/i.test(navigator.userAgent) && window.innerWidth < 500)) {
+//         if (currentWindowHeight < previousWindowHeight) {
+//             $("#filter-form").addClass("open")
+//         } else if (currentWindowHeight > previousWindowHeight) {
+//             $("#filter-form").removeClass("open")
+//         }
+//     }
+//     previousWindowHeight = currentWindowHeight;
+// });
       
 function SwitchFilter() { // При клике на фильтр  
     if (FiltersForm.hasClass("active")) {
@@ -223,7 +223,6 @@ function send_query(refresh = false) {
                     $(".submit").removeClass("active");
                 }
 
-                // if (max_out !== "No change" && typeof max_out == "number")
                 max = response.max_price
                 min = response.min_price
                 if (refresh){ // Если это первая загрузка или перезанрузка* всех фильтров

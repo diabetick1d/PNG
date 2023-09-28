@@ -46,12 +46,12 @@ function showsizehow() {
       how.removeClass("close")
     },900)
   } else {
-    how.removeClass("close")
     clearTimeout(timerhow)
+    how.removeClass("close")
     how.addClass("active")
     setTimeout(() => {
       $("body").on('click', function(e){
-        if (!how.is(e.target)) {
+        if (e.target !== how && !($(e.target).closest(how).length)) {
           closehow()
         }
       })
@@ -78,7 +78,7 @@ $(document).ready(function(){
       ul.classList.add("scrolling")
     };
     const lires     = count * liHeight + 'px';
-    ul.style.setProperty('--liHeight', lires);
+    document.querySelector('.slideli-box').style.setProperty('--liHeight', lires);
 
     let touch   = document.querySelector(".dropdown-size #touch-size");
     let nav     = document.querySelector(".dropdown-size .dropdown");

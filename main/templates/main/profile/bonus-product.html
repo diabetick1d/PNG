@@ -7,7 +7,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/payment.css'%}">
     <script src="{% static 'JS/Jquery.js' %}"></script>
-    <title>Оплата заказа</title>
+    <title>PNG БОНУС</title>
     <link type="image/x-icon" href="{% static 'img/logo.svg'%}" rel="shortcut icon">
 </head>
 
@@ -15,7 +15,7 @@
     <div>
         <div class="top">
             <h1>PNG</h1>
-            <p style="color: #E9E9E9;">ОПЛАТА</p>
+            <p style="color: #E9E9E9;">БОНУС</p>
             <div class="mobile">Данные отправки</div>
         </div>
         <form class="bottom">
@@ -26,13 +26,13 @@
                     <div class="not-mobile">Итого</div><div class="mobile">Ваш заказ</div>
                     <p>{{ count }} товара</p></h3></div>
                 <ul class="slide">
-                    {% for el in products %}
+                    {% for el in product %}
                     <li class="product-info" data-url="{{ el.uid }}" data-uid="{{ el.uid }}" data-price="{{ el.price }}" data-name="{{ el.name }}" data-size="{{ el.size }}" data-brand="{{ el.brand }}">
                         <div class="product-img"><a href="/product/{{ el.uid }}"><img src="{{MEDIA_URL}}{{ el.img }}" alt=""></a></div>
                         <div class="product-det">
-                            <h4>{{ el.name }}</h4>
+                            <h4>{{ product.name }}</h4>
                             <h4 style="color: #777;">{{ el.size }}</h4>
-                            <h5>{{ el.price }} ₽</h5>
+                            <h5>{{ product.price }} ₽</h5>
                         </div>
                     </li>
                     {% endfor %}
@@ -93,7 +93,7 @@
                     </label>
                     <label class="checkout QR" for="checkout-QR">
                         <div class="box-payment">
-                            <div style="color: var(--black1);">СБП<br>QR-КОД</div>
+                            <div style="color: var(--black1);">СБП QR-КОД</div>
                             <div class="QR"><img src="{% static 'img/payment/CPB.PNG'%}" alt=""></div>
                         </div>
                     </label>
@@ -110,7 +110,7 @@
             <div class="callback">
                 <div class="true">
                     <h1>Заказ 000-000</h1>
-                    <h2>Успешно оформлен!</h2>
+                    <h2 class="bottom">Успешно оформлен!</h2>
                     <a href="{% url 'home' %}">Вернуться на сайт</a>
                 </div>
                 <div class="false">

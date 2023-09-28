@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/profile/first-login.css'%}">
+    <script src="{% static 'JS/Jquery.js' %}"></script>
+    <title>Добро пожаловать!</title>
+    <link type="image/x-icon" href="{% static 'img/logo.svg'%}" rel="shortcut icon">
+</head>
+<body>
+    <div class="right">
+        <h1>PNG</h1>
+        <h2>БОНУСЫ</h2>
+        <h3>Добро пожаловать!</h3>
+        <h4>{{ invite }}, пригласил вас и получает +1 к бонусной программе. <br>За каждый товар, приобретенный вашими покупками он получит +1. <br> Бонусы можно обменять на разные товары</h4>
+        <h5>Ваши призы и всю информацию можно<br> посмотреть  во вкладке<a href="{% url 'profile' %}"> Профиль </a></h5>
+    </div>
+    <div>
+        <div class="img"><img src="{% static 'img/profile/Bonus-welcome.png'%}" alt=""></div>
+        <a class="link" href="{% url 'home' %}">Перейти на сайт</a>
+    </div>
+</body>
+<script src="{% static 'JS/payment.js'%}"></script>

@@ -1,0 +1,143 @@
+.deliver-info, .payment-method {width: 100% !important; max-width: 310px;gap: 21px;justify-content: space-evenly;}
+
+.bonus-product-info {
+    border:2px solid var(--black6);
+    display:         flex;
+    justify-content: space-between;
+    padding:         25px 30px;
+}
+.bonus-product-info .bonus-img {width:  90px;height: 80px;}
+p {margin: -7px 0px 2px 0px;font-size: 14px;font-weight: 300;transition: all 0.3s ease-in-out;}
+.payment-method p.no {transform: scale(1.1), translateY(-20x);color: var(--red2);font-weight: 500;}
+.bonus-product-info h6 {font-size: 12px;font-weight: 500;color: unset;letter-spacing: unset;text-align: end;}
+
+h3 {margin-bottom: unset;}
+
+.prod-info {display: grid;align-content: space-around;max-width: 120px;}
+
+.deliver-info input::placeholder {font-weight: 300 !important;}
+.deliver-info input {font-size: 14px;font-weight: 500;width: calc(100% - (15px * 2) - 2px);border: 2px solid var(--white4);height: 16px;padding: 6px 15px;}
+
+
+.dropdown-size {
+    height:         fit-content ;
+    width:          100%;
+    z-index:        2;
+}
+
+.dropdown-size .dropdown {
+    background-color: #FFFFFF;
+    position:         relative;
+} 
+
+.dropdown-size span {
+    color:       var(--grey5);
+    cursor:      pointer;
+    text-align:  center;
+    font-size:   18px;
+    font-weight: 600;
+}
+
+#typesize:not(.active) {display: none;}
+#typesize {
+    color:       var(--grey5);
+    font-size:   15px;
+    font-weight: 600;
+    margin-left: 2px;
+}
+
+.dropdown-size .dropdown.select label {gap: 10%;}
+.dropdown-size .dropdown label {
+    width:           100%;
+    cursor:          pointer;
+    
+    display:         flex;
+    align-items:     center;
+    justify-content: flex-end;
+    gap:             5%;
+}
+
+.dropdown-size label .arrow {
+    transition: all .4s ease;
+    width:      13px;
+    height:     8px;
+    right:      20px;
+    transform:  translateY(2px);
+    display:    grid;
+    right:      -5px;
+}
+
+.dropdown-size label .arrow.active {transform: rotate(180deg);}
+
+.dropdown-size .slideli {
+    text-align: center;
+    background: #ffffff;
+    background: var(--white5);
+    border:     2px solid var(--white4);
+    max-height: calc(var(--liHeight) + 6px);
+}
+.slideli-box {
+    transition: all 0.4s ease;
+    overflow-y: hidden;
+    position:   absolute;
+    max-height: 0px;
+    top:        150%;
+    right:      -35%;
+    width:      80px;
+}
+.dropdown-size #touch-size:checked + .slideli-box {max-height: var(--liHeight);opacity:1;z-index: 1;right: -36%;}
+.dropdown-size .slideli.scrolling {overflow-y: scroll;}
+
+.dropdown-size .slideli::-webkit-scrollbar-track{background-color: #ffffff00;}
+.dropdown-size .slideli::-webkit-scrollbar{width: 4px;background-color: var(--white3);}
+.dropdown-size .slideli::-webkit-scrollbar-thumb{background-color: var(--grey4);}
+
+.dropdown-size .slideli li  {
+    width:           100%;
+    font-weight:     500;
+    font-size:       13px;
+    height:          30px;
+    background:      #FFF;
+    color:           var(--black4);
+    display:         flex;
+    cursor:          pointer;
+    align-items:     center;
+    justify-content: center;
+}
+.dropdown-size .slideli li:nth-child(odd) {background: #F0F0F0;}
+.dropdown-size .slideli li.selected {background: var(--grey3);color: #fff;}
+
+.dropdown-size #touch-size {position: absolute; height: 0px;}    
+
+
+@media screen and (max-width: 1440px) {
+    .bonus-product-info {padding: 25px 25px;}
+    .bonus-product-info .bonus-img {width:  70px;height: 60px;}
+    .bonus-product-info h6 {font-size: 10px;}
+
+    .deliver-info, .payment-method {width: 100% !important; max-width: 250px;gap: 18px;}
+    p {margin: -4px 0px 1px 0px;font-size: 13px;}
+    .deliver-info input {font-size: 12px;font-weight: 500;width: calc(100% - (15px * 2) - 2px);height: 16px;padding: 6px 15px;}
+
+    .dropdown-size span {font-size: 15px;}
+    #typesize {font-size: 13px;}
+
+    .dropdown-size .dropdown.select label {gap: 10%;}
+    .dropdown-size .dropdown label {width: 100%;gap: 5%;}
+
+    .dropdown-size label .arrow {
+        width:      10px;
+        height:     6px;
+        right:      10px;
+        right:      -5px;
+    }
+
+    .slideli-box {
+        right:      -45%;
+        width:      80px;
+    }
+    .dropdown-size #touch-size:checked + .slideli-box {right: -46%;}
+    .dropdown-size .slideli.scrolling {overflow-y: scroll;}
+    .dropdown-size .slideli li  {font-size: 11px;height: 30px;}
+
+}

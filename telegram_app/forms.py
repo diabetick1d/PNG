@@ -4,7 +4,7 @@ from . import models
 import json
 from django.utils.safestring import mark_safe
 
-class CartOrderWidget(Widget):
+class CartOrderWidget(Widget): # Форма для выбора товаров на возврат из заказа
     def render(self, name, value, attrs=None, renderer=None):
         if value is not None:
             val = json.loads(json.loads(value))

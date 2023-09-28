@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
 from random import sample
-from main import models
+from main   import models
 from jinja2 import Template
 import os
 from main import models
 
-def update_nav_menu():
+def update_nav_menu():    # Обновление html для меню
     nav_dict = {'shoe': {}, 'cloths': {}, 'bags': {}, 'clocks': {}, 'accessories': {}, 'cosmetics': {}, 'technique': {}, 'toys': {}, 'sport': {}}
     for model in models.PodcategoryBrandforNav.objects.all():
         p_list = model.podcategory.values_list("name", flat=True).distinct()
@@ -20,7 +20,7 @@ def update_nav_menu():
         f.write(rendered_html)
     print("Header-nav.html updated")
 
-def create_new_nav_menu():
+def create_new_nav_menu(): # Создание нового меню или рандомайзер для него
     for model in models.PodcategoryBrandforNav.objects.all():
         products = models.Product.objects.filter(eav__category=model.category)
         if products:

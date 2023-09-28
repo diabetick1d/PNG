@@ -3,16 +3,16 @@ from django.contrib.auth import login
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+import json
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
 from main.auth_backends import CustomUserModelBackend
 
+from . import forms, models
 from main import models as MAINmodels
 
 from django.contrib.auth.decorators import login_required
-from . import forms, models
-import json
 from django.http import JsonResponse
 import telebot
 from main.views import separate, unseparate, ProcesPrice
@@ -25,10 +25,10 @@ def telegram_login(request,url_back=False):
     telegram_id         = int(request.GET.get('id'))
     telegram_username   = request.GET.get('username')
     bonus_url           = request.GET.get('bonus_url',None)
-
+    bonus_registered    = False
     try:
         user = User.objects.get(uid=telegram_id)
-        print(f"Вход пользователя:\n{user}")
+        print(f"Вход пользователя: {user}")
     except ObjectDoesNotExist:
         try:
             button_web          = InlineKeyboardButton("Наш сайт", url=settings.SITE_URL)
@@ -36,34 +36,35 @@ def telegram_login(request,url_back=False):
             notification_button = InlineKeyboardButton('Уведомления', callback_data='notification')
             reply_markup_main   = InlineKeyboardMarkup([[button_web], [notification_button,button_support]])
         except:
-            print("Eror: telegram_data")
+            print("Error: telegram_data")
         if bonus_url and bonus_url != 'None':
             User.objects.create(uid=telegram_id, username=telegram_username, up_to_politic=False, bonus=User.objects.get(bonus_reference=str(bonus_url)))
+            bonus_registered = True
         else:
             User.objects.create(uid=telegram_id, username=telegram_username, up_to_politic=False, bonus=None)
         print(f"Регистрация нового пользователя:\n - username:{telegram_username} - id: {telegram_id}")
         user = User.objects.get(uid=telegram_id)
 
-        # Поприветствовать нового пользователя в телеграмм
-
+        # Поприветствовать нового пользователя в телеграмме
         bot = telebot.TeleBot(token=settings.TELEGRAM_BOT_TOKEN)
         bot.send_message(chat_id=telegram_id, text="Добро пожаловать, это помощник PNGbot.\nЗдесь будут уведомления о ваших заказах, а так же вы можете связаться с поддержкой.",reply_markup=reply_markup_main)
 
-
-    backend = CustomUserModelBackend()
-    user = backend.authenticate(request, uid=telegram_id)
+    user = CustomUserModelBackend().authenticate(request, uid=telegram_id)
 
     # Авторизация пользователя в Django
     login(request, user, backend='main.auth_backends.CustomUserModelBackend')
-    if url_back:
-        return redirect(url_back)
+    if bonus_registered:    # Если пользователь зарегистрирован с url ссылки впервый раз
+        return JsonResponse({"redirect_url": "profile/first_login"})
+    elif url_back:          # Перенесли пользователя туда куда он хотел зайти или на товаре котором был
+        return JsonResponse({"redirect_url": url_back})
     else:
-        return redirect('/profile/')
+        return JsonResponse({"redirect_url": "/profile/"})
 
 def page_profile_registration(request,bonus_url=None):
-    return render(request, 'main/profile-login.html', {'bonus_url': bonus_url})
+    return render(request, 'main/profile/profile-login.html', {'bonus_url': bonus_url})
+
 def page_profile_login(request):
-    return render(request, 'main/profile-login.html')
+    return render(request, 'main/profile/profile-login.html')
 
 
 STATUS_CHOICES_DICT = {
@@ -83,7 +84,7 @@ RETURN_CHOICES_DICT = {
 }
 
 @login_required 
-def page_profile(request):
+def page_profile(request, goto=None):
     if request.method == 'POST':
         form = forms.UserPersonalForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -93,7 +94,7 @@ def page_profile(request):
             return redirect('profile')
     else:
         form = forms.UserPersonalForm(instance=request.user)
-        carts = models.Order.objects.filter(client=request.user.uid)
+        carts = models.Order.objects.filter(client=request.user.uid).order_by("-data_order")
         to_cart = [
             {
                 'id':             cart.uid,
@@ -124,7 +125,7 @@ def page_profile(request):
                 ] 
             } for cart in carts
         ]
-        returns = models.Returns.objects.filter(client=request.user.uid)
+        returns = models.Returns.objects.filter(client=request.user.uid).order_by("-data_order")
         to_returns = [
             {
                 'id':             ret.uid,
@@ -147,7 +148,7 @@ def page_profile(request):
             } for ret in returns
         ]
 
-    return render(request, 'main/profile.html', {'form': form,"carts": to_cart, "returns": to_returns, "userbonus": (request.user.bonus_number if request.user.bonus_number else 0), "domen": settings.SITE_URL})
+    return render(request, 'main/profile/profile.html', {'form': form,"carts": to_cart, "returns": to_returns, "userbonus": (request.user.bonus_number if request.user.bonus_number else 0), "domen": settings.SITE_URL, "goto": str(goto)})
 
 
 @csrf_exempt
@@ -250,7 +251,7 @@ def page_favorite(request):
         'min_price': ProcesPrice(product.min_price),
     } for product in raw_favorites]
 
-    return render(request, "main/favorite.html", {"favorites": favorites})
+    return render(request, "main/profile/favorite.html", {"favorites": favorites})
 
 @csrf_exempt
 def check_promo(request):
@@ -303,7 +304,7 @@ def page_cart(request):
             'price':     price,
             'priceint':  unseparate(price) if price != '-' else price,
         })
-    return render(request, "main/cart.html", {"cart": cart})
+    return render(request, "main/profile/cart.html", {"cart": cart})
 
 # Здесь мы получаем uid товаров и добавляем в список при оплате чисто на показ.
 @login_required
@@ -355,13 +356,13 @@ def payment(request):
         summ_price = 0
 
     info_user = {
-        "type":         user.base_type_deliver,
-        "adress":       user.base_adress,
+        "type":            user.base_type_deliver,
+        "adress":          user.base_adress,
         "delivery_point":  user.base_delivery_point,
-        "number_phone": user.base_number_phone,
-        "first_name":   user.first_name,
-        "last_name":    user.last_name,
-        "surname":      user.surname
+        "number_phone":    user.base_number_phone,
+        "first_name":      user.first_name,
+        "last_name":       user.last_name,
+        "surname":         user.surname
     }
     response = {
         'products':     products,
@@ -371,7 +372,7 @@ def payment(request):
         'promocode':    promocode,
         'uid_list':     json.dumps(uid_list,ensure_ascii=False)
     }
-    return render(request, 'main/payment.html', response)
+    return render(request, 'main/profile/payment.html', response)
 
 def payment_get(request):
     ftype_delivery  = request.POST.get('type_delivery')
@@ -418,7 +419,7 @@ def payment_get(request):
 
     if  user.bonus:
         usera = user.bonus
-        usera.bonus_number += len(json.loads(products))
+        usera.bonus_number += len(products)
         usera.save(update_fields=['bonus_number'])
 
     cart_products = []
@@ -527,3 +528,112 @@ def update_return(request):
         return JsonResponse({'success': True})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+    
+def first_login(request):
+    invite = None
+    if request.user.bonus:
+        invite = request.user.bonus.first_name
+        if invite == None or invite.strip() == "":
+            invite = request.user.bonus.username
+    return render(request, 'main/profile/first-login.html', {"invite": invite})
+
+@login_required 
+def get_bonus(request, BonusProds=None, product_uid=None): # Оформление товара по бонусной системе
+    user = request.user
+    if BonusProds and product_uid:
+        try:
+            bon     = models.BonusProducts.objects.get(bonus_count=BonusProds)
+            product = bon.products.get(uid=product_uid)
+
+            typesize   = product.type_size if product.type_size else " "
+            jloadsizes = json.loads(product.prices)
+            sizes      = []
+            for size in jloadsizes.keys():
+                if int(jloadsizes[size]["count"]) > 0:
+                    sizes.append(size)
+            if user.bonus_number >= bon.bonus_count:
+                return render(request, 'main/profile/get_bonus.html', {'success': True, "product": product, "sizes": sizes, "typesize": typesize})
+            else:
+                return redirect('profile/bonus')
+                # return render(request, 'main/profile/get_bonus.html', {'success': False, 'message': 'Недостаточно бонусных баллов'})
+        except Exception as e:
+            return render(request, 'main/profile/get_bonus.html', {'success': False, 'message': 'Возникла ошибка', "error": str(e)})
+        
+@login_required 
+def bonus_chget(request, BonusProds=None, product_uid=None): # Оформление товара по бонусной системе
+    ftype_delivery  = request.POST.get('type_delivery')
+    first_name      = request.POST.get('first_name')
+    last_name       = request.POST.get('last_name')
+    surname         = request.POST.get('surname')
+    number_phone    = request.POST.get('number_phone')
+    adress          = request.POST.get('adress')
+    delivery_point  = request.POST.get('delivery_point')
+
+    size       = request.POST.get('size')
+
+    user = request.user
+    if BonusProds and product_uid:
+        try:
+            info_user = {
+                "type":            user.base_type_deliver,
+                "adress":          user.base_adress,
+                "delivery_point":  user.base_delivery_point,
+                "number_phone":    user.base_number_phone,
+                "first_name":      user.first_name,
+                "last_name":       user.last_name,
+                "surname":         user.surname
+            }
+            bon     = models.BonusProducts.objects.get(bonus_count=BonusProds)
+            product = bon.products.get(uid=product_uid)
+
+            if user.bonus_number >= bon.bonus_count:
+                if  ftype_delivery == "true":
+                    type_delivery = "Почта России"
+                else: 
+                    type_delivery = "СДЭК"
+                cart_products = []
+                try:
+                    cart_products.append({
+                        'uid':   product.uid,
+                        'url':   product.url,
+                        'name':  product.name,
+                        'brand': product.brand.name,
+                        'img':   str(product.image1),
+                        'size':  size,
+                        'price': 0,
+                    })
+                    order = models.Order.objects.create(
+                        first_name     = first_name,
+                        last_name      = last_name,
+                        surname        = surname,
+                        number_phone   = number_phone,
+                        adress         = adress,
+                        delivery_point = delivery_point,
+                        cart_order     = json.dumps(cart_products),
+                        client         = user,
+                        type_delivery  = type_delivery,
+                        summ_price     = 0,
+                        bonusproduct   = True,
+                        promocode      = None,
+                    )
+
+                    user.bonus_number -= int(bon.bonus_count)
+                    user.save()
+
+                    response = {
+                        'status':       'success',
+                        'deliver_info': info_user,
+                        'id_order':     order.number_order,
+                    }
+                except Exception as e:
+                    response = {
+                        'status': 'fail',
+                        'error': str(e)
+                    }
+                return JsonResponse(response)
+            else:
+                return redirect('/profile/bonus')
+                # return JsonResponse({'status': False, 'message': 'Недостаточно бонусных баллов'})
+            
+        except Exception as e:
+            return JsonResponse({'status': False, 'message': 'Возникла ошибка', "error": str(e)})

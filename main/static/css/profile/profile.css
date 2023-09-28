@@ -56,7 +56,7 @@
     font-family: 'Inter';
     width:   570px;
     display: grid;
-    gap:     60px;
+    gap:     55px;
     margin:  auto;
 }
 #personal h6{
@@ -73,8 +73,8 @@
 }
 
 .input-box {position: relative}
-#personal .input-box.top-margin    {margin-top: 40px;}
-#personal .type_deliver.top-margin {margin-top: 30px;}
+#personal .input-box.top-margin    {margin-top: 35px;}
+#personal .type_deliver.top-margin {margin-top: 35px;}
 #personal h6.top-margin            {margin-top: 50px;}
 #personal input {width: 97%;transition: all 0.15s ease-in-out;padding: 0px 0px 12px 20px;}
 
@@ -101,19 +101,19 @@ input.not-valid::placeholder {color: var(--red1) !important}
 /* Пользовательское соглашение */
 
 #personal #politicbox {
-    font-size:   20px;
+    font-size:   18px;
     font-weight: 400;
     position:    relative;
-    width:       85%;
+    width:       100%;
 }
 #personal #politicbox a {font-weight: 700;}
 
 .ef {
     color:       var(--grey1);
-    font-size:   18px;
+    font-size:   16px;
     font-weight: 300;
     text-align:  end;
-    margin-top:  50px;
+    margin-top:  25px;
 }
 
 @keyframes CheckError {
@@ -203,7 +203,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
 /* Кнопка сохранить */
 #personal .submit-personal, #personal .personal-leave {
     background:  #2E2E2E;
-    width:       60%;
+    width:       100%;
     height:      55px;
     color:       #FFF;
     font-size:   18px;
@@ -212,7 +212,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
 }
 /* Бонус-систем */
 
-#bonus {font-family: "Inter";display: grid; gap: 200px;margin-top: 35px;}
+#bonus {font-family: "Inter";display: grid; gap: 300px;margin-top: 35px;}
 #bonus .info-number {
     height:  600px;
     display: flex;
@@ -242,6 +242,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
 #bonus .indicator-selected .indicator-box.semi {background: var(--grey2);}
 #bonus .indicator-selected .column {display: grid;gap:5px;}
 #bonus .indicator-selected .indicator-box {
+    transition:  all 0.2s ease-in-out;
     background: var(--white2);
     width:      25px;
     height:     14px;
@@ -252,14 +253,23 @@ input.not-valid::placeholder {color: var(--red1) !important}
     transform:      rotateZ(90deg);
 }
 
+#bonus .user-info button.full {
+    border:      2px solid var(--black2);
+    background:  var(--black3);
+    color:       var(--white5);
+    cursor:      pointer;
+}
+
 #bonus .user-info button {
+    cursor:      no-drop;
+    transition:  all 0.2s ease-in-out;
     border:      2px solid var(--white1);
     background:  #FFF;
-    color:       var(--black3);
+    color:       var(--black2);
     text-align:  center;
     font-size:   14px;
     font-weight: 600;
-    width: 220px;
+    width:  100%;
     height: 40px;
     margin: auto;
 }
@@ -292,11 +302,11 @@ input.not-valid::placeholder {color: var(--red1) !important}
 #bonus .bottom-box h5 {
     color:          var(--black4);
     text-align:     center;
-    font-size:      20px;
+    font-size:      19px;
     font-weight:    600;
 }
 
-#bonus .copy-link {display: flex; gap: 50px; align-items: center;}
+#bonus .copy-link {display: flex; width: 100%;justify-content: space-between; align-items: center;}
 #bonus .copy-link .copy-box .mobile {position: absolute;width: 300px;height: 240px;top: -50px;left: -130px;z-index: -4;}
 #bonus .copy-link .copy-box {width: 120px; height: 120px; margin: 0px 30px;cursor: pointer;position: relative;}
 #bonus .copy-link .copy-box #copy-ym {transition: all 0.3s ease-in-out;z-index: 2;}
@@ -311,7 +321,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     text-align:     center;
     font-size:      28px;
     font-weight:    600;
-    margin:         200px 0px 110px 0px;
+    margin:         0px 0px 100px 0px;
 }
 
 #bonus .slider-choose {    
@@ -334,11 +344,11 @@ input.not-valid::placeholder {color: var(--red1) !important}
     text-align:     center;
     word-break:     break-all;
 }
-#bonus .slider-choose .slick-arrow      {position: absolute;z-index: 2;}
+#bonus .slider-choose .slick-arrow      {position: absolute;z-index: 1;}
 #bonus .slider-choose .slick-arrow.prev {margin-right: calc(var(--widthslider) + 2.5%);}
 #bonus .slider-choose .slick-arrow.next {margin-left:  calc(var(--widthslider) + 2.5%);}
 
-#bonus .choose-tier-dots div {width: 60px;height: 60px; cursor: pointer;}
+#bonus .choose-tier-dots div {width: 50px;height: 50px; cursor: pointer;}
 #bonus .choose-tier-dots div.cant-go {opacity: 0.5;}
 #bonus .choose-tier-dots .number-bonus:not(.current){display: none;}
 #bonus .choose-tier-dots {
@@ -349,7 +359,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     color:          var(--black3);
     font-size:      96px;
     font-weight:    800;
-    margin:         140px 0px 55px 0px;
+    margin:         90px 0px 40px 0px;
 }
 
 .container-bonus-size {
@@ -397,6 +407,70 @@ input.not-valid::placeholder {color: var(--red1) !important}
     color:       var(--grey2);
     display:     grid;
 }
+
+
+.get-it {
+    z-index:          2;
+    border-top:       3px solid #000;
+    background-color: #FFFFFF;
+    display:        grid;
+    width:          100vw;
+    justify-items:  center;
+    position:       fixed;
+    bottom:         -70%;
+    left:           0;
+    transition:     bottom 0.4s ease-in-out;
+}
+.get-it .get-top, .get-it p, .get-it a {width: 270px;}
+.get-it.active {bottom: 0px;}
+
+.get-it.active button{opacity: 1;pointer-events: all;}
+.get-it button{
+    width:          20px;
+    height:         20px;
+    position:       absolute;
+    right:          40px;
+    opacity:        0;
+    pointer-events: none;
+    transition:     opacity 0.3s ease-in-out;
+}
+
+.get-it .get-top{
+    position:      relative;
+    width:         100%;
+    display:       grid;
+    align-items:   center;
+    justify-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin:        30px 0px;
+}
+
+.get-it p{
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.16px;
+    text-align: center;
+}
+.get-it .bonus-get {
+    width:  160px;
+    height: 90px;
+    margin: 65px 0px;
+}
+
+.get-it a {
+    justify-items:    center;
+    border-radius:    2px;
+    background-color: var(--black5);
+    font-size:        14px;
+    font-weight:      600;
+    color:            #FFFFFF;
+    height:           40px;
+    margin:           0px 0px 30px 0px;
+    display:          grid;
+    align-items:      center;
+}
+
 
 /* Список покупок и возвратов */
 #buylist, #returns {
@@ -660,7 +734,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     }
     #personal .submit-personal,#personal .personal-leave {height: 40px;font-size: 15px;}
     /* bonus */
-    #bonus {display: grid; gap: 110px;}
+    #bonus {display: grid; gap: 230px;}
     #bonus .info-number {
         height:  480px;
     }
@@ -691,7 +765,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     #bonus .copy-link {gap: 40px}
     #bonus .copy-link .copy-box {width: 90px; height: 90px; margin: 0px 30px;}
     #bonus .copy-link h2 {font-size: 48px;}
-    #bonus .choose-product {font-size: 20px;margin: 100px 0px;}
+    #bonus .choose-product {font-size: 20px;margin: 0px 0px 100px 0px;}
     #bonus .slider-choose {--widthslider: 180px;}
     #bonus .slider-choose .slick-slider h1 {font-weight: 600;}
 
@@ -699,8 +773,18 @@ input.not-valid::placeholder {color: var(--red1) !important}
     #bonus .choose-tier-dots {
         gap:       20px;
         font-size: 75px;
-        margin:    90px 0px 40px 0px;
+        margin:    75px 0px 40px 0px;
     }
+
+    .get-it button{
+        width:          19px;
+        height:         19px;
+        right:          40px;
+    }
+    .get-it .bonus-get {
+        margin: 50px 0px;
+    }
+
     /* order */
     #buylist, #returns {gap: 20px;}
     .blockbuy {

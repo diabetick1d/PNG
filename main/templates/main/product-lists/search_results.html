@@ -1,19 +1,20 @@
 {% extends "main/Header.html" %}
 
-{% block title %} {{ title }} {% endblock %}
+{% block title %} Поиск по {{ query }}  {% endblock %}
 {% load static %}
 {% block link %} <link rel="stylesheet" href="{% static 'css/product-list.css'%}"> 
                  <link rel="stylesheet" href="{% static 'css/product-detail.css'%}"> {% endblock %}
 
 {% block body %}
+{% if notFound %}
 <div> 
-    <div class="form-sofi" id="filter-form">
+    <div class="form-sofi" id="filter-form" data-search="{{ query }}">
         <nav>
             <div class="top">
                 <h1>Фильтры <p>Сбросить</p></h1>
                 <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
             </div>
-            <ul class="option-list slide" data-nav="{{ option_nav }}">
+            <ul class="option-list">
 
                 <li class="mli Category first" type="podcategory"><input id="Category" type="checkbox" hidden>
                     <label for="Category">
@@ -26,16 +27,19 @@
                             <h1>Категория <div class="number m copy"> (<h6>0</h6>) </div></h1>
                             <div class="close" onclick="RemoveFilter()"><img src="{% static 'img/product-list/close.svg'%}" alt=""></div>
                         </div>
-                        <ul class="attr last gin" id="itlast">
+                        <ul class="attr last gin">
                             {% for category, podcategory in podcategors.items %}
+                            <ul id="itlast" data-letter="{{category}}">
+                                <h5>{{category}}</h5>
                                 {% for el in podcategory %}
-                                <li class="notselectable" data-value="{{ el }}"><div class="star"><img src="http://127.0.0.1/static/img/product-list/star_black.svg" alt=""></div><h3>{{ el }}<div class="number">(<h6>0</h6>)</div></h3></li>
+                                <li class="notselectable" data-value="{{ el }}"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div><h3>{{ el }}<div class="number">(<h6>0</h6>)</div></h3></li>
                                 {% endfor %}
+                            </ul>
                             {% endfor %}
                         </ul>
                     </div>
                 </li>
-                
+                                
                 <li class="mli Brand" type="brand"><input id="Brand" type="checkbox" hidden>
                     <label for="Brand">
                         <h2>Бренды <div class="number m"> (<h6>0</h6>) </div></h2>
@@ -168,6 +172,7 @@
         </nav>
     </div>
 
+    <div class="mobile center">{{ title }}</div>
     <div class="ddfcs" dlue="{{ path }}">
         <div>
             <div class="not-mobile">
@@ -179,7 +184,7 @@
         </div>
 
         <div class="Center-page">
-            <h1>{{ title }}</h1><p>Кол-во товаров: {{ defcount }}</p>
+             <div class="not-mobile"><h1>Поиск по {{ query }}</h1></div><p>Кол-во товаров: {{ defcount }}</p>
         </div>
 
         <div id="sorting-form">
@@ -250,6 +255,12 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{% static 'JS/sofi.js' %}" defer></script>
-<script type="text/javascript" src="{% static 'JS/paginator.js' %}" defer></script>
+{% else %}
+<div class="not-found">
+    <div class="not-found-img"><img src="{% static 'img/notfound.svg'%}" alt=""></div>
+    <div class="not-fount-text">По запросу "{{ query }}" ничего не найдено</div>
+</div>
+{% endif %}
+<script type="text/javascript" src="{% static 'JS/sofi.js' %}"></script>
+<script type="text/javascript" src="{% static 'JS/paginator.js' %}"></script>
 {% endblock %}

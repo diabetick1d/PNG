@@ -15,21 +15,21 @@
             data-telegram-login="pngshop_bot" 
             data-size="large" 
             data-radius="20" 
-            data-onauth="onTelegramAuth(user)"
+            data-onauth="onTelegramAut(user)"
             data-request-access="write"
             data-userpic="false">
         </script>
         <h3>Регистрируясь, вы соглашаетесь с <b>Условиями предоставления услуг</b> и <b>Полтитикой конфиденциальности</b>, а также с <b>Политикой использования файлов cookie</b>.</h3>
         <h4>Здесь вход и регистрация!</h4>
         <script type="text/javascript">
-          function onTelegramAuth(user) {
+          function onTelegramAut(user) {
             var bonus_url    = "{% if bonus_url %}{{ bonus_url }}{% else %}None{% endif %}";
             var url          = new URL(window.location.href);
             var searchParams = new URLSearchParams(url.search);
             var nextValue    = searchParams.get("next");
         
             $.ajax({
-                url: "{% url 'telegram_login' %}",
+                url: "telegram_login",
                 type: "GET",
                 data: {
                     "csrfmiddlewaretoken": "{{ csrf_token }}",
@@ -38,11 +38,10 @@
                     "bonus_url": bonus_url,
                 },
                 success: function(data){
-                    if (nextValue != null && nextValue != "") {
-                        window.location.href = nextValue
-                    } else {
-                        window.location.href = "/profile/"
-                    }
+                    console.log(data);
+                        if (data.redirect_url && data.redirect_url != 'undefined') {
+                            window.location.href = data.redirect_url
+                        }
                 }
             })
           }

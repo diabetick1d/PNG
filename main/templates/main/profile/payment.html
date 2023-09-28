@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/payment.css'%}">
+    <script src="{% static 'JS/Jquery.js' %}"></script>
+    <title>Оплата заказа</title>
+    <link type="image/x-icon" href="{% static 'img/logo.svg'%}" rel="shortcut icon">
+</head>
+
+<body>
+    <div>
+        <div class="top">
+            <h1>PNG</h1>
+            <p style="color: #E9E9E9;">ОПЛАТА</p>
+            <div class="mobile">Данные отправки</div>
+        </div>
+        <form class="bottom">
+            {% csrf_token %}
+            <div class="order-list" data-price="{{ summ_price }}" data-promocode="{{ promocode }}">
+                <div class="not-mobile"><h2>Ваш заказ</h2></div>
+                <div class="price"><h3 class="h3s">
+                    <div class="not-mobile">Итого</div><div class="mobile">Ваш заказ</div>
+                    <p>{{ count }} товара</p></h3></div>
+                <ul class="slide">
+                    {% for el in products %}
+                    <li class="product-info" data-url="{{ el.uid }}" data-uid="{{ el.uid }}" data-price="{{ el.price }}" data-name="{{ el.name }}" data-size="{{ el.size }}" data-brand="{{ el.brand }}">
+                        <div class="product-img"><a href="/product/{{ el.uid }}"><img src="{{MEDIA_URL}}{{ el.img }}" alt=""></a></div>
+                        <div class="product-det">
+                            <h4>{{ el.name }}</h4>
+                            <h4 style="color: #777;">{{ el.size }}</h4>
+                            <h5>{{ el.price }} ₽</h5>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div style="display: flex;justify-content: center;">
+                    <div id="summ-price"><p>{{ summ_price }} ₽</p></div>
+                </div>
+            </div>
+            
+            <div class="deliver-info">
+                <div class="not-mobile"><h2>Данные доставки</h2></div>
+                <h3>Способ доставки</h3>
+                <label class="type">
+                    <input type="checkbox" {% if deliver_info.type %} checked {% endif %} hidden>
+                    <div class="fakebox"></div>
+                    <h6 id="sd">СДЭК</h6>
+                    <h6 id="pr">Почта России</h6>
+                </label>
+                <h3>Получатель</h3>
+                <div class="box-inputs margin">
+                    <div class="input-box">
+                        <input autocomplete="off" type="text" name="first_name"   id="first_name" value="{{ deliver_info.first_name }}" placeholder="Имя">
+                        <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    </div>
+                    <div class="input-box">
+                        <input autocomplete="off" type="text" name="last_name"    id="last_name" value="{{ deliver_info.last_name }}" placeholder="Фамилия">
+                        <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    </div>
+                    <div class="input-box">
+                        <input autocomplete="off" type="text" name="surname"      id="surname" value="{{ deliver_info.surname }}" placeholder="Отчество">
+                        <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    </div>
+                    <div class="input-box">
+                        <input autocomplete="off" type="text" name="number_phone" id="number_phone" value="{{ deliver_info.number_phone }}" placeholder="Номер телефона">
+                        <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    </div>
+                </div>
+                <h3>Адрес пункта выдачи</h3>
+                <div class="box-inputs">
+                    <div class="input-box">
+                        <input autocomplete="off" type="text" name="adress"       id="adress" value="{{ deliver_info.adress }}" placeholder="Город, область, регион">
+                        <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    </div>
+                    <div class="input-box">
+                        <input autocomplete="off" type="text" name="delivery_point"  id="point" value="{{ deliver_info.delivery_point }}" placeholder="Адрес пункта доставки СДЭКа или индекс Почты России">
+                        <img src="{% static 'img/profile/error.svg'%}" class="error-image">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-method">
+                <div class="not-mobile"><h2>Способ оплаты</h2></div>
+                <h3><div class="not-mobile">Банковская карта</div><div class="mobile">Способ оплаты</div></h3>
+                <div class="checkout-box">
+                    <input type="radio" name="payment-method" id="checkout-card" value="card" hidden checked>
+                    <input type="radio" name="payment-method" id="checkout-QR" value="QR" hidden>
+                    <label class="checkout card active" for="checkout-card">
+                        <div class="box-payment">
+                            <div>Оплата через<br>Онлайн кассу</div>
+                            <div class="img-card"><img src="{% static 'img/payment/card.svg'%}" alt=""></div>
+                        </div>
+                    </label>
+                    <label class="checkout QR" for="checkout-QR">
+                        <div class="box-payment">
+                            <div style="color: var(--black1);">СБП QR-КОД</div>
+                            <div class="QR"><img src="{% static 'img/payment/CPB.PNG'%}" alt=""></div>
+                        </div>
+                    </label>
+                </div>
+                <div class="politic-box">
+                    <input type="checkbox" name="politic" id="politic" hidden>
+                    <label for="politic"><span></span></label>
+                    <div class="politic-text">Соглашаюсь с <b>правилами пользования торговой площадкой и возврата</b></div>
+                </div>
+                <div class="not-mobile"><h3>Оплата</h3></div>
+                <button id="subm">Заказать</button>
+            </div>
+
+            <div class="callback">
+                <div class="true">
+                    <h1>Заказ 000-000</h1>
+                    <h2 class="bottom">Успешно оформлен!</h2>
+                    <a href="{% url 'home' %}">Вернуться на сайт</a>
+                </div>
+                <div class="false">
+                    <h1>Что-то пошло не так...</h1>
+                    <button id="resubm">Повторить попытку</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script> const uid_list = `{{ uid_list|safe }}`</script>
+<script src="{% static 'JS/payment.js'%}"></script>

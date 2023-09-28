@@ -5,8 +5,8 @@ from jinja2 import Template
 import os
 from telegram_app import models as telegram_models
 
-def update_bonus_products():
-    template = Template(open('main/templates/main/Bonus-system-default.html', 'r', encoding='utf-8').read())
+def update_bonus_products(): ## Функция которая переписывает html под новые бонус-товары
+    template = Template(open('main/templates/main/profile/Bonus-system-default.html', 'r', encoding='utf-8').read())
     list_not_tuple = []
     count          = []
     for bonsys in telegram_models.BonusProducts.objects.all():
@@ -22,7 +22,7 @@ def update_bonus_products():
         }) # Преобразуем эту зрень в список
         count.append(bonsys.bonus_count)
     rendered_html = template.render(bonsys=list_not_tuple, count=(str(count).strip("[").strip("]")))
-    with open('main/templates/main/Bonus-system.html', 'w', encoding='utf-8') as f:
+    with open('main/templates/main/profile/Bonus-system.html', 'w', encoding='utf-8') as f:
         f.write(rendered_html) # Переписываем html под новый
     print("Bonus-system.html updated")
 

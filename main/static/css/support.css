@@ -26,17 +26,16 @@
     align-items:     center;
     justify-items:   center;
     justify-content: space-between;
+    width:           100%;
 
-
-    --imgquestions: 160px;
-    grid-template-columns: repeat(5, var(--imgquestions));
+    --imgquestions: 120px;
+    grid-template-columns: repeat(5, 1fr);
 }
 
-.img-question {width: var(--imgquestions);height: var(--imgquestions);}
-.question:not(:first-child)  .img-question {
-    width:   calc(var(--imgquestions) - 80px);
-    height:  calc(var(--imgquestions) - 80px);
-    padding: 40px;
+.img-question {
+    width:  var(--imgquestions);
+    height: var(--imgquestions);
+    margin: 55px;
 }
 
 .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
@@ -48,7 +47,7 @@
 }
 
 .questions h2 {
-    padding:     110px 0px;
+    padding:     120px 0px 70px 0px;
     font-weight: 900;
     font-size:   26px;
     text-align:  center;
@@ -70,12 +69,12 @@
     width:         fit-content;
     align-items:   center;
     position:      relative; 
-    margin:       30px auto 10px auto;
+    margin:       50px auto 0px auto;
 }
 
 .question-a p {
-    font-weight: 600;
-    font-size:   24px;
+    font-weight: 500;
+    font-size:   18px;
     cursor:      pointer;
     transition:  font-weight 0.4s ease-in-out;
     color: var(--black3);
@@ -92,10 +91,10 @@
     margin:      0px auto;
     overflow:    hidden;
     transition:  all 0.5s ease-in-out;
-    -webkit-transition: all 0.5s ease-in-out, margin 0.1s ease-in-out 0.2s;
+    -webkit-transition: all 0.5s ease-in-out, margin 0.4s ease-in-out ;
     max-height: 0px;
 }
-.question-a .text-question.active {margin: 30px auto 50px auto;}
+.question-a .text-question.active {margin: 40px auto 90px auto;}
 .question-a.wheremy     .text-question.active {max-height: 100px}
 .question-a.wherefrom   .text-question.active {max-height: 150px}
 .question-a.original    .text-question.active {max-height: 150px}
@@ -109,8 +108,8 @@
 
 .question-a .arroy-question {
     display:    grid;
-    width:      15px;
-    height:     10px;
+    width:      10px;
+    height:     6px;
     position:   absolute;
     right:      -30px;
     
@@ -121,6 +120,7 @@
 .question-a label.active .arroy-question {transform: rotateZ(180deg);}
 .question-a label {opacity: 0.5;transition: all 0.1s ease-in-out;}
 .question-a label.active {opacity: 1;}
+.question-a label.active p {font-weight: 700;}
 
 
 @media screen and (max-width: 1440px) {    
@@ -131,29 +131,32 @@
     }
     
     .listquestions {
-        --imgquestions: 140px;
-        grid-template-columns: repeat(5, var(--imgquestions));
+        --imgquestions: 110px;
+        grid-template-columns: repeat(5, 1fr);
         row-gap:    30px;
         column-gap: 50px;
         margin:     0px auto;
     }
     
-    .img-question {width: var(--imgquestions);height: var(--imgquestions);}
-    .question:not(:first-child) .img-question {width: calc(var(--imgquestions) - 75px);height: calc(var(--imgquestions) - 70px);padding: 35px;}
+    .img-question {
+        width:  var(--imgquestions);
+        height: 70px;
+        margin: 50px 0px;
+    }
     
     .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
     .question p {font-size: 16px;} /* текст в вопросах сверху */
     
     .questions h2 {
-        padding:     50px 0px 20px 0px;
+        padding:     80px 0px 50px 0px;
         font-size:   20px;
     }
     .question-a label{ /* заголовок + стрелка */
-        margin:      40px auto 40px auto;
+        margin:      40px auto 0px auto;
     }
     
     .question-a p {
-        font-weight: 700;
+        font-weight: 500;
         font-size:   16px;
         cursor:      pointer;
         color: var(--black3);
@@ -166,6 +169,10 @@
         max-height: 0px;
         letter-spacing: 0.28px;
         width: 490px;
+    }
+
+    .question-a .text-question.active {
+        margin: 40px auto 85px auto;
     }
 
     .question-a label .arroy-question {opacity: 0.6;}
@@ -193,15 +200,18 @@
     }
     
     .listquestions {
-        --imgquestions:     90px;
-        grid-template-columns: repeat(2, var(--imgquestions));
+        --imgquestions:     50px;
+        grid-template-columns: repeat(2, 1fr);
         row-gap:    30px;
         column-gap: 90px;
         margin:     0px auto;
     }
     
-    .img-question {width: var(--imgquestions);height: var(--imgquestions);}
-    .question:not(:first-child) .img-question {width: calc(var(--imgquestions) - 40px);height: calc(var(--imgquestions) - 40px);padding: 20px;}
+    .img-question {
+        width:  var(--imgquestions);
+        height: var(--imgquestions);
+        margin: 20px;
+    }
     
     .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
     .question p {font-weight: 500;font-size:   14px;} /* текст в вопросах сверху */

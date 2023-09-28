@@ -1,0 +1,61 @@
+@import url(../basic-css.css);
+@import url(../../font/font.css);
+
+body{
+    font-family: "Inter";
+    display:     flex;
+    margin:      60px 320px;
+    justify-content: space-between;
+    align-items:     flex-end;
+}
+
+h1 {
+    font-size: 86px;
+    font-weight: 800;
+    letter-spacing: 0.86px;
+    margin-bottom: -20px;
+}
+h2 {
+    color: var(--white4);
+    font-size: 76px;
+    font-weight: 800;
+    letter-spacing: 0.76px;
+    margin-bottom: 80px;
+}
+
+h3 {
+    color: var(--black5);
+    font-size: 70px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    margin-bottom: 80px;
+}
+
+h4 {
+    color: var(--grey5);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    margin-bottom: 110px;
+    line-height: 300%;
+}
+h5 a {display: inline !important;}
+h5 {
+    color: var(--grey2);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 200%; /* 40px */
+    letter-spacing: 0.2px;
+}
+
+.link {
+    color: var(--white1) !important;
+    font-size: 37px;
+    font-weight: 900;
+    letter-spacing: 0.37px;
+    display: grid !important;
+    justify-items: center;
+    
+}
+
+.img {width: 450px;height: 730px;}

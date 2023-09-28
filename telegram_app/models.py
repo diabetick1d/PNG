@@ -119,6 +119,7 @@ STATUS_CHOICES = (
 
 class Order(models.Model):
     uid           = models.AutoField(primary_key=True,editable=False,verbose_name="Номер заказа")
+    bonusproduct  = models.BooleanField(default=False,verbose_name="Бонусный товар",editable=False)
     number_order  = models.CharField(max_length=12, unique=True, editable=False,verbose_name="Номер заказа отформатированный")
 
     tracknumber   = models.CharField(max_length=120, blank=True, null=True,verbose_name="Номер отслеживания")
@@ -195,15 +196,19 @@ class BonusProducts(models.Model):
     products      = models.ManyToManyField(MAINmodels.Product,verbose_name="Товары на бонус систем")
 
     class Meta:
-        verbose_name        = "Товары на бонус систем"
-        verbose_name_plural = "Товары на бонус систем"
+        verbose_name        = "Товары на бонусную систему"
+        verbose_name_plural = "Товары на бонусную систему"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        if self.products.count() < 6:
+            raise ValidationError("Добавте еще товаров на бонусную систему")
+
         try:
             UpBonusSystem.update_bonus_products()
         except Exception as e:
             print("Ошибка обновления бонусов на товары", e)
+            raise ValidationError(f"Ошибка обновления бонусов на товары {e}")
 
     def __str__(self):
         return (f"{self.bonus_count} бонусов")

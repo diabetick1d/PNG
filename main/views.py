@@ -8,6 +8,26 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from eav.models import Attribute, Value
 
+option_map = {
+    "color":       'color',
+    "material":    'eav__material',
+    "brand":       'eav__brand',
+    "podcategory": 'eav__podcategory',
+    "category":    'eav__podcategory',
+    "sizes":       'eav__sizes__contains',
+}
+objects_title_map = {
+    "shoe":       "Обувь",
+    "cloths":     "Одежда",
+    "bags":       "Сумки",
+    "clocks":     "Часы",
+    "accessories":"Аксессуары",
+    "cosmetics":  "Косметика",
+    "technique":  "Техника",
+    "toys":       "Игрушки",
+    "sport":      "Спорт",
+}
+
 def BrandLetter():
     letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     resultSort = {}
@@ -54,6 +74,8 @@ def page_callback(request):
     return render(request, "main/callback.html")
 
 from random import sample
+
+# Страница товара (продукта)
 def product_detail(request, uid):
     user = request.user
     product       = models.Product.objects.get(uid=uid) 
@@ -96,17 +118,6 @@ def get_attr_text_unique_values(attr_name,products): # Поиск уникаль
     return values
 
 def get_category(products):
-    objects_title_map = {
-        "shoe":       "Обувь",
-        "cloths":     "Одежда",
-        "bags":       "Сумки",
-        "clocks":     "Часы",
-        "accessories":"Аксессуары",
-        "cosmetics":  "Косметика",
-        "technique":  "Техника",
-        "toys":       "Игрушки",
-        "sport":      "Спорт",
-    }
     val_dict = {}
     for val in get_attr_text_unique_values('podcategory',products):
         podcategory = models.Podcategory.objects.get(name=val)
@@ -172,7 +183,7 @@ def brand_results(request,brand_query):
     try:
         brand = models.Brand.objects.get(name=brand_query)
     except:
-        return render(request, 'main/product_brand.html', {
+        return render(request, 'main/product-lists/product_brand.html', {
             'brand':    brand_query,
             'notFound': False,
         })
@@ -183,7 +194,7 @@ def brand_results(request,brand_query):
     if option_dict['defcount'] > 0:
         notFound = True
 
-    return render(request, 'main/product_brand.html', {
+    return render(request, 'main/product-lists/product_brand.html', {
         'brand':    brand_query,
         'brandimg': str(brand.font),
         'notFound': notFound,
@@ -215,7 +226,7 @@ def search_results(request):
         notFound = False
         if option_dict['defcount'] > 0:
             notFound = True
-        return render(request, 'main/search_results.html', {
+        return render(request, 'main/product-lists/search_results.html', {
             'natquery': natquery,
             'query': query,
             'notFound': notFound,
@@ -232,26 +243,6 @@ def search_results(request):
             "defcount":     option_dict['defcount']
         })
 
-option_map = {
-    "color":       'color',
-    "material":    'eav__material',
-    "brand":       'eav__brand',
-    "podcategory": 'eav__podcategory',
-    "category":    'eav__podcategory',
-    "sizes":       'eav__sizes__contains',
-}
-objects_title_map = {
-    "shoe":       "Обувь",
-    "cloths":     "Одежда",
-    "bags":       "Сумки",
-    "clocks":     "Часы",
-    "accessories":"Аксессуары",
-    "cosmetics":  "Косметика",
-    "technique":  "Техника",
-    "toys":       "Игрушки",
-    "sport":      "Спорт",
-}
-
 # Страница товаров от категории
 @csrf_exempt
 def product_list(request, option_nav=None, option=None):
@@ -260,7 +251,7 @@ def product_list(request, option_nav=None, option=None):
     products    = models.Product.objects.filter(category=path)
     option_dict = get_option_list(products, option, option_nav)
 
-    return render(request, "main/all-product-list.html", {
+    return render(request, "main/product-lists/all-product-list.html", {
         "title":        title,
         "path":         path,
         "option_nav":   option_nav,

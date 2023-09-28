@@ -12,7 +12,7 @@
     </div>
     <div class="all">
         <div class="navigation-menu">
-            <input type="radio" name="navigation" id="navigation personal" checked>
+            <input type="radio" name="navigation" id="navigation personal">
                 <label class="navigation" for="navigation personal">
                     <div class="not-mobile">Личная информация</div>
                     <div class="mobile">Данные</div>
@@ -31,8 +31,8 @@
                 <label class="navigation" for="navigation returns">Возвраты</label>
             <div class="not-mobile"><a class="navigation" id="button_leave" href="{% url 'logout' %}">Выйти</a></div>
         </div>
-        <div class="menu">
-            <form class="blockmenu active" id="personal" action="" method="POST">
+        <div class="menu" data-open="{{ goto }}">
+            <form class="blockmenu" id="personal" action="" method="POST">
                 {% csrf_token %}
                 <h6>Персональные данные</h6>
                 <div class="input-box top-margin">
@@ -78,10 +78,16 @@
             <button class="submit-personal">Сохранить</button>
             <div class="mobile"><a class="personal-leave" href="{% url 'logout' %}">Выйти</a></div>
             </form>
-            <div class="blockmenu " id="bonus" data-bonus="{{ userbonus }}" data-ref="{{ domen }}/accounts/registration/{{ user.bonus_reference }}">
-                {% include  'main/Bonus-system.html' %}
+            <div class="blockmenu" id="bonus" data-bonus="{{ userbonus }}" data-ref="{{ domen }}/accounts/registration/{{ user.bonus_reference }}">
+                {% include  'main/profile/Bonus-system.html' %}
+                <div class="get-it">
+                    <div class="get-top">Поздравляем!<button onclick="removebonget()"><img src="/static/img/product/close.svg" alt=""></button></div>
+                    <p>Вы получили <span></span><br> совершенно бесплатно</p>
+                    <div class="bonus-get"><img src="" alt=""></div>
+                    <a id="bonushref" href="/get-bonus/">Перейти к оформлению</a>
+                </div>
             </div>
-            <div class="blockmenu " id="buylist">
+            <div class="blockmenu" id="buylist">
                 {% if carts %}
                     {% for el in carts %}
                     <div class="blockbuy" id="order-{{ el.id }}">
@@ -187,7 +193,7 @@
                 <div class="else">У вас пока нет ни одной покупки...</div>
                 {% endif %}
             </div>
-            <div class="blockmenu " id="returns">
+            <div class="blockmenu" id="returns">
                 {% if returns %}
                 {% for el in returns %}
                 <div class="blockbuy" id="return-{{ el.id }}">
