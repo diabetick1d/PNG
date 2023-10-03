@@ -445,12 +445,71 @@ li.active .star img, li.active .star svg {opacity: 1;}
 .Paginator-box.active   {background: var(--grey2) !important;}
 .NextBack               {height: 80%;margin: 0px 20px;align-self: center; cursor: pointer;display: flex;}
 
+@media screen and (max-width: 1600px) {
+    .Center-page p {font-size: 13px;}
+    #filter-form h1    {font-size: 25px; gap: 15px;letter-spacing: 1.5px;}
+    #filter-form p     {font-size: 13px;letter-spacing: 0.11px;}
+    #filter-form h2    {font-size: 16px; gap: 5px;letter-spacing: 0.96px;}
+    #filter-form h3    {font-size: 14px; gap: 12px;letter-spacing: 0.56px;}
+    #filter-form h4    {font-size: 17px;margin-bottom: 7px;}
+    #filter-form h5    {font-size: 16px;letter-spacing: 0.8px;}
+    li .star {width: 16px; height: 16px;padding: 3px;}
+    .inputs h6 {font-size: 15px;}
+
+    #sorting-form ul li{
+        height: 52px;
+    }
+    #sorting-form ul li h3{
+        font-size:    14px;
+        margin-right: 18px;
+        letter-spacing: 0.56px;
+    }
+
+    .button-switch span {font-size: 18px;}
+    #filter-form .close {width: 15px;height: 15px;}
+    #filter-form .arrow, #filter-form .arrow_in {width: 12px; height: 7px;}
+    #filter-form {
+        left:        -450px;
+        width:       390px;
+        --gap:       20px;  /* гап много где */
+        --gapB:      30px;  /* гап между всем  */
+    }
+
+    .search_brand {height: 40px;margin-top: 10px;}
+    .search_brand input {padding-left: 18px;font-size: 13px;letter-spacing: 0.65px;}
+    .search_brand span {
+        right:    20px;
+        width:    10px;
+        height:   11px;
+    }
+
+    #filter-form .mli.Price .attr {gap: 25px;}
+    
+    #filter-form nav {--pform: 35px}
+    #filter-form .submit-box {padding-top: 0px;}
+    #filter-form .submit, .reset_button {
+        height:      50px;
+        font-size:   15px;
+    }
+    .not-found-img {
+        width:       220px;
+        height:      170px;
+        margin-bottom: 50px;
+    }
+    .not-found {margin: 140px 0px;}
+    .not-fount-text {font-size: 18px;}
+
+    .Paginator {padding: 20px 0px;height: 23px;}
+    .Paginator-place   {gap: 13px;}    
+    .Paginator-place p {font-size: 16px;margin: -40% 0px;}
+    .Paginator-box     {width: 60px;height: 100%;}    
+    .NextBack          {height: 55%;margin: 0px 15px;}
+}
 
 @media screen and (max-width: 1440px) {
 
     #sorting-form ul li{
-        height:      53px;
-        font-size: 14px;
+        height: 49px;
     }
     #sorting-form ul li h3{
         font-size:    14px;
@@ -459,9 +518,9 @@ li.active .star img, li.active .star svg {opacity: 1;}
     }
 
     .product-list { 
-    grid-row-gap: 110px;
-    grid-column-gap: 100px;
-    margin: 80px 0px 100px 0px;
+        grid-row-gap: 110px;
+        grid-column-gap: 100px;
+        margin: 80px 0px 100px 0px;
     }
     .Center-page p      {font-size: 12px;}
     .button-switch span {font-size: 16px;}
@@ -483,16 +542,12 @@ li.active .star img, li.active .star svg {opacity: 1;}
     #filter-form nav {--pform: 30px}
     
     #filter-form h1    {font-size: 22px; gap: 10px;letter-spacing: 0.88px;}
-    #filter-form p     {font-size: 13px;letter-spacing: 0.11px;}
-    #filter-form h2    {font-size: 16px; gap: 5px;letter-spacing: 0.96px;}
-    #filter-form h3    {font-size: 14px; gap: 12px;letter-spacing: 0.56px;}
     #filter-form h4    {font-size: 15px;margin-bottom: 5px;}
-    #filter-form h5    {font-size: 16px;letter-spacing: 0.8px;}
-    li .star {width: 15px; height: 15px;padding: 2px; border: 2px solid var(--white2);}
+    li .star {width: 15px; height: 15px;padding: 2px;}
     .inputs h6 {font-size: 14px;}
 
     .inputs input {width: 90%;height: 29px;}
-    #filter-form .mli.Price .attr {gap: 30px;}
+    #filter-form .mli.Price .attr {gap: 20px;}
 
     .range_slider input[type="range"]::-webkit-slider-thumb {
         height:         18px;
@@ -511,32 +566,18 @@ li.active .star img, li.active .star svg {opacity: 1;}
         height:      40px;
         font-size:   14px;
     }
-    #filter-form .arrow, #filter-form .arrow_in {width: 12px; height: 7px;}
 
-    .search_brand {height: 30px;margin-top: 10px;}
-    .search_brand input {padding-left: 18px;font-size: 13px;letter-spacing: 0.65px;}
-    .search_brand span {
-        right:    20px;
-        width:    10px;
-        height:   11px;
-    }
-
+    .search_brand {height: 30px;}
 
     .not-found {margin: 110px 0px;}
     .not-found-img {
         width:       200px;
         height:      150px;
-        margin-bottom: 60px;
+        margin-bottom: 50px;
     }
-        
     .not-fount-text {font-size: 16px;}
 
-    
-    .Paginator {padding: 20px 0px;height: 23px;}
     .Paginator-place   {gap: 16px;}    
-    .Paginator-place p {font-size: 15px;margin: -40% 0px;}
-    .Paginator-box     {width: 60px;height: 100%;}    
-    .NextBack          {height: 55%;margin: 0px 15px;}
 }
 @media screen and (max-width: 500px) {
     #sorting-form ul li.active{background: unset;}
@@ -592,7 +633,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
     #filter-form h3    {font-size: 16px; gap: 10px; font-weight: 400;}
     #filter-form h4    {font-size: 16px;}
     #filter-form h5    {font-size: 16px;font-weight: 600;letter-spacing: 0.8px; }
-    li .star {width: 15px; height: 15px;padding: 5px; border: 2px solid var(--white2);}
+    li .star {width: 15px; height: 15px;padding: 5px;}
     #sorting-form ul .button-switch {margin: 0px 4px;}
     .button-switch {width: 28px !important;height: 22px !important;margin: 0px 15px;}
 

@@ -297,23 +297,43 @@ input::-webkit-search-results-decoration { display: none; }
     margin:        60px 0px;
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1600px) {
     .Header{
-        margin: 16px var(--paddingPage);
-        height: 60px;
+        height: 70px;
     }
     .Header-right  {font-size: 64px;gap: 32px;}
-    .Header-center {font-size: 60px;}
+    .Header-center {font-size: 62px;}
     .Header-left {font-size: 13px;}
-    .contents a  {font-size: 14px;margin-bottom: 3px;}    
+    .contents a  {font-size: 14px;margin-bottom: 2px;}    
     .contents h1 {
         font-size:      17px;
-        margin-bottom:  10px;
+        margin-bottom:  8px;
     }
 
     .tabs a:not(.not) {
         font-size: 13px;
     }
+    
+    .contents .dropdown-content .imcengs {
+        height: 200px;
+        width:  200px;
+    }
+    .left, .right, .center {margin: 30px 0px;}    
+    .Center-page h1{font-size: 22px;letter-spacing: 3px;}
+    .contents.active {min-height: 330px;}
+}
+
+@media screen and (max-width: 1440px) {
+    .Header{
+        margin: 16px var(--paddingPage);
+        height: 60px;
+    }
+    .Header-center {font-size: 60px;}
+    .contents a  {margin-bottom: 3px;}    
+    .contents h1 {
+        margin-bottom:  10px;
+    }
+
     .contents .dropdown-content.active {
         height:     max-content;
         min-height: 290px;

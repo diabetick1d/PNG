@@ -60,13 +60,13 @@
 }
 .footer .top-footer .helpcallback{display: grid}
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1600px) {
     .footer .title {
-        font-size:     48px;
-        margin-bottom: 40px;
+        font-size:     49px;
+        margin-bottom: 45px;
     }
     .footer .ftext        {font-size: 13px;letter-spacing: 0.52px;}
-    .footer .top-footer a {font-size: 14px;margin-top: 30px;letter-spacing: 0.56px;}
+    .footer .top-footer a {font-size: 14px;margin-top: 35px;letter-spacing: 0.56px;}
     .footer h1, .footer h2, .footer h3 {
         font-size:     13px;
         letter-spacing: 0.52px;
@@ -78,6 +78,18 @@
     .footer .top-footer {
         margin-bottom: unset;
         padding:       40px 0px 30px 0px;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .footer .title {
+        font-size:     48px;
+        margin-bottom: 40px;
+    }
+    .footer .top-footer a {margin-top: 30px;}
+    .footer .top-footer {
+        margin-bottom: unset;
+        padding:       45px 0px 35px 0px;
     }
 }
 @media screen and (max-width: 500px) {

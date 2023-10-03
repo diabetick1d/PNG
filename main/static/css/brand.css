@@ -3,18 +3,6 @@
     display: grid;
 }
 
-.search-brand p {
-    font-family: "Wix";
-    text-align: center;
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: 3.64px;
-}
-
-.result-brand-box p{
-    height: 50px;
-}
-
 .brand-main h6 {
     margin:      100px 0px 80px 0px;
     text-align:  center;
@@ -214,16 +202,13 @@
     color: var(--black3);
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1600px) {
 
-    .search-brand p {font-size: 26px;}
-    .result-brand-box p{height: 50px;}
-
-    .brand-main h6 {margin: 70px 0px 60px 0px;font-size: 18px;}
+    .brand-main h6 {margin: 75px 0px 70px 0px;font-size: 20px;}
     .Center-page h1 {margin: 20px 0px 40px 0px;}    
-    .all-catalog h2 {font-size: 32px;}
-    .all-catalog h3 {font-size: 22px;margin: 70px 0px 80px 0px;}
-    .search-brand .box-search-brand {width: 280px;height: 40px;}
+    .all-catalog h2 {font-size: 38px;}
+    .all-catalog h3 {font-size: 20px;margin: 70px 0px 80px 0px;}
+    .search-brand .box-search-brand {width: 300px;height: 40px;}
 
     .close-brand-search {width:  calc(var(--smallicon) / 1.5);height: calc(var(--smallicon) / 1.5);}
     .search-brand input {margin: 8px;font-size: 14px;width: 95%;}
@@ -240,7 +225,7 @@
     .compilations.open {max-height: 1000px;}
 
     #touch-more {
-        width:  280px;
+        width:  250px;
         height: 40px;
         margin: 50px 0px 90px 0px;
     }
@@ -248,8 +233,35 @@
 
     .brand-letter {
         margin:       0px 5%;
-        grid-template-columns: repeat(3, minmax(50px, 400px));
+        grid-template-columns: repeat(3, minmax(50px, 450px));
         grid-row-gap: 45px;
+    }
+
+    .brand-catalog {gap: 120px;}
+    .brand-inletter {font-size: 18px;}
+}
+@media screen and (max-width: 1440px) {
+    .brand-main h6 {margin: 70px 0px 60px 0px;font-size: 18px;}
+    .all-catalog h2 {font-size: 32px;}
+    .search-brand .box-search-brand {width: 280px;}
+
+    .search-brand input {margin: 8px;font-size: 14px;width: 95%;}
+
+    .results,.compilations{gap: 90px;}
+    .brand-one {gap: 85px;}
+    .img-brand {
+        width:  110px; 
+        height: 110px;
+        padding: 25px;
+    }
+
+    #touch-more {
+        width:  230px;
+    }
+
+    .brand-letter {
+        grid-template-columns: repeat(3, minmax(50px, 400px));
+        grid-row-gap: 70px;
     }
 
     .brand-catalog {gap: 100px;}
@@ -260,8 +272,6 @@
 
 
 @media screen and (max-width: 500px) {
-    .search-brand p {font-size: 14px;}
-    .result-brand-box p{height: 50px;}
 
     .brand-main h6 {margin: 40px 0px 30px 0px;font-size: 18px;}
     .Center-page h1 {margin: 30px 0px 50px 0px;}    

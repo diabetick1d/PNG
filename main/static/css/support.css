@@ -22,8 +22,7 @@
 }
 
 .listquestions {
-    display:         grid;
-    align-items:     center;
+    display:         flex;
     justify-items:   center;
     justify-content: space-between;
     width:           100%;
@@ -123,57 +122,72 @@
 .question-a label.active p {font-weight: 700;}
 
 
-@media screen and (max-width: 1440px) {    
+@media screen and (max-width: 1600px) {    
     .questions-al h3{
-        font-size:   20px;
-        font-weight: 900;
-        margin-bottom: 50px;
+        font-size:   22px;
+        margin-bottom: 70px;
     }
     
-    .listquestions {
-        --imgquestions: 110px;
-        grid-template-columns: repeat(5, 1fr);
-        row-gap:    30px;
-        column-gap: 50px;
-        margin:     0px auto;
-    }
-    
-    .img-question {
-        width:  var(--imgquestions);
-        height: 70px;
-        margin: 50px 0px;
-    }
-    
-    .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
-    .question p {font-size: 16px;} /* текст в вопросах сверху */
+    .listquestions {--imgquestions: 80px;}
+    .img-question {margin: 50px 0px;}
+    .question p {font-size: 17px;} /* текст в вопросах сверху */
     
     .questions h2 {
-        padding:     80px 0px 50px 0px;
+        padding:     80px 0px 65px 0px;
         font-size:   20px;
     }
     .question-a label{ /* заголовок + стрелка */
-        margin:      40px auto 0px auto;
+        margin:      50px auto 0px auto;
     }
     
     .question-a p {
         font-weight: 500;
         font-size:   16px;
-        cursor:      pointer;
-        color: var(--black3);
         letter-spacing: 0.8px;
     }
     
     .question-a .text-question {
         font-size:  14px;
-        overflow:   hidden;
-        max-height: 0px;
         letter-spacing: 0.28px;
-        width: 490px;
+        width: 520px;
     }
 
-    .question-a .text-question.active {
-        margin: 40px auto 85px auto;
+    .question-a .text-question.active {margin: 40px auto 85px auto;}
+
+    .question-a label .arroy-question {opacity: 0.6;}
+    .question-a.wheremy     .text-question.active {max-height: 170px}
+    .question-a.wherefrom   .text-question.active {max-height: 240px}
+    .question-a.original    .text-question.active {max-height: 190px}
+
+    .question-a.order       .text-question.active {max-height: 550px}
+    .question-a.size        .text-question.active {max-height: 260px}
+    .question-a.bonus       .text-question.active {max-height: 420px}
+
+    .question-a.deliver     .text-question.active {max-height: 260px}
+    .question-a.about       .text-question.active {max-height: 250px}
+}
+
+
+@media screen and (max-width: 1440px) {    
+    .questions-al h3{
+        font-size:   20px;
+        margin-bottom: 50px;
     }
+    
+    .listquestions {--imgquestions: 70px;}
+    .img-question {margin: 40px 0px;}
+    .question p {font-size: 16px;} /* текст в вопросах сверху */
+    
+    .questions h2 {
+        padding:     80px 0px 55px 0px;
+    }
+    .question-a label{ /* заголовок + стрелка */
+        margin:      40px auto 0px auto;
+    }
+    
+    .question-a .text-question {width: 490px;}
+
+    .question-a .text-question.active {margin: 40px auto 85px auto;}
 
     .question-a label .arroy-question {opacity: 0.6;}
     .question-a.wheremy     .text-question.active {max-height: 170px}
@@ -208,12 +222,9 @@
     }
     
     .img-question {
-        width:  var(--imgquestions);
-        height: var(--imgquestions);
         margin: 20px;
     }
-    
-    .question {display: flex;justify-items: center;align-items: center;flex-direction: column;}
+
     .question p {font-weight: 500;font-size:   14px;} /* текст в вопросах сверху */
     
     .questions h2 {

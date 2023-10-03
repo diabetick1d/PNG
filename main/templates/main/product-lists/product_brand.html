@@ -161,13 +161,13 @@
         </div>
 
         <div id="sorting-form">
-            <div class="box-sort">
-                <div class="not-mobile">
-                    <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2" src="{% static 'img/product-list/arrow.svg'%}" alt=""><span>Сортировка</span></button>
-                </div>
-                <div class="mobile box-button">
-                    <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2 mobile" src="{% static 'img/product-list/sorting.svg'%}" alt=""></button>
-                </div>
+            <div class="not-mobile">
+                <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2" src="{% static 'img/product-list/arrow.svg'%}" alt=""><span>Сортировка</span></button>
+            </div>
+            <div class="mobile box-button" style="justify-content: flex-end;">
+                <button class="button-switch" id="Sorting-button" onclick="SwitchSorting()"><img class="img2 mobile" src="{% static 'img/product-list/sorting.svg'%}" alt=""></button>
+            </div>
+            <div class="bpx-ul">
                 <ul>
                     <div class="mobile" style="width: 100%;">
                         <li>
@@ -175,6 +175,7 @@
                             <button class="button-switch" id="Sorting-button" onclick="RemoveSorting()"><img class="mobile" src="{% static 'img/product-list/close.svg'%}" alt=""></button>
                         </li>
                     </div>
+                    
                     <li data-value="" class="option">
                         <h3>Наши подборки</h3>
                         <div class="mobile"><div class="star"><img src="/static/img/product-list/star_black.svg" alt=""></div></div>

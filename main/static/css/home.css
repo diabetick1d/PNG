@@ -23,11 +23,16 @@ h4 {
 }
 
 
+@media screen and (max-width: 1600px) {
+    .collection-up {width: 910px;}
+    h4 {font-size: 19px;margin: 150px 0px 80px 0px;}
+}
+
 @media screen and (max-width: 1440px) {
     .collection-up {width: 860px;}
     .collections   {gap: 300px;}
-    h4 {font-size: 19px;margin: 150px 0px 80px 0px;}
 }
+
 @media screen and (max-width: 500px) {
     .product-down {grid-template-rows: 1fr !important;}
     .collection-up {width: 90vw; margin: 0px auto;}

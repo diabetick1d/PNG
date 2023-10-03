@@ -23,7 +23,6 @@
 }
 
 .product-down {
-    grid-template-rows: 1fr 0.4fr 0.4fr;
     grid-row-gap:  2px;
     justify-items: center;
     font-family:   'Inter';
@@ -40,8 +39,8 @@
 .product-down .brand {
     margin:  5px 0px;
     padding: 15px 30px;
-    width:   80%;
-    height:  80px;
+    max-width:   calc(100% - 60px);
+    max-height:  80px;
 }
 
 .product-down .price {
@@ -50,26 +49,43 @@
     color:          var(--black3);
 }
 
+@media screen and (max-width: 1600px) {
+    .img-product {
+        height:  215px;
+        padding: 10px;
+    }
+    
+    .product {width: 225px;}
+    .product-down .name {
+        font-size: 13px;
+        margin:    20px 0px 3px 0px;
+    }
+
+    .product-down .brand {
+        margin:  5px 0px;
+        padding: 35px;
+        max-width:   calc(100% - 70px);
+        max-height:  55px;
+    }
+    .product-down .price {font-size: 16px;}
+}
 @media screen and (max-width: 1440px) {
     .img-product {
-        height:  220px;
-        padding: 10px;
+        height:  200px;
     }
     
     .product {width: 200px;}
     .product-down .name {
-        font-size:      13px;
         margin:         13px 0px 3px 0px;
     }
 
     .product-down .brand {
         margin:  5px 0px;
-        padding: 15px 30px;
-        width:   80%;
-        height:  55px;
+        max-width:   calc(100% - 60px);
     }
     .product-down .price {font-size: 15px;}
 }
+
 @media screen and (max-width: 500px) {
     .img-product {
         height:  130px;
@@ -86,9 +102,8 @@
 
     .product-down .brand {
         margin:  5px 0px;
-        padding: 15px 30px;
-        width:   70%;
-        height:  38px;
+        max-width:   calc(90% - 60px);
+        max-height:  35px;
     }
     .product-down .price {font-size: 13px;}
 }

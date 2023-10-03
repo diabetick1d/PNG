@@ -54,7 +54,7 @@ def telegram_login(request,url_back=False):
     # Авторизация пользователя в Django
     login(request, user, backend='main.auth_backends.CustomUserModelBackend')
     if bonus_registered:    # Если пользователь зарегистрирован с url ссылки впервый раз
-        return JsonResponse({"redirect_url": "profile/first_login"})
+        return JsonResponse({"redirect_url": "/profile/first_login"})
     elif url_back:          # Перенесли пользователя туда куда он хотел зайти или на товаре котором был
         return JsonResponse({"redirect_url": url_back})
     else:
