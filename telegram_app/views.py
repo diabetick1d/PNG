@@ -54,7 +54,7 @@ def telegram_login(request,url_back=False):
     # Авторизация пользователя в Django
     login(request, user, backend='main.auth_backends.CustomUserModelBackend')
     if bonus_registered:    # Если пользователь зарегистрирован с url ссылки впервый раз
-        return JsonResponse({"redirect_url": "/profile/first_login"})
+        return JsonResponse({"redirect_url": "/first_login"})
     elif url_back:          # Перенесли пользователя туда куда он хотел зайти или на товаре котором был
         return JsonResponse({"redirect_url": url_back})
     else:
@@ -529,8 +529,10 @@ def update_return(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
     
+@login_required 
 def first_login(request):
     invite = None
+    print("SDSDDS",request)
     if request.user.bonus:
         invite = request.user.bonus.first_name
         if invite == None or invite.strip() == "":

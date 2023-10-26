@@ -192,7 +192,6 @@ $(document).ready(function() {
     // bonus
     userbonus = $("#bonus").data("bonus")
     $("#bonus .center-number span1").text(userbonus)
-    $("#bonus #invited").text(userbonus)
 
     // Обновление индикаторов
     function update_indicators() {
@@ -213,6 +212,7 @@ $(document).ready(function() {
         } else {
             $("#submit-bonus").removeClass("full");
         }
+        $("#bonus .user-info h1").text($(".selected-img").attr("data-product-name"))
     }
     update_indicators()
     

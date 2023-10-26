@@ -39,6 +39,8 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
     padding: 25px 30px;
     display: grid;
     gap:     22px;
+    --imgprod: 84px;
+    max-height: 290px;
 }
 .order-list li {display: flex; text-align: end;}
 
@@ -55,7 +57,7 @@ p {color: var(--grey2); text-align: right; font-size: 16px; font-weight: 500; }
 
 .product-info{justify-content: space-between;}
 .product-det {display: grid;}
-.product-img {width: 84px; height: 84px; display: grid;}
+.product-img {width: var(--imgprod); height: var(--imgprod); display: grid;}
 
 /* Данные доставки */
 
@@ -225,16 +227,61 @@ h6 {color: var(--white4);
 .callback a{color: var(--white3); font-size: 28px; font-weight: 800;}
 .callback #resubm {color: var(--white3);font-size: 40px;font-weight: 800;}
 
+@media screen and (max-width: 1600px) {
+    body {margin: 40px 200px;}
+    .bottom {margin-top: 55px;}
+    .order-list, .deliver-info, .payment-method {
+        gap:        22px;
+        width: calc(80% / 3);
+    }
+    .order-list ul {--imgprod: 80px;max-height: 265px;}
+    .politic-box label {height: unset;}
+    .politic-box {font-size: 12px;}
+
+    h1 {font-size: 83px}
+    .top p {font-size: 70px}
+    h2 {font-size: 20px;margin-bottom: 6px;}
+    h3 {font-size: 17px;}
+    h4 {font-size: 11px}
+    h5 {font-size: 13px}
+    h6 {font-size: 12px;}
+    .politic-text {font-size: 13px}
+    p, .payment-method .checkout {font-size: 15px;}
+
+    .box-inputs.margin {margin-bottom: 7px;}
+
+    .payment-method .checkout {width: 85%;}
+    .checkout-box {
+        gap: 22px;
+        height: 205px;
+    }
+    .deliver-info input {font-size: 13px;width: calc(100% - (13px * 2) - 2px);padding: 7px 13px;height: 13px;}
+
+    .type {
+        margin-bottom: 7px;
+        height:        36px;
+    }
+
+    .callback .true.active  {margin-top: 60px;margin-left: 30px;}
+    .callback .false.active {margin-top: 90px;margin-left: 30px;}
+    .callback h1{font-size: 62px;margin-bottom: 20px;}
+    .callback .false h1{font-size: 40px !important;}
+    .callback h2{font-size: 37px;margin-bottom: 70px;}
+    .callback a{font-size: 26px;}
+    .callback #resubm {font-size: 26px;margin-top: 55px;}
+    
+    .payment-method button {height: 43px;}
+    #summ-price {padding: 15px;margin-top: 10px;}
+}
+
 @media screen and (max-width: 1440px) {
-    body {margin: 40px 190px;}
     .bottom {margin-top: 40px;}
     .order-list, .deliver-info, .payment-method {
             gap:        18px;
         width: calc(80% / 3);
     }
 
-    .product-img {width: 65px;height: 65px;}
-
+    .order-list ul {--imgprod: 65px;max-height: 230px;}
     .politic-box label {height: unset;}
     .politic-box {font-size: 12px;}
 
@@ -246,8 +293,7 @@ h6 {color: var(--white4);
     h5 {font-size: 14px}
     h6 {font-size: 12px;}
     .politic-text {font-size: 14px}
-    p {font-size: 14px;}
-    .payment-method .checkout {font-size: 14px;}
+    p, .payment-method .checkout {font-size: 14px;}
 
     .box-inputs.margin {margin-bottom: 7px;}
 
@@ -263,8 +309,6 @@ h6 {color: var(--white4);
         height:        30px;
     }
 
-    .callback .true.active  {margin-top: 60px;margin-left: 30px;}
-    .callback .false.active {margin-top: 90px;margin-left: 30px;}
     .callback h1{font-size: 55px;margin-bottom: 20px;}
     .callback .false h1{font-size: 40px !important;}
     .callback h2{font-size: 33px;margin-bottom: 65px;}
@@ -307,7 +351,7 @@ h6 {color: var(--white4);
     .politic-text {font-size: 16px}
     p {font-size: 18px;}
     .payment-method .checkout {font-size: 16px;}
-    .order-list ul {max-height: calc(95px * 3);}
+    .order-list ul {max-height: 290px;}
 
     .payment-method .checkout {width: 85%;}
     .checkout-box {

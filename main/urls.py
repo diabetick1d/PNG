@@ -24,7 +24,7 @@ urlpatterns = [
     path("productlist/toys",                              views.product_list),
     path("productlist/sport",                             views.product_list),
 
-    path("callback/",                        views.page_callback, name="callback"),
+    path("callback/",                       views.page_callback, name="callback"),
     path("support/",                        views.page_support, name="support"),
     path("filter-option-count/",            views.number_of_options),
     path("filter-option-page/",             views.get_filtered_products),

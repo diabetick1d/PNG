@@ -301,7 +301,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
 }
 #filter-form .mli.Price .attr {gap: 40px;}
 .inputs h6 {
-    color:       var(--black6);
+    color:       var(--grey2);
     font-size:   16px;
     font-weight: 700;
 }
@@ -633,6 +633,7 @@ li.active .star img, li.active .star svg {opacity: 1;}
     #filter-form h3    {font-size: 16px; gap: 10px; font-weight: 400;}
     #filter-form h4    {font-size: 16px;}
     #filter-form h5    {font-size: 16px;font-weight: 600;letter-spacing: 0.8px; }
+    .inputs h6 {font-size: 16px;margin-bottom: 15px;}
     li .star {width: 15px; height: 15px;padding: 5px;}
     #sorting-form ul .button-switch {margin: 0px 4px;}
     .button-switch {width: 28px !important;height: 22px !important;margin: 0px 15px;}
@@ -668,9 +669,8 @@ li.active .star img, li.active .star svg {opacity: 1;}
     }
 
     
-    #filter-form .mli.Price .attr {gap: 10px;}
-    #filter-form .inputs {column-gap: 30px;row-gap: 0px;margin-top: 20px;}
-    .inputs input {height: 35px;font-size: 14px;}
+    #filter-form .inputs {column-gap: 30px;row-gap: 0px;}
+    .inputs input {height: 35px;font-size: 14px;border-width: 3px;}
     
     #filter-form .mli:not(.not-absolute) label {margin-bottom: 25px;}  #filter-form .option-list .mli.first {margin-top: 30px;}
     #filter-form .mli:not(.not-absolute) input:not(:checked) ~ .box-last {max-height: unset;}

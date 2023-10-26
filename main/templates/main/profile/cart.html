@@ -14,7 +14,6 @@
 
 {% if user.cart %}
 <form action="/order/payment" method="POST" class="cartlist">
-    <div class="mobile" id="products-count"><h6>0 товаров</h6></div>
     {% csrf_token %}
     <ul class="product-list" id="product-list">
         {% for el in cart %}
@@ -26,10 +25,11 @@
                     <a href="/product/{{ el.uid }}"><img src="{{MEDIA_URL}}{{el.img}}" alt=""></a>
                 </div>
                 <div class="info">
-                    <div class="brand-img">
+                    <div class="brand-img not-mobile">
                         <img src="{{MEDIA_URL}}{{el.brand}}" alt="">
                     </div>
                     <h3>{{ el.name }}</h3>
+                    <h2 class="mobile">{{ el.size }}</h2>
                     <div class="not-mobile">
                         <div class="uid">
                             <p>Код PNG:</p>
@@ -37,12 +37,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="size">
+                <div class="size not-mobile">
                     <h1>Размер</h1>
                     <h2>{{ el.size }}</h2>
                 </div>
-                <div class="price ">
-                    <h1>Цена</h1>
+                <div class="price">
+                    <h1 class="not-mobile">Цена</h1>
                     <h2>{{ el.price }}</h2>
                 </div>
 
@@ -53,10 +53,8 @@
     </ul>
     <div class="order-now">
         <div class="info-order">
-            <div class="not-mobile">
-                <div id="products-count">
-                    <h6>0 товаров</h6>
-                </div>
+            <div id="products-count">
+                <h6>0 товаров</h6>
             </div>
             <div id="products-price">
                 <h1>Общая цена</h1>

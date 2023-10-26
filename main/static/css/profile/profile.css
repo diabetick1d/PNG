@@ -453,9 +453,9 @@ input.not-valid::placeholder {color: var(--red1) !important}
     text-align: center;
 }
 .get-it .bonus-get {
-    width:  160px;
-    height: 90px;
-    margin: 65px 0px;
+    width:  150px;
+    height: 150px;
+    margin: 30px 0px;
 }
 
 .get-it a {
@@ -466,7 +466,7 @@ input.not-valid::placeholder {color: var(--red1) !important}
     font-weight:      600;
     color:            #FFFFFF;
     height:           40px;
-    margin:           0px 0px 30px 0px;
+    margin:           0px 0px 35px 0px;
     display:          grid;
     align-items:      center;
 }
@@ -700,10 +700,28 @@ input.not-valid::placeholder {color: var(--red1) !important}
 }
 
 
+@media screen and (max-width: 1600px){
+    .get-it .get-top{font-size: 22px;}
+    
+    .get-it .bonus-get {
+        margin: 20px 0px;
+    }
+    
+    .get-it a {
+        font-size:        14px;
+        height:           40px;
+        margin:           0px 0px 30px 0px;
+    }
+
+    .get-it button{
+        width:          17px;
+        height:         17px;
+        right:          50px;
+    }
+}
 
 
-
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1600px) { /* 1440px too*/
     /* personal */
     #personal .input-box.top-margin    {margin-top: 20px;}
     #personal .type_deliver.top-margin {margin-top: 10px;}
@@ -776,15 +794,6 @@ input.not-valid::placeholder {color: var(--red1) !important}
         margin:    75px 0px 40px 0px;
     }
 
-    .get-it button{
-        width:          19px;
-        height:         19px;
-        right:          40px;
-    }
-    .get-it .bonus-get {
-        margin: 50px 0px;
-    }
-
     /* order */
     #buylist, #returns {gap: 20px;}
     .blockbuy {
@@ -840,7 +849,6 @@ input.not-valid::placeholder {color: var(--red1) !important}
         padding:    10px 0px;
     }
     
-    
     #return-query-form {
         margin-top:    50px;
         gap:           20px;
@@ -855,7 +863,11 @@ input.not-valid::placeholder {color: var(--red1) !important}
     .else {font-size: 14px;}
 }
 
-
+@media screen and (max-width: 1440px) {
+    .get-it .bonus-get {
+        margin: 50px 0px;
+    }
+}
 
 
 @media screen and (max-width: 500px) {

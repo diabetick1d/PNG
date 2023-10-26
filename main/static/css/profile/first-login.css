@@ -59,3 +59,19 @@ h5 {
 }
 
 .img {width: 450px;height: 730px;}
+@media screen and (max-width: 1600px){
+    body{
+        margin:      50px 200px;
+    }
+
+    h1 {font-size: 83px;letter-spacing: 0.83px;margin-bottom: -15px;}
+    h2 {font-size: 70px;letter-spacing: 0.7px;margin-bottom: 70px;}
+
+    h3 {font-size: 60px;letter-spacing: 0.6px;margin-bottom: 60px;}
+
+    h4 {font-size: 18px;letter-spacing: 0.18px;margin-bottom: 100px;}
+    h5 {font-size: 18px;letter-spacing: 0.18px;}
+
+    .link {font-size: 35px;letter-spacing: 0.35px;}
+    .img {width: 380px;height: 620px;}
+}

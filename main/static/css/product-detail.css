@@ -96,14 +96,15 @@
 
     .product {width: 140px;}
     .product-down .name {
-        font-size:      10px;
-        margin:         10px 0px 8px 0px;
+        font-size: 10px;
+        margin:    10px 0px 8px 0px;
     }
 
     .product-down .brand {
-        margin:  5px 0px;
-        max-width:   calc(90% - 60px);
-        max-height:  35px;
+        margin:     5px 0px;
+        max-width:  80%;
+        max-height: 35px;
+        padding:    unset !important;
     }
     .product-down .price {font-size: 13px;}
 }
